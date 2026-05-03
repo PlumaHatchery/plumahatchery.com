@@ -827,7 +827,6 @@ footer {
 </section>
 
 <!-- PLANS -->
-<!-- TODO: replace placeholder prices (¥XXX) with real values once subscription pricing is finalized -->
 <section id="plans">
   <div class="fade-in" style="text-align:center;">
     <p class="section-label" data-i18n="plans_label">Plans</p>
@@ -851,8 +850,9 @@ footer {
     <div class="plan-card featured fade-in">
       <div class="plan-name" data-i18n="plan_pro_name">Pro</div>
       <div class="plan-price">
-        <span data-i18n="plan_pro_price">¥XXX</span><span class="plan-price-suffix" data-i18n="plan_pro_price_suffix"> / month</span>
+        <span data-i18n="plan_pro_price">$1.99</span><span class="plan-price-suffix" data-i18n="plan_pro_price_suffix"> / month</span>
       </div>
+      <div style="font-size:12px; color:var(--text-dim); margin-top:-8px;" data-i18n="plan_pro_price_alt">or $17.99 / year — save 22%</div>
       <ul class="plan-features">
         <li data-i18n="plan_pro_f1">Japanese window frames — round, lattice, shōji</li>
         <li data-i18n="plan_pro_f2">Scene themes — photoreal 3D, ukiyo-e, and more</li>
@@ -1014,7 +1014,8 @@ const I18N = {
     plan_free_f3: "Seasonal food, festivals & kigo",
     plan_free_f4: "Home screen widget (3 sizes)",
     plan_free_f5: "Bilingual JP / EN",
-    plan_pro_name: "Pro", plan_pro_price: "¥XXX", plan_pro_price_suffix: " / month",
+    plan_pro_name: "Pro", plan_pro_price: "$1.99", plan_pro_price_suffix: " / month",
+    plan_pro_price_alt: "or $17.99 / year — save 22%",
     plan_pro_f1: "Japanese window frames — round, lattice, shōji",
     plan_pro_f2: "Scene themes — photoreal 3D, ukiyo-e, and more",
     plan_pro_f3: "Window dressing — washi, hinoki, lacquer black, seasonal editions",
@@ -1033,46 +1034,47 @@ const I18N = {
   jp: {
     nav_download: "アプリを入手",
     hero_eyebrow: "iPhone用 · 七十二候",
-    hero_title: '<em>72の窓</em><br>生きた年暦へ',
+    hero_title: '<em>72の窓</em><br>生きている一年へ',
     hero_title_jp: "七十二候を、毎日の窓辺に",
     hero_desc: "日本には、72の季節がある。Madobeは、5日ごとに移り変わる七十二候を、毎日違うかわいいミニチュアの情景にしてホーム画面に届けます。",
     hero_download: "App Storeでダウンロード",
-    hero_explore: "72候をすべて見る",
+    hero_explore: "七十二候を見る",
     today_label: "今日の候",
-    progress_label: "候の進捗",
+    progress_label: "候の進み具合",
     philosophy_quote: "「日本の暦は、一年を四つの季節に分けるのではなく、72の声で聴こうとする。」",
     philosophy_attr_name: "窓辺",
     philosophy_attr_suffix: " — 五日ごとに、一年を観察する",
     seasons_label: "こよみ",
-    seasons_title: "七十二候すべて",
+    seasons_title: "七十二候のすべて",
     seasons_body: "七十二候（しちじゅうにこう）は、中国の天文学に由来し日本で洗練された暦です。二十四節気をさらに三つに分け、七十二の候に分割。それぞれに、今この瞬間の自然を詠んだ名前がついています。",
     tab_all: "すべて", tab_spring: "春", tab_summer: "夏", tab_autumn: "秋", tab_winter: "冬",
     features_label: "毎日の窓辺",
-    features_title: "毎日の暮らしに、季節を一つ",
-    features_body: "通知ではない、静かな窓。毎日変わるミニチュア情景と、今日の候の読み物、季語を一つ。眺めて、また前へ進む。",
-    feat1_title: "毎日変わるミニチュア情景", feat1_body: "365日、毎日違う情景。七十二候は5日ごとに移り変わり、ホーム画面のミニチュアもそれに合わせて毎朝変化します。",
-    feat2_title: "今日の候の読み物", feat2_body: "今日の候にまつわる短い文を、毎日1つお届け。漢字に込められた意味、いま自然で起きていること。",
+    features_title: "毎日の暮らしに、季節をひとつ",
+    features_body: "通知ではない、ホーム画面の静かな窓。毎日変わるミニチュアの情景、今日の候の読み物、季語をひとつ。ちらりと眺めて、また日常へ。",
+    feat1_title: "毎日変わる、ミニチュアの情景", feat1_body: "365日、毎日違う情景。七十二候は5日ごとに移り変わり、ホーム画面のミニチュアも毎朝、表情を変えます。",
+    feat2_title: "今日の候の、短い読み物", feat2_body: "今日の候にまつわる文を、毎日ひとつお届け。漢字に込められた意味、いま、自然のなかで起きていること。",
     feat3_title: "旬の食べ物・行事・季語", feat3_body: "旬の食べ物、季節の行事、俳句の季語を日替わりで紹介。日本の一年を綴る、小さな歳時記。",
-    feat4_title: "バイリンガル・ホーム画面ウィジェット", feat4_body: "小・中・大の3サイズ対応。ホーム画面のお好きな場所に。漢字、読み仮名、英訳、すべて完全バイリンガル対応。",
+    feat4_title: "日英対応のホーム画面ウィジェット", feat4_body: "小・中・大の3サイズ。ホーム画面のお好きな場所に置けます。漢字・読み仮名・詩的な英訳まで、すべて表示。",
     plans_label: "プラン",
-    plans_title: "無料、そして静かな拡張",
-    plans_body: "毎日の窓辺は無料で。Madobe Proなら、和風の窓枠、情景テーマ、タイムトラベル、壁紙エクスポートが解放され、広告も非表示に。",
+    plans_title: "無料で。深く楽しみたい人は、Pro",
+    plans_body: "毎日の窓辺は無料です。Madobe Proなら、和風の窓枠、情景テーマ、タイムトラベル、壁紙の書き出しが使えるようになり、広告も非表示に。",
     plan_free_name: "無料", plan_free_price: "¥0",
     plan_free_f1: "毎日変わるミニチュア情景",
     plan_free_f2: "今日の候の読み物",
     plan_free_f3: "旬の食べ物・季節の行事・俳句の季語",
     plan_free_f4: "ホーム画面ウィジェット（3サイズ）",
     plan_free_f5: "日本語・英語対応",
-    plan_pro_name: "Pro", plan_pro_price: "¥XXX", plan_pro_price_suffix: " / 月",
+    plan_pro_name: "Pro", plan_pro_price: "¥300", plan_pro_price_suffix: " / 月",
+    plan_pro_price_alt: "または年額 ¥2,800 — 22% お得",
     plan_pro_f1: "和風の窓枠 — 丸窓・格子窓・障子窓",
     plan_pro_f2: "情景テーマ — 写実3D・浮世絵テイストなど",
     plan_pro_f3: "窓のしつらえ — 和紙・ひのき・漆黒・季節限定",
     plan_pro_f4: "タイムトラベル — 過去の情景を振り返る",
     plan_pro_f5: "お気に入りの情景をコレクションに保存",
-    plan_pro_f6: "壁紙としてエクスポート",
+    plan_pro_f6: "情景を壁紙として書き出し",
     plan_pro_f7: "広告非表示",
-    cta_title: "ホーム画面を、もっとゆっくりさせよう",
-    cta_body: "窓辺をダウンロードして、今この瞬間の七十二候を発見してください。",
+    cta_title: "ホーム画面に、ゆっくり流れる時間を",
+    cta_body: "Madobeをダウンロードして、いま世界に息づく七十二候を、窓辺に。",
     cta_btn: "App Storeでダウンロード",
     cta_note: "iPhone · iOS 16以上",
     footer_made: "制作：",
