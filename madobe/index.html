@@ -1287,7 +1287,7 @@ function renderSeasons(filter) {
     const isToday = s.id === today.id;
     const c = col[s.season];
     return `<div class="season-card${isToday ? ' today' : ''}" style="${isToday ? 'background:' + c.bg + ';' : ''}" onclick="openSeasonModal(${s.id})">
-      <span class="sc-number" style="color:${c.text}">${String(s.id).padStart(2,'0')} · ${s.macroJp}</span>
+      <span class="sc-number" style="color:${c.text}">${s.macroJp}</span>
       <span class="sc-kanji">${s.kanji}</span>
       <span class="sc-en">${currentLang === 'jp' ? s.jp : s.en}</span>
       <span class="sc-date">${s.start} – ${s.end}</span>
@@ -1313,14 +1313,15 @@ function openSeasonModal(id) {
 
   const macroSiblings = SEASONS.filter(x => x.macro === s.macro);
   const positionInMacro = macroSiblings.findIndex(x => x.id === s.id) + 1;
-  const macroIdx = Math.floor((s.id - 1) / 3) + 1;
 
   const isJp = currentLang === 'jp';
+  // 七十二候 within a 節気 has Japanese names: 初候 / 次候 / 末候
+  const POSITION_JP = ['初候', '次候', '末候'];
+  const POSITION_EN = ['First (shokō)', 'Middle (jikō)', 'Last (makkō)'];
+  const positionLabel = isJp ? POSITION_JP[positionInMacro - 1] : POSITION_EN[positionInMacro - 1];
+
   const L = {
-    metaPrefix: isJp ? '第' + s.id + '候 / 72' : 'Microseason ' + s.id + ' of 72',
-    altLabel: isJp ? '英訳' : 'Japanese',
     rowSolar: isJp ? '節気' : 'Solar term',
-    rowWithin: isJp ? 'この節気の中で' : 'Within this term',
     rowSeason: isJp ? '季節' : 'Season',
     prev: isJp ? '前の候' : 'Previous',
     next: isJp ? '次の候' : 'Next',
@@ -1332,14 +1333,13 @@ function openSeasonModal(id) {
     <button class="modal-close" onclick="closeSeasonModal()" aria-label="${L.closeAria}">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
     </button>
-    <div class="modal-meta">${L.metaPrefix} · ${s.start} – ${s.end}</div>
+    <div class="modal-meta">${s.start} – ${s.end}</div>
     <div class="modal-kanji jp">${s.kanji}</div>
     <div class="modal-romaji">${s.romaji}</div>
     <div class="modal-translation">${isJp ? s.jp : s.en}</div>
     <div class="modal-translation-alt">${isJp ? s.en : s.jp}</div>
     <div class="modal-context">
-      <div class="modal-context-row"><span>${L.rowSolar}</span><strong>${s.macroJp} (${s.macro}) · ${macroIdx} / 24</strong></div>
-      <div class="modal-context-row"><span>${L.rowWithin}</span><strong>${positionInMacro} / 3</strong></div>
+      <div class="modal-context-row"><span>${L.rowSolar}</span><strong>${s.macroJp} (${s.macro}) · ${positionLabel}</strong></div>
       <div class="modal-context-row"><span>${L.rowSeason}</span><strong>${SEASON_LABELS[currentLang][s.season]}</strong></div>
     </div>
     <div class="modal-nav">
