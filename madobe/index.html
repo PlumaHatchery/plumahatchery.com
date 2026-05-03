@@ -395,7 +395,7 @@ section.full-width {
   padding: 20px;
   display: flex; flex-direction: column; gap: 8px;
   transition: background 0.2s;
-  cursor: default;
+  cursor: pointer;
   position: relative; overflow: hidden;
 }
 .season-card.today {
@@ -616,6 +616,101 @@ footer {
 .scene-summer { --sky: #b8dde8; --ground: #5a9e6e; --accent: #f4c842; }
 .scene-autumn { --sky: #d8c8b0; --ground: #b87a3a; --accent: #e85a28; }
 .scene-winter { --sky: #c8d4e0; --ground: #d8e4ec; --accent: #9ab8cc; }
+
+/* ---- SEASON DETAIL MODAL ---- */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(42,36,24,0.5);
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  display: none; align-items: center; justify-content: center;
+  padding: 24px;
+  opacity: 0; transition: opacity 0.2s ease;
+}
+.modal-overlay.open { display: flex; opacity: 1; }
+
+.modal-card {
+  background: var(--bg);
+  border-radius: var(--radius);
+  max-width: 520px; width: 100%;
+  padding: 40px 36px 32px;
+  position: relative;
+  box-shadow: 0 24px 60px rgba(42,36,24,0.25);
+  max-height: 85vh; overflow-y: auto;
+  border: 1px solid var(--border);
+  transform: translateY(8px); transition: transform 0.2s ease;
+}
+.modal-overlay.open .modal-card { transform: translateY(0); }
+
+.modal-close {
+  position: absolute; top: 14px; right: 14px;
+  background: transparent; border: none;
+  width: 32px; height: 32px; cursor: pointer;
+  color: var(--cream-dim);
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; transition: background 0.15s, color 0.15s;
+  font-family: inherit;
+}
+.modal-close:hover { background: var(--surface); color: var(--cream); }
+
+.modal-meta {
+  font-size: 11px; color: var(--text-dim);
+  letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.modal-kanji {
+  font-family: var(--font-jp);
+  font-size: 56px; font-weight: 300;
+  color: var(--cream); line-height: 1; margin-bottom: 12px;
+  letter-spacing: 0.02em;
+}
+.modal-romaji {
+  font-size: 16px; color: var(--gold);
+  font-style: italic; margin-bottom: 24px;
+  letter-spacing: 0.04em;
+}
+.modal-translation {
+  font-size: 18px; color: var(--cream);
+  line-height: 1.5; margin-bottom: 6px; font-weight: 400;
+}
+.modal-translation-alt {
+  font-family: var(--font-jp);
+  font-size: 14px; color: var(--cream-dim);
+  line-height: 1.6;
+}
+.modal-context {
+  background: var(--surface); border-radius: 12px;
+  padding: 14px 18px; margin-top: 24px;
+  border: 1px solid var(--border);
+}
+.modal-context-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 12px; padding: 5px 0;
+  color: var(--cream-dim); gap: 12px;
+}
+.modal-context-row strong {
+  color: var(--cream); font-weight: 500; text-align: right;
+}
+.modal-nav {
+  display: flex; justify-content: space-between;
+  margin-top: 20px; padding-top: 18px;
+  border-top: 1px solid var(--border);
+  gap: 12px;
+}
+.modal-nav button {
+  background: transparent; border: none;
+  color: var(--cream-dim); font-family: inherit;
+  cursor: pointer; font-size: 13px; padding: 6px 4px;
+  display: flex; align-items: center; gap: 6px;
+  transition: color 0.15s;
+}
+.modal-nav button:hover:not(:disabled) { color: var(--gold); }
+.modal-nav button:disabled { opacity: 0.3; cursor: default; }
+.modal-nav button svg { width: 14px; height: 14px; }
+
+@media (max-width: 480px) {
+  .modal-card { padding: 32px 24px 24px; }
+  .modal-kanji { font-size: 44px; }
+}
 </style>
 </head>
 <body>
@@ -882,6 +977,11 @@ footer {
   </div>
 </section>
 
+<!-- SEASON DETAIL MODAL -->
+<div class="modal-overlay" id="season-modal" onclick="if(event.target===this)closeSeasonModal()" aria-hidden="true">
+  <div class="modal-card" id="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-card"></div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-brand">
@@ -1093,6 +1193,7 @@ function setLang(lang) {
   applyI18n();
   renderSeasons(currentFilter);
   updateTodayBand();
+  if (currentModalSeasonId !== null) openSeasonModal(currentModalSeasonId);
 }
 
 function applyI18n() {
@@ -1185,7 +1286,7 @@ function renderSeasons(filter) {
   grid.innerHTML = items.map(s => {
     const isToday = s.id === today.id;
     const c = col[s.season];
-    return `<div class="season-card${isToday ? ' today' : ''}" style="${isToday ? 'background:' + c.bg + ';' : ''}">
+    return `<div class="season-card${isToday ? ' today' : ''}" style="${isToday ? 'background:' + c.bg + ';' : ''}" onclick="openSeasonModal(${s.id})">
       <span class="sc-number" style="color:${c.text}">${String(s.id).padStart(2,'0')} · ${s.macroJp}</span>
       <span class="sc-kanji">${s.kanji}</span>
       <span class="sc-en">${currentLang === 'jp' ? s.jp : s.en}</span>
@@ -1194,6 +1295,93 @@ function renderSeasons(filter) {
     </div>`;
   }).join('');
 }
+
+// =====================
+// SEASON DETAIL MODAL
+// =====================
+let currentModalSeasonId = null;
+
+const SEASON_LABELS = {
+  en: { spring: 'Spring', summer: 'Summer', autumn: 'Autumn', winter: 'Winter' },
+  jp: { spring: '春', summer: '夏', autumn: '秋', winter: '冬' },
+};
+
+function openSeasonModal(id) {
+  const s = SEASONS.find(x => x.id === id);
+  if (!s) return;
+  currentModalSeasonId = id;
+
+  const macroSiblings = SEASONS.filter(x => x.macro === s.macro);
+  const positionInMacro = macroSiblings.findIndex(x => x.id === s.id) + 1;
+  const macroIdx = Math.floor((s.id - 1) / 3) + 1;
+
+  const isJp = currentLang === 'jp';
+  const L = {
+    metaPrefix: isJp ? '第' + s.id + '候 / 72' : 'Microseason ' + s.id + ' of 72',
+    altLabel: isJp ? '英訳' : 'Japanese',
+    rowSolar: isJp ? '節気' : 'Solar term',
+    rowWithin: isJp ? 'この節気の中で' : 'Within this term',
+    rowSeason: isJp ? '季節' : 'Season',
+    prev: isJp ? '前の候' : 'Previous',
+    next: isJp ? '次の候' : 'Next',
+    closeAria: isJp ? '閉じる' : 'Close',
+  };
+
+  const card = document.getElementById('modal-card');
+  card.innerHTML = `
+    <button class="modal-close" onclick="closeSeasonModal()" aria-label="${L.closeAria}">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="modal-meta">${L.metaPrefix} · ${s.start} – ${s.end}</div>
+    <div class="modal-kanji jp">${s.kanji}</div>
+    <div class="modal-romaji">${s.romaji}</div>
+    <div class="modal-translation">${isJp ? s.jp : s.en}</div>
+    <div class="modal-translation-alt">${isJp ? s.en : s.jp}</div>
+    <div class="modal-context">
+      <div class="modal-context-row"><span>${L.rowSolar}</span><strong>${s.macroJp} (${s.macro}) · ${macroIdx} / 24</strong></div>
+      <div class="modal-context-row"><span>${L.rowWithin}</span><strong>${positionInMacro} / 3</strong></div>
+      <div class="modal-context-row"><span>${L.rowSeason}</span><strong>${SEASON_LABELS[currentLang][s.season]}</strong></div>
+    </div>
+    <div class="modal-nav">
+      <button onclick="navSeasonModal(-1)" ${s.id === 1 ? 'disabled' : ''}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        ${L.prev}
+      </button>
+      <button onclick="navSeasonModal(1)" ${s.id === 72 ? 'disabled' : ''}>
+        ${L.next}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  `;
+
+  const overlay = document.getElementById('season-modal');
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  card.scrollTop = 0;
+}
+
+function closeSeasonModal() {
+  const overlay = document.getElementById('season-modal');
+  overlay.classList.remove('open');
+  overlay.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  currentModalSeasonId = null;
+}
+
+function navSeasonModal(dir) {
+  if (currentModalSeasonId === null) return;
+  const newId = currentModalSeasonId + dir;
+  if (newId < 1 || newId > 72) return;
+  openSeasonModal(newId);
+}
+
+document.addEventListener('keydown', (e) => {
+  if (currentModalSeasonId === null) return;
+  if (e.key === 'Escape') { closeSeasonModal(); return; }
+  if (e.key === 'ArrowLeft') navSeasonModal(-1);
+  else if (e.key === 'ArrowRight') navSeasonModal(1);
+});
 
 // =====================
 // DIORAMA SVG RENDERER
