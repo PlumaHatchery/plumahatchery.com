@@ -304,16 +304,14 @@ function renderSeasons(filter) {
   const today = getCurrentSeason();
   const grid = document.getElementById('seasons-grid');
   const items = filter === 'all' ? SEASONS : SEASONS.filter(s => s.season === filter);
-  const col = seasonColors;
   grid.innerHTML = items.map((s) => {
     const isToday = s.id === today.id;
-    const c = col[s.season];
-    return `<div class="season-card${isToday ? ' today' : ''}" data-season-id="${s.id}" style="${isToday ? 'background:' + c.bg + ';' : ''}">
-      <span class="sc-number" style="color:${c.text}">${s.macroJp}</span>
+    return `<div class="season-card season-${s.season}${isToday ? ' today' : ''}" data-season-id="${s.id}">
+      <span class="sc-number">${s.macroJp}</span>
       <span class="sc-kanji">${s.kanji}</span>
       <span class="sc-en">${currentLang === 'jp' ? s.jp : s.en}</span>
       <span class="sc-date">${s.start} – ${s.end}</span>
-      ${isToday ? '<span class="sc-today-tag" style="color:' + c.text + '">' + I18N[currentLang].today_tag + '</span>' : ''}
+      ${isToday ? '<span class="sc-today-tag">' + I18N[currentLang].today_tag + '</span>' : ''}
     </div>`;
   }).join('');
 }
@@ -379,7 +377,7 @@ function openSeasonModal(id) {
   const overlay = document.getElementById('season-modal');
   overlay.classList.add('open');
   overlay.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
+  document.body.classList.add('modal-open');
   card.scrollTop = 0;
 }
 
@@ -387,7 +385,7 @@ function closeSeasonModal() {
   const overlay = document.getElementById('season-modal');
   overlay.classList.remove('open');
   overlay.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
+  document.body.classList.remove('modal-open');
   currentModalSeasonId = null;
 }
 
@@ -580,7 +578,11 @@ function buildStars() {
   for (let i = 0; i < 60; i++) {
     const s = document.createElement('div');
     s.className = 'star';
-    s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${3+Math.random()*6}s;--delay:${Math.random()*8}s;--op:${0.15+Math.random()*0.5}`;
+    s.style.setProperty('--x', `${Math.random() * 100}%`);
+    s.style.setProperty('--y', `${Math.random() * 100}%`);
+    s.style.setProperty('--d', `${3 + Math.random() * 6}s`);
+    s.style.setProperty('--delay', `${Math.random() * 8}s`);
+    s.style.setProperty('--op', `${0.15 + Math.random() * 0.5}`);
     container.appendChild(s);
   }
 }
@@ -652,9 +654,4 @@ document.addEventListener('DOMContentLoaded', () => {
   filterSeasons(currentFilter);
   renderWidgets();
   initFadeObserver();
-
-  // Stagger feature & plan cards
-  document.querySelectorAll('.feature-card.fade-in, .plan-card.fade-in').forEach((el, i) => {
-    el.style.transitionDelay = (i * 0.08) + 's';
-  });
 });

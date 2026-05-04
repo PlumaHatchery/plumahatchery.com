@@ -31,6 +31,10 @@ body {
   overflow-x: hidden;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 .jp { font-family: var(--font-jp); }
 
 /* ---- SCROLLBAR ---- */
@@ -115,6 +119,8 @@ nav {
 .star {
   position: absolute; width: 1.5px; height: 1.5px;
   background: var(--gold); border-radius: 50%;
+  left: var(--x, 50%);
+  top: var(--y, 50%);
   opacity: 0;
   animation: twinkle var(--d, 4s) var(--delay, 0s) infinite;
 }
@@ -409,6 +415,8 @@ section.full-width {
 }
 
 .season-card {
+  --season-text: var(--text-dim);
+  --season-bg: var(--surface);
   background: var(--bg);
   padding: 20px;
   display: flex; flex-direction: column; gap: 8px;
@@ -416,8 +424,24 @@ section.full-width {
   cursor: pointer;
   position: relative; overflow: hidden;
 }
+.season-card.season-spring {
+  --season-text: oklch(78% 0.08 130);
+  --season-bg: oklch(78% 0.08 130 / 0.06);
+}
+.season-card.season-summer {
+  --season-text: oklch(78% 0.1 175);
+  --season-bg: oklch(78% 0.1 175 / 0.06);
+}
+.season-card.season-autumn {
+  --season-text: oklch(78% 0.12 55);
+  --season-bg: oklch(78% 0.12 55 / 0.06);
+}
+.season-card.season-winter {
+  --season-text: oklch(80% 0.06 225);
+  --season-bg: oklch(80% 0.06 225 / 0.06);
+}
 .season-card.today {
-  background: var(--surface);
+  background: var(--season-bg);
 }
 .season-card:hover { background: var(--surface2); }
 
@@ -428,7 +452,7 @@ section.full-width {
 }
 
 .sc-number {
-  font-size: 10px; color: var(--text-dim); letter-spacing: 0.08em;
+  font-size: 10px; color: var(--season-text); letter-spacing: 0.08em;
 }
 .sc-kanji {
   font-family: var(--font-jp);
@@ -443,7 +467,7 @@ section.full-width {
 .sc-today-tag {
   display: inline-block;
   font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--gold); font-weight: 600;
+  color: var(--season-text); font-weight: 600;
   margin-top: 2px;
 }
 .sc-macro {
@@ -668,6 +692,26 @@ footer {
 }
 .fade-in.visible {
   opacity: 1; transform: translateY(0);
+}
+
+.feature-card.fade-in:nth-of-type(1),
+.plan-card.fade-in:nth-of-type(1) {
+  transition-delay: 0s;
+}
+
+.feature-card.fade-in:nth-of-type(2),
+.plan-card.fade-in:nth-of-type(2) {
+  transition-delay: 0.08s;
+}
+
+.feature-card.fade-in:nth-of-type(3),
+.plan-card.fade-in:nth-of-type(3) {
+  transition-delay: 0.16s;
+}
+
+.feature-card.fade-in:nth-of-type(4),
+.plan-card.fade-in:nth-of-type(4) {
+  transition-delay: 0.24s;
 }
 /* Hero phone wrap is above the fold — show immediately */
 .hero-phone-wrap {
