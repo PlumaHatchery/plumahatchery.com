@@ -111,24 +111,6 @@ nav {
     radial-gradient(ellipse 40% 40% at 80% 60%, rgba(80,130,110,0.06) 0%, transparent 60%);
 }
 
-/* Animated star field */
-.stars {
-  position: absolute; inset: 0; z-index: 0;
-  overflow: hidden; pointer-events: none;
-}
-.star {
-  position: absolute; width: 1.5px; height: 1.5px;
-  background: var(--gold); border-radius: 50%;
-  left: var(--x, 50%);
-  top: var(--y, 50%);
-  opacity: 0;
-  animation: twinkle var(--d, 4s) var(--delay, 0s) infinite;
-}
-@keyframes twinkle {
-  0%, 100% { opacity: 0; }
-  50% { opacity: var(--op, 0.4); }
-}
-
 .hero-eyebrow {
   position: relative; z-index: 1;
   display: inline-flex; align-items: center; gap: 10px;

@@ -215,9 +215,30 @@ function applyI18n() {
     const key = el.dataset.i18n;
     if (t[key] !== undefined) el.textContent = t[key];
   });
-  document.querySelectorAll('[data-i18n-html]').forEach(el => {
-    const key = el.dataset.i18nHtml;
-    if (t[key] !== undefined) el.innerHTML = t[key];
+  document.querySelectorAll('[data-i18n-rich]').forEach(el => {
+    const key = el.dataset.i18nRich;
+    if (t[key] !== undefined) setRichText(el, t[key]);
+  });
+}
+
+function setRichText(el, value) {
+  const parts = value.split('<br>');
+  el.replaceChildren();
+
+  parts.forEach((part, index) => {
+    const trimmed = part.trim();
+    const emMatch = trimmed.match(/^<em>(.*)<\/em>$/);
+    if (emMatch) {
+      const em = document.createElement('em');
+      em.textContent = emMatch[1];
+      el.appendChild(em);
+    } else {
+      el.appendChild(document.createTextNode(trimmed));
+    }
+
+    if (index < parts.length - 1) {
+      el.appendChild(document.createElement('br'));
+    }
   });
 }
 
@@ -304,16 +325,43 @@ function renderSeasons(filter) {
   const today = getCurrentSeason();
   const grid = document.getElementById('seasons-grid');
   const items = filter === 'all' ? SEASONS : SEASONS.filter(s => s.season === filter);
-  grid.innerHTML = items.map((s) => {
+  const fragment = document.createDocumentFragment();
+
+  items.forEach((s) => {
     const isToday = s.id === today.id;
-    return `<div class="season-card season-${s.season}${isToday ? ' today' : ''}" data-season-id="${s.id}">
-      <span class="sc-number">${s.macroJp}</span>
-      <span class="sc-kanji">${s.kanji}</span>
-      <span class="sc-en">${currentLang === 'jp' ? s.jp : s.en}</span>
-      <span class="sc-date">${s.start} – ${s.end}</span>
-      ${isToday ? '<span class="sc-today-tag">' + I18N[currentLang].today_tag + '</span>' : ''}
-    </div>`;
-  }).join('');
+    const card = document.createElement('div');
+    card.className = `season-card season-${s.season}${isToday ? ' today' : ''}`;
+    card.dataset.seasonId = String(s.id);
+
+    const number = document.createElement('span');
+    number.className = 'sc-number';
+    number.textContent = s.macroJp;
+
+    const kanji = document.createElement('span');
+    kanji.className = 'sc-kanji';
+    kanji.textContent = s.kanji;
+
+    const name = document.createElement('span');
+    name.className = 'sc-en';
+    name.textContent = currentLang === 'jp' ? s.jp : s.en;
+
+    const date = document.createElement('span');
+    date.className = 'sc-date';
+    date.textContent = `${s.start} – ${s.end}`;
+
+    card.append(number, kanji, name, date);
+
+    if (isToday) {
+      const tag = document.createElement('span');
+      tag.className = 'sc-today-tag';
+      tag.textContent = I18N[currentLang].today_tag;
+      card.appendChild(tag);
+    }
+
+    fragment.appendChild(card);
+  });
+
+  grid.replaceChildren(fragment);
 }
 
 // =====================
@@ -349,36 +397,111 @@ function openSeasonModal(id) {
   };
 
   const card = document.getElementById('modal-card');
-  card.innerHTML = `
-    <button class="modal-close" data-modal-action="close" aria-label="${L.closeAria}">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-    </button>
-    <div class="modal-meta">${s.start} – ${s.end}</div>
-    <div class="modal-kanji jp">${s.kanji}</div>
-    <div class="modal-romaji">${s.romaji}</div>
-    <div class="modal-translation">${isJp ? s.jp : s.en}</div>
-    <div class="modal-translation-alt">${isJp ? s.en : s.jp}</div>
-    <div class="modal-context">
-      <div class="modal-context-row"><span>${L.rowSolar}</span><strong>${s.macroJp} (${s.macro}) · ${positionLabel}</strong></div>
-      <div class="modal-context-row"><span>${L.rowSeason}</span><strong>${SEASON_LABELS[currentLang][s.season]}</strong></div>
-    </div>
-    <div class="modal-nav">
-      <button data-nav-dir="-1" ${s.id === 1 ? 'disabled' : ''}>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        ${L.prev}
-      </button>
-      <button data-nav-dir="1" ${s.id === 72 ? 'disabled' : ''}>
-        ${L.next}
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </button>
-    </div>
-  `;
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'modal-close';
+  closeBtn.dataset.modalAction = 'close';
+  closeBtn.setAttribute('aria-label', L.closeAria);
+  closeBtn.appendChild(createIcon('close'));
+
+  const meta = document.createElement('div');
+  meta.className = 'modal-meta';
+  meta.textContent = `${s.start} – ${s.end}`;
+
+  const kanji = document.createElement('div');
+  kanji.className = 'modal-kanji jp';
+  kanji.textContent = s.kanji;
+
+  const romaji = document.createElement('div');
+  romaji.className = 'modal-romaji';
+  romaji.textContent = s.romaji;
+
+  const translation = document.createElement('div');
+  translation.className = 'modal-translation';
+  translation.textContent = isJp ? s.jp : s.en;
+
+  const translationAlt = document.createElement('div');
+  translationAlt.className = 'modal-translation-alt';
+  translationAlt.textContent = isJp ? s.en : s.jp;
+
+  const context = document.createElement('div');
+  context.className = 'modal-context';
+  context.append(
+    createContextRow(L.rowSolar, `${s.macroJp} (${s.macro}) · ${positionLabel}`),
+    createContextRow(L.rowSeason, SEASON_LABELS[currentLang][s.season]),
+  );
+
+  const nav = document.createElement('div');
+  nav.className = 'modal-nav';
+  nav.append(
+    createModalNavButton(-1, L.prev, 'left', s.id === 1),
+    createModalNavButton(1, L.next, 'right', s.id === 72),
+  );
+
+  card.replaceChildren(closeBtn, meta, kanji, romaji, translation, translationAlt, context, nav);
 
   const overlay = document.getElementById('season-modal');
   overlay.classList.add('open');
   overlay.setAttribute('aria-hidden', 'false');
   document.body.classList.add('modal-open');
   card.scrollTop = 0;
+}
+
+function createContextRow(label, value) {
+  const row = document.createElement('div');
+  row.className = 'modal-context-row';
+
+  const span = document.createElement('span');
+  span.textContent = label;
+
+  const strong = document.createElement('strong');
+  strong.textContent = value;
+
+  row.append(span, strong);
+  return row;
+}
+
+function createModalNavButton(direction, label, iconDirection, disabled) {
+  const button = document.createElement('button');
+  button.dataset.navDir = String(direction);
+  button.disabled = disabled;
+
+  if (iconDirection === 'left') {
+    button.append(createIcon('left'), document.createTextNode(label));
+  } else {
+    button.append(document.createTextNode(label), createIcon('right'));
+  }
+
+  return button;
+}
+
+function createIcon(type) {
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(svgNS, 'svg');
+
+  if (type === 'close') {
+    svg.setAttribute('width', '20');
+    svg.setAttribute('height', '20');
+  } else {
+    svg.setAttribute('viewBox', '0 0 24 24');
+  }
+
+  svg.setAttribute('fill', 'none');
+  svg.setAttribute('stroke', 'currentColor');
+  svg.setAttribute('stroke-width', '2');
+  svg.setAttribute('viewBox', '0 0 24 24');
+
+  const path = document.createElementNS(svgNS, 'path');
+
+  if (type === 'close') {
+    path.setAttribute('d', 'M18 6L6 18M6 6l12 12');
+  } else if (type === 'left') {
+    path.setAttribute('d', 'M19 12H5M12 19l-7-7 7-7');
+  } else {
+    path.setAttribute('d', 'M5 12h14M12 5l7 7-7 7');
+  }
+
+  svg.appendChild(path);
+  return svg;
 }
 
 function closeSeasonModal() {
@@ -570,24 +693,6 @@ function renderWidgets() {
 }
 
 // =====================
-// STAR FIELD
-// =====================
-function buildStars() {
-  const container = document.getElementById('starsEl');
-  if (!container) return;
-  for (let i = 0; i < 60; i++) {
-    const s = document.createElement('div');
-    s.className = 'star';
-    s.style.setProperty('--x', `${Math.random() * 100}%`);
-    s.style.setProperty('--y', `${Math.random() * 100}%`);
-    s.style.setProperty('--d', `${3 + Math.random() * 6}s`);
-    s.style.setProperty('--delay', `${Math.random() * 8}s`);
-    s.style.setProperty('--op', `${0.15 + Math.random() * 0.5}`);
-    container.appendChild(s);
-  }
-}
-
-// =====================
 // SCROLL FADE-IN
 // =====================
 function initFadeObserver() {
@@ -647,7 +752,6 @@ function initEventHandlers() {
 // =====================
 document.addEventListener('DOMContentLoaded', () => {
   initEventHandlers();
-  buildStars();
   applyI18n();
   updateTodayBand();
   currentFilter = getDefaultSeasonFilter();
