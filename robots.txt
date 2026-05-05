@@ -1,4 +1,46 @@
+# Allow all crawlers, including AI search and training bots.
+# See https://platform.openai.com/docs/bots and
+# https://docs.perplexity.ai/guides/bots for documentation.
+
 User-agent: *
+Allow: /
+
+# --- Traditional search engines ---
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# --- AI search / answer engines (drives traffic from chat answers) ---
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# --- AI training crawlers (separate from search bots; blocking these
+# does not affect appearing in chat answers, but blocking GPTBot only
+# stops OpenAI from using the page in *future model training*) ---
+User-agent: GPTBot
 Allow: /
 
 Sitemap: https://plumahatchery.com/sitemap.xml

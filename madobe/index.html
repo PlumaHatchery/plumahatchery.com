@@ -57,6 +57,25 @@
 }
 </script>
 
+<!-- Structured data: FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "en",
+  "mainEntity": [
+    { "@type": "Question", "name": "What is Madobe?", "acceptedAnswer": { "@type": "Answer", "text": "Madobe is an iPhone home screen widget app for Japan's 72 microseasons (七十二候 / shichijūnikō). It delivers a small miniature scene that changes every day, alongside today's microseason name in kanji, romaji, and English." } },
+    { "@type": "Question", "name": "What are Japan's 72 microseasons (七十二候)?", "acceptedAnswer": { "@type": "Answer", "text": "An ancient calendar that divides the solar year into 24 solar terms (二十四節気), each split into three five-day microseasons — 72 in total. Each kō has a poetic name describing what is happening in nature at that moment, e.g. 'Cherry blossoms begin to bloom' (桜始開) or 'Mist starts to linger' (霞始靆)." } },
+    { "@type": "Question", "name": "How is Madobe different from a weather app?", "acceptedAnswer": { "@type": "Answer", "text": "A weather app tells you today's temperature and forecast. Madobe tells you what part of the year you are living in — a slower, cultural sense of time rooted in Japanese seasonal tradition. The two complement rather than replace each other." } },
+    { "@type": "Question", "name": "How is Madobe different from a calendar app?", "acceptedAnswer": { "@type": "Answer", "text": "A calendar app manages your appointments. Madobe doesn't manage anything — it's a quiet ambient widget showing the current Japanese microseason, with optional daily reading and seasonal kigo. No to-dos, no events, no notifications." } },
+    { "@type": "Question", "name": "What does the home screen widget actually show?", "acceptedAnswer": { "@type": "Answer", "text": "A miniature scene illustrating today's microseason, plus the kanji name, romaji reading, and English translation. Available in small, medium, and large widget sizes for the iOS home screen." } },
+    { "@type": "Question", "name": "Is Madobe free? What does Pro add?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — the daily microseason widget is free. Madobe Pro ($1.99 / month or $17.99 / year) adds Japanese window frames (round, lattice, shōji), scene themes (photoreal 3D, ukiyo-e), the daily seasonal column with food / festivals / kigo, time travel through past scenes, wallpaper export, and removes ads." } },
+    { "@type": "Question", "name": "What languages and devices are supported?", "acceptedAnswer": { "@type": "Answer", "text": "Full English and Japanese — kanji, romaji, and a poetic English translation for every microseason. iPhone running iOS 16 or later." } },
+    { "@type": "Question", "name": "How often does the scene change?", "acceptedAnswer": { "@type": "Answer", "text": "The microseason itself shifts every five days (24 solar terms × 3 = 72). The scene art updates daily within that — 365 unique scenes a year — so each morning shows a slightly different moment." } }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
@@ -256,6 +275,24 @@
   </div>
 </section>
 
+<!-- FAQ -->
+<section id="faq">
+  <div class="fade-in" style="text-align:center;">
+    <p class="section-label" data-i18n="faq_label">FAQ</p>
+    <h2 class="section-title" data-i18n="faq_title">Common questions</h2>
+  </div>
+  <div class="faq-list" id="faq-list">
+    <details class="faq-item"><summary data-i18n="faq_q1">What is Madobe?</summary><div class="faq-a" data-i18n="faq_a1">Madobe is an iPhone home screen widget app for Japan's 72 microseasons (七十二候 / shichijūnikō). It delivers a small miniature scene that changes every day, alongside today's microseason name in kanji, romaji, and English.</div></details>
+    <details class="faq-item"><summary data-i18n="faq_q2">What are Japan's 72 microseasons (七十二候)?</summary><div class="faq-a" data-i18n="faq_a2">An ancient calendar that divides the solar year into 24 solar terms (二十四節気), each split into three five-day microseasons — 72 in total. Each kō has a poetic name describing what is happening in nature at that moment, e.g. "Cherry blossoms begin to bloom" (桜始開) or "Mist starts to linger" (霞始靆).</div></details>
+    <details class="faq-item"><summary data-i18n="faq_q3">How is Madobe different from a weather app?</summary><div class="faq-a" data-i18n="faq_a3">A weather app tells you today's temperature and forecast. Madobe tells you what part of the year you are living in — a slower, cultural sense of time rooted in Japanese seasonal tradition. The two complement rather than replace each other.</div></details>
+    <details class="faq-item"><summary data-i18n="faq_q4">How is Madobe different from a calendar app?</summary><div class="faq-a" data-i18n="faq_a4">A calendar app manages your appointments. Madobe doesn't manage anything — it's a quiet ambient widget showing the current Japanese microseason, with optional daily reading and seasonal kigo. No to-dos, no events, no notifications.</div></details>
+    <details class="faq-item"><summary data-i18n="faq_q5">What does the home screen widget actually show?</summary><div class="faq-a" data-i18n="faq_a5">A miniature scene illustrating today's microseason, plus the kanji name, romaji reading, and English translation. Available in small, medium, and large widget sizes for the iOS home screen.</div></details>
+    <details class="faq-item"><summary data-i18n="faq_q6">Is Madobe free? What does Pro add?</summary><div class="faq-a" data-i18n="faq_a6">Yes — the daily microseason widget is free. Madobe Pro ($1.99 / month or $17.99 / year) adds Japanese window frames (round, lattice, shōji), scene themes (photoreal 3D, ukiyo-e), the daily seasonal column with food / festivals / kigo, time travel through past scenes, wallpaper export, and removes ads.</div></details>
+    <details class="faq-item"><summary data-i18n="faq_q7">What languages and devices are supported?</summary><div class="faq-a" data-i18n="faq_a7">Full English and Japanese — kanji, romaji, and a poetic English translation for every microseason. iPhone running iOS 16 or later.</div></details>
+    <details class="faq-item"><summary data-i18n="faq_q8">How often does the scene change?</summary><div class="faq-a" data-i18n="faq_a8">The microseason itself shifts every five days (24 solar terms × 3 = 72). The scene art updates daily within that — 365 unique scenes a year — so each morning shows a slightly different moment.</div></details>
+  </div>
+</section>
+
 <!-- CTA -->
 <section id="download" class="section-tight-center">
   <div class="fade-in">
@@ -277,6 +314,26 @@
     <div class="cta-shot-card"><img id="cta-shot-4" src="images/Madobe_en_04.png" data-src-en="images/Madobe_en_04.png" data-src-jp="images/Madobe_ja_04.png" alt="Madobe App Store screenshot 4"></div>
     <div class="cta-shot-card"><img id="cta-shot-5" src="images/Madobe_en_05.png" data-src-en="images/Madobe_en_05.png" data-src-jp="images/Madobe_ja_05.png" alt="Madobe App Store screenshot 5"></div>
   </div>
+</section>
+
+<!-- FACTS — AI-readable summary card -->
+<section id="facts" aria-labelledby="facts-title">
+  <div class="fade-in" style="text-align:center;">
+    <p class="section-label" data-i18n="facts_label">Facts</p>
+    <h2 id="facts-title" class="section-title" data-i18n="facts_title">About Madobe</h2>
+  </div>
+  <dl class="facts-list">
+    <div class="facts-row"><dt data-i18n="facts_k_name">App name</dt><dd>Madobe (窓辺)</dd></div>
+    <div class="facts-row"><dt data-i18n="facts_k_category">Category</dt><dd data-i18n="facts_v_category">Lifestyle · Calendar · Home Screen Widget</dd></div>
+    <div class="facts-row"><dt data-i18n="facts_k_platform">Platform</dt><dd>iPhone · iOS 16+</dd></div>
+    <div class="facts-row"><dt data-i18n="facts_k_theme">Theme</dt><dd data-i18n="facts_v_theme">Japan's 72 microseasons (七十二候 / shichijūnikō)</dd></div>
+    <div class="facts-row"><dt data-i18n="facts_k_languages">Languages</dt><dd data-i18n="facts_v_languages">English & Japanese</dd></div>
+    <div class="facts-row"><dt data-i18n="facts_k_pricing">Pricing</dt><dd data-i18n="facts_v_pricing">Free · Pro $1.99/month or $17.99/year</dd></div>
+    <div class="facts-row"><dt data-i18n="facts_k_best">Best for</dt><dd data-i18n="facts_v_best">People interested in Japanese culture, seasonal living, calm aesthetic widgets, and anyone who wants a richer sense of the year on their home screen.</dd></div>
+    <div class="facts-row"><dt data-i18n="facts_k_notfor">Not for</dt><dd data-i18n="facts_v_notfor">Task management, weather forecasting, or scheduling — Madobe is intentionally not a calendar app.</dd></div>
+    <div class="facts-row"><dt data-i18n="facts_k_developer">Developer</dt><dd>Pluma Hatchery</dd></div>
+    <div class="facts-row"><dt data-i18n="facts_k_appstore">App Store</dt><dd><a href="https://apps.apple.com/app/id6761128780">apps.apple.com/app/id6761128780</a></dd></div>
+  </dl>
 </section>
 
 <!-- SEASON DETAIL MODAL -->

@@ -647,6 +647,75 @@ section.full-width {
   height: auto;
 }
 
+/* ---- FAQ ---- */
+#faq { max-width: 760px; }
+.faq-list {
+  margin-top: 40px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  padding: 4px 0;
+}
+.faq-item:first-child { border-top: 1px solid var(--border); }
+.faq-item summary {
+  list-style: none; cursor: pointer;
+  padding: 18px 36px 18px 4px;
+  font-size: 16px; font-weight: 500;
+  color: var(--cream); line-height: 1.4;
+  position: relative;
+  transition: color 0.15s;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+';
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  font-size: 22px; font-weight: 300;
+  color: var(--text-dim); transition: transform 0.2s, color 0.15s;
+  line-height: 1;
+}
+.faq-item[open] summary::after { content: '−'; color: var(--gold); }
+.faq-item summary:hover { color: var(--gold); }
+.faq-item .faq-a {
+  padding: 0 36px 22px 4px;
+  font-size: 15px; color: var(--cream-dim);
+  line-height: 1.7; font-weight: 300;
+  text-wrap: pretty;
+}
+
+/* ---- FACTS ---- */
+#facts { max-width: 760px; padding-top: 40px; padding-bottom: 80px; }
+.facts-list {
+  margin-top: 40px;
+  display: flex; flex-direction: column; gap: 0;
+  border-top: 1px solid var(--border);
+}
+.facts-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 24px;
+  padding: 14px 4px;
+  border-bottom: 1px solid var(--border);
+  align-items: baseline;
+}
+.facts-row dt {
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-dim);
+}
+.facts-row dd {
+  font-size: 14px; color: var(--cream); font-weight: 400;
+  line-height: 1.55; text-wrap: pretty;
+}
+.facts-row dd a { color: var(--gold); text-decoration: none; }
+.facts-row dd a:hover { text-decoration: underline; }
+
+@media (max-width: 600px) {
+  .facts-row { grid-template-columns: 1fr; gap: 4px; padding: 16px 4px; }
+  .facts-row dt { font-size: 11px; }
+  .faq-item summary { padding: 16px 32px 16px 4px; font-size: 15px; }
+}
+
 /* ---- FOOTER ---- */
 footer {
   border-top: 1px solid var(--border);
