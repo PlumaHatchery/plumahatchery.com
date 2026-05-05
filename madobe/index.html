@@ -76,6 +76,25 @@
 }
 </script>
 
+<!-- Structured data: FAQPage (Japanese) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "ja",
+  "mainEntity": [
+    { "@type": "Question", "name": "Madobeはどんなアプリですか？", "acceptedAnswer": { "@type": "Answer", "text": "Madobeは、日本の七十二候（しちじゅうにこう）をiPhoneのホーム画面に届けるウィジェットアプリです。毎日変わる小さなミニチュアの情景と、その日の候の漢字・読み・英訳を、ホーム画面でそっと楽しめます。" } },
+    { "@type": "Question", "name": "七十二候（しちじゅうにこう）とは？", "acceptedAnswer": { "@type": "Answer", "text": "古来の日本の暦で、一年を二十四節気に分け、それぞれをさらに3つ、合わせて72の候に分けたもの。各候には、その時季の自然を映した詩的な名前がついています。例：「桜始開（さくらはじめてひらく）」「霞始靆（かすみはじめてたなびく）」など。" } },
+    { "@type": "Question", "name": "天気アプリと何が違いますか？", "acceptedAnswer": { "@type": "Answer", "text": "天気アプリは今日の気温や天気を教えてくれます。Madobeは「いま、一年のどこを生きているか」を教えてくれる、もっとゆっくりした文化的な時間軸のアプリです。両者は競合せず、補い合う関係です。" } },
+    { "@type": "Question", "name": "カレンダーアプリと何が違いますか？", "acceptedAnswer": { "@type": "Answer", "text": "カレンダーアプリは予定を管理するためのもの。Madobeは何も管理しません。ホーム画面に置かれた静かな窓として、いまの七十二候と、Proなら季節の読み物・季語をそっと見せるだけ。タスクも予定も通知もありません。" } },
+    { "@type": "Question", "name": "ウィジェットには何が表示されますか？", "acceptedAnswer": { "@type": "Answer", "text": "今日の候を表すミニチュアの情景と、漢字名・読み仮名・英訳。iOSホーム画面で、小・中・大の3サイズから選んで配置できます。" } },
+    { "@type": "Question", "name": "無料で使えますか？Proには何が含まれますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい、毎日のミニチュアウィジェットは無料です。Madobe Pro（月額¥300、または年額¥2,800）では、和風の窓枠（丸窓・格子窓・障子窓）、情景テーマ（写実3D・浮世絵テイストなど）、季節のコラム（旬の食べ物・行事・季語）、過去の情景を振り返るタイムトラベル、壁紙エクスポートが解放され、広告も非表示になります。" } },
+    { "@type": "Question", "name": "対応言語と対応機種は？", "acceptedAnswer": { "@type": "Answer", "text": "完全に日本語と英語に対応。すべての候について、漢字・読み仮名・詩的な英訳が見られます。対応機種はiOS 16以上のiPhone。" } },
+    { "@type": "Question", "name": "情景はどれくらいの頻度で変わりますか？", "acceptedAnswer": { "@type": "Answer", "text": "七十二候そのものは5日ごとに移り変わります（二十四節気 × 3 = 72）。情景の絵柄はその中でも毎日少しずつ変化し、年間で365通りに。毎朝、少し違う一瞬が訪れます。" } }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
@@ -277,7 +296,7 @@
 
 <!-- FAQ -->
 <section id="faq">
-  <div class="fade-in" style="text-align:center;">
+  <div class="fade-in section-center">
     <p class="section-label" data-i18n="faq_label">FAQ</p>
     <h2 class="section-title" data-i18n="faq_title">Common questions</h2>
   </div>
@@ -318,7 +337,7 @@
 
 <!-- FACTS — AI-readable summary card -->
 <section id="facts" aria-labelledby="facts-title">
-  <div class="fade-in" style="text-align:center;">
+  <div class="fade-in section-center">
     <p class="section-label" data-i18n="facts_label">Facts</p>
     <h2 id="facts-title" class="section-title" data-i18n="facts_title">About Madobe</h2>
   </div>
