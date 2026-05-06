@@ -1,0 +1,792 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>ちょこかた | 片付け、ちょこまるとなら続く。</title>
+<meta name="description" content="1日1ミッション、ゆる〜く整う暮らし。あざらしの相棒・ちょこまるが、今日のひとつを選んでくれる片付け習慣化アプリ。" />
+<meta property="og:title" content="ちょこかた | 片付け、ちょこまるとなら続く。" />
+<meta property="og:description" content="1日1ミッション、ゆる〜く整う暮らし。あざらしの相棒・ちょこまるが、今日のひとつを選んでくれる片付け習慣化アプリ。" />
+<meta property="og:image" content="images/chokomaru-cheer-sun.webp" />
+<meta name="theme-color" content="#FAF3E5" />
+<link rel="icon" href="images/chokomaru-avatar.webp" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+/* ─── Tokens ───────────────────────────────────── */
+:root{
+  --bg-base: #FAF3E5;
+  --bg-soft: #FFF8EA;
+  --bg-card: #F0E5D0;
+  --accent: #C4A582;
+  --accent-deep: #A88862;
+  --coral: #F4A5A0;
+  --coral-soft: #FAD4D0;
+  --mustard: #E8B266;
+  --sage: #B8C9A8;
+  --sky: #B5C9DB;
+  --text: #6B4E3D;
+  --text-soft: #8B7361;
+  --text-faint: #B5A18C;
+  --line: #E4D5BC;
+  --line-soft: #EFE3CB;
+}
+
+html, body { background: var(--bg-base); color: var(--text); }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "Zen Maru Gothic", "M PLUS Rounded 1c", -apple-system, BlinkMacSystemFont, "Hiragino Sans", system-ui, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4 { font-family: "Zen Maru Gothic", "M PLUS Rounded 1c", system-ui, sans-serif; font-weight: 500; letter-spacing: 0.02em; }
+
+/* Subtle paper grain */
+.paper-grain {
+  background-color: var(--bg-base);
+  background-image:
+    radial-gradient(rgba(196, 165, 130, 0.08) 1px, transparent 1px),
+    radial-gradient(rgba(196, 165, 130, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px, 36px 36px;
+  background-position: 0 0, 12px 18px;
+}
+
+/* Containers */
+.container-narrow { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+.container-mid    { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+/* Soft cards */
+.card-soft {
+  background: #fffaf0;
+  border: 1px solid var(--line-soft);
+  border-radius: 22px;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.8) inset, 0 8px 24px -16px rgba(107, 78, 61, 0.18);
+}
+
+/* Pill */
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 999px;
+  background: var(--bg-soft); border: 1px solid var(--line);
+  color: var(--text-soft); font-size: 13px;
+}
+
+/* Speech bubble */
+.bubble {
+  position: relative;
+  background: #fffaf0;
+  border: 2px solid var(--text);
+  border-radius: 22px;
+  padding: 12px 18px;
+  color: var(--text);
+  font-weight: 500;
+  display: inline-block;
+  line-height: 1.5;
+  font-size: 14px;
+}
+.bubble::after {
+  content: "";
+  position: absolute;
+  width: 14px; height: 14px;
+  background: #fffaf0;
+  border-right: 2px solid var(--text);
+  border-bottom: 2px solid var(--text);
+  transform: rotate(45deg);
+}
+.bubble.tail-bl::after { left: 22px;  bottom: -9px; }
+.bubble.tail-br::after { right: 22px; bottom: -9px; }
+.bubble.tail-tl::after { left: 22px;  top: -9px;    transform: rotate(225deg); }
+.bubble.tail-tr::after { right: 22px; top: -9px;    transform: rotate(225deg); }
+.bubble.tail-l::after  { left: -9px;  top: 50%;     transform: translateY(-50%) rotate(135deg); }
+.bubble.tail-r::after  { right: -9px; top: 50%;     transform: translateY(-50%) rotate(-45deg);  }
+
+/* Reveal / pop animations */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity 700ms ease, transform 700ms ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.pop { opacity: 0; transform: scale(0.7) translateY(8px); transition: opacity 600ms cubic-bezier(.34,1.56,.64,1), transform 600ms cubic-bezier(.34,1.56,.64,1); }
+.pop.visible { opacity: 1; transform: scale(1) translateY(0); }
+
+/* Bob animation */
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.bob { animation: bob 4s ease-in-out infinite; }
+
+/* Wiggle animation */
+@keyframes wiggle { 0%,100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+.wiggle { animation: wiggle 3.5s ease-in-out infinite; }
+
+/* Dotted border for diary frames */
+.dashed-frame {
+  background: #fffaf0;
+  border: 2px dashed var(--accent);
+  border-radius: 18px;
+}
+
+/* Section heading */
+.section-eyebrow {
+  font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent-deep); font-weight: 600;
+}
+
+/* App Store button */
+.btn-store {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--text); color: #fff8ea;
+  padding: 14px 22px; border-radius: 16px;
+  font-weight: 500; font-size: 15px;
+  box-shadow: 0 8px 24px -10px rgba(107,78,61,0.5);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+  text-decoration: none;
+}
+.btn-store:hover { transform: translateY(-1px); box-shadow: 0 12px 28px -10px rgba(107,78,61,0.55); }
+.btn-store:active { transform: translateY(0); }
+.btn-store-large { padding: 18px 30px; font-size: 17px; border-radius: 20px; }
+
+/* Phone frame */
+.phone-frame {
+  width: 100%; max-width: 280px;
+  aspect-ratio: 9 / 19.5;
+  border-radius: 38px;
+  background: #2a2018;
+  padding: 8px;
+  box-shadow: 0 30px 60px -30px rgba(107,78,61,0.45), 0 8px 20px -10px rgba(107,78,61,0.3);
+  position: relative;
+}
+.phone-screen { width: 100%; height: 100%; background: var(--bg-soft); border-radius: 32px; overflow: hidden; position: relative; }
+.phone-notch { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 90px; height: 22px; background: #2a2018; border-radius: 0 0 14px 14px; z-index: 5; }
+
+/* App mockup */
+.app-screen { padding: 30px 14px 14px; height: 100%; display: flex; flex-direction: column; gap: 10px; }
+.app-status { display: flex; justify-content: space-between; align-items: center; padding: 0 8px; font-size: 10px; color: var(--text); font-weight: 600; }
+
+/* FAQ accordion */
+.faq-item summary {
+  list-style: none; cursor: pointer;
+  padding: 18px 22px; border-radius: 16px;
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  background: #fffaf0; border: 1px solid var(--line-soft);
+  font-weight: 500; color: var(--text);
+  transition: background 200ms;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item[open] summary { background: var(--bg-soft); border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.faq-item .faq-body { padding: 18px 22px 22px; background: var(--bg-soft); border: 1px solid var(--line-soft); border-top: 0; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; color: var(--text-soft); line-height: 1.7; font-size: 14px; }
+.faq-arrow { transition: transform 240ms; color: var(--accent); flex: 0 0 auto; }
+.faq-item[open] .faq-arrow { transform: rotate(180deg); }
+
+/* Stars */
+.stars { color: var(--mustard); letter-spacing: 1px; font-size: 16px; }
+
+/* Hand-drawn underline */
+.hand-underline { position: relative; display: inline-block; }
+.hand-underline::after {
+  content: ""; position: absolute; left: -4%; right: -4%; bottom: -6px;
+  height: 8px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'><path d='M2 5 Q 50 1 100 4 T 198 4' fill='none' stroke='%23F4A5A0' stroke-width='3' stroke-linecap='round'/></svg>") center/100% 100% no-repeat;
+  pointer-events: none;
+}
+
+/* Checklist */
+.check-item { display: flex; align-items: flex-start; gap: 14px; padding: 16px 18px; background: #fffaf0; border: 1px solid var(--line-soft); border-radius: 16px; }
+.check-mark { flex: 0 0 auto; width: 26px; height: 26px; border-radius: 8px; background: var(--coral-soft); color: var(--text); display: grid; place-items: center; font-weight: 700; font-size: 14px; }
+
+/* Feature number */
+.num-circle { width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: #fff8ea; display: grid; place-items: center; font-weight: 600; font-size: 18px; font-family: "M PLUS Rounded 1c", system-ui; flex: 0 0 auto; }
+
+/* Ribbon */
+.ribbon-badge { display: inline-flex; align-items: center; justify-content: center; background: var(--sage); color: #fff; font-size: 10px; font-weight: 600; padding: 4px 10px; border-radius: 999px; }
+
+/* Avatar */
+.avatar-silhouette { width: 28px; height: 28px; border-radius: 50%; background: var(--mustard); display: grid; place-items: center; flex: 0 0 auto; overflow: hidden; }
+.avatar-silhouette img { width: 100%; height: 100%; object-fit: cover; }
+
+/* hide on small */
+@media (max-width: 640px) { .hide-sm { display: none; } }
+
+/* Feature flip on md+ */
+@media (min-width: 768px) {
+  .feature-flip > .feature-text  { order: 2; }
+  .feature-flip > .feature-visual{ order: 1; }
+}
+</style>
+</head>
+<body class="paper-grain" style="overflow-x: hidden;">
+
+<!-- ═══ HERO ═══ -->
+<section style="padding: 56px 0 36px;">
+  <div class="container-mid">
+    <div class="text-center">
+      <div class="reveal pill" style="margin-bottom: 20px;">
+        <span style="color: var(--coral);">★</span>毎日ちょこっと、ゆる〜く片付け
+      </div>
+      <h1 class="reveal" style="font-size: clamp(30px, 7vw, 46px); line-height: 1.4; font-weight: 600; color: var(--text);">
+        片付け、ちょこまる<br />となら<span class="hand-underline">続く。</span>
+      </h1>
+      <p class="reveal" style="color: var(--text-soft); font-size: 15px; line-height: 1.9; margin: 20px auto 0; max-width: 460px;">
+        1日1ミッション、ゆる〜く整う暮らし。<br />
+        あざらしの相棒・ちょこまるが、<br class="hide-sm" />
+        今日のひとつを選んでくれる片付け習慣化アプリ。
+      </p>
+      <div class="reveal" style="margin-top: 26px;">
+        <a class="btn-store btn-store-large" href="https://apps.apple.com/jp/app/%E3%81%A1%E3%82%87%E3%81%93%E3%81%8B%E3%81%9F/id6746228386" target="_blank" rel="noopener">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+          App Storeで開く
+        </a>
+      </div>
+      <div class="reveal" style="margin-top: 20px; display: inline-flex; align-items: center; gap: 12px; font-size: 13px; color: var(--text-soft);">
+        <span class="stars">★ ★ ★ ★ ☆</span>
+        <span>4.3 / 30件のレビュー</span>
+      </div>
+    </div>
+    <div style="position: relative; margin-top: 16px; height: min(60vw, 320px);">
+      <img src="images/chokomaru-wave-sakura.webp" alt="ちょこまる" class="bob"
+           style="position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: min(60vw, 280px);" />
+      <div class="pop" data-delay="400" style="position: absolute; left: 6%; top: 8%;">
+        <div class="bubble tail-br">今日のひとつ、いっしょに♪</div>
+      </div>
+      <div class="pop hide-sm" data-delay="900" style="position: absolute; right: 0%; bottom: 16%;">
+        <div class="bubble tail-bl">ちょこっとでいいんだよ〜</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROBLEMS ═══ -->
+<section style="padding: 60px 0; background: var(--bg-soft);">
+  <div class="container-narrow">
+    <div class="reveal section-eyebrow text-center">あるある</div>
+    <h2 class="reveal" style="font-size: clamp(22px, 5vw, 30px); text-align: center; margin-top: 8px; line-height: 1.5;">
+      こんな経験、<br class="hide-sm" />ありませんか?
+    </h2>
+    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 32px;">
+      <div class="reveal" data-delay="0"><div class="check-item"><div class="check-mark">✓</div><div style="font-size: 15px; color: var(--text); line-height: 1.6;">片付けアプリを入れたけど、3日で開かなくなった</div></div></div>
+      <div class="reveal" data-delay="80"><div class="check-item"><div class="check-mark">✓</div><div style="font-size: 15px; color: var(--text); line-height: 1.6;">ToDoリストにすると「タスク」になって余計しんどい</div></div></div>
+      <div class="reveal" data-delay="160"><div class="check-item"><div class="check-mark">✓</div><div style="font-size: 15px; color: var(--text); line-height: 1.6;">「やらなきゃ」が積もって、結局何もできない日が続く</div></div></div>
+      <div class="reveal" data-delay="240"><div class="check-item"><div class="check-mark">✓</div><div style="font-size: 15px; color: var(--text); line-height: 1.6;">完璧にやろうとして、いつも途中で挫折する</div></div></div>
+    </div>
+    <div style="position: relative; margin-top: 40px;">
+      <p class="reveal" style="text-align: center; color: var(--text); font-size: clamp(15px, 4vw, 18px); line-height: 1.8; font-weight: 500;">
+        片付けが続かないのは、<br />
+        あなたのせいじゃないかもしれません。
+      </p>
+      <img src="images/chokomaru-confused.webp" alt="" class="hide-sm"
+           style="position: absolute; right: -10px; top: -30px; width: 100px; opacity: 0.95;" />
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURES ═══ -->
+<section style="padding: 70px 0;">
+  <div class="container-narrow">
+    <div class="reveal section-eyebrow text-center">3つの仕組み</div>
+    <h2 class="reveal" style="font-size: clamp(22px, 5vw, 30px); text-align: center; margin-top: 8px; line-height: 1.5;">
+      ちょこかたが、片付けを<br />
+      <span class="hand-underline">"続く習慣"</span>に変える
+    </h2>
+  </div>
+
+  <div style="margin-top: 50px; display: flex; flex-direction: column; gap: 60px;">
+
+    <!-- Feature 01 -->
+    <div class="container-mid">
+      <div class="md:grid md:grid-cols-2 md:gap-10 md:items-center">
+        <div class="feature-text text-center md:text-left">
+          <div style="display: inline-flex; align-items: center; gap: 12px; color: var(--accent-deep);">
+            <span style="font-size: 32px; font-weight: 600; font-family: 'M PLUS Rounded 1c', system-ui; color: var(--accent);">01</span>
+            <span style="height: 1px; width: 40px; background: var(--accent); display: inline-block;"></span>
+          </div>
+          <h3 class="reveal" style="font-size: clamp(20px, 5vw, 26px); font-weight: 500; color: var(--text); margin-top: 14px; line-height: 1.5;">1日1ミッション、所要時間3分から</h3>
+          <p class="reveal" data-delay="100" style="font-size: 15px; color: var(--text-soft); line-height: 1.9; margin-top: 14px;">
+            「化粧品のフタを閉める」「引き出しを1段だけ」など、3分で終わるサイズの提案。忙しい日も続けられる。
+          </p>
+          <div class="pop" data-delay="400" style="display: inline-block; margin-top: 24px; padding-bottom: 12px;">
+            <div class="bubble tail-bl">ちょこっとでいいんだよ〜</div>
+          </div>
+        </div>
+        <div class="feature-visual" style="position: relative; display: flex; justify-content: center; margin-top: 40px; padding: 20px 0;">
+          <div style="position: absolute; inset: 10% 8%; background: var(--bg-soft); border-radius: 32px; z-index: 0;"></div>
+          <div class="phone-frame" style="position: relative; z-index: 1;">
+            <div class="phone-screen">
+              <div class="phone-notch"></div>
+              <!-- Mission Screen -->
+              <div class="app-screen">
+                <div class="app-status"><span>20:46</span><span style="display:flex;gap:4px;"><span>􀙇</span><span>􀛨</span></span></div>
+                <div style="display:flex;align-items:center;gap:8px;margin-top:4px;">
+                  <div style="width:24px;height:24px;border-radius:6px;background:var(--sage);display:grid;place-items:center;color:#fff;font-size:9px;font-weight:700;">ちょい</div>
+                  <div style="font-size:13px;font-weight:600;color:var(--text);">今日のお片付けミッション</div>
+                </div>
+                <div style="background:#fffaf0;border-radius:999px;padding:3px;display:flex;border:1px solid var(--line-soft);">
+                  <div style="flex:1;text-align:center;padding:6px 0;border-radius:999px;background:var(--accent);color:#fff8ea;font-size:11px;font-weight:600;">お片付け</div>
+                  <div style="flex:1;text-align:center;padding:6px 0;color:var(--text-soft);font-size:11px;">断捨離</div>
+                </div>
+                <div style="display:flex;align-items:flex-end;gap:6px;margin-top:4px;">
+                  <div style="flex:1;background:#fffaf0;border:1px solid var(--line-soft);border-radius:14px;padding:8px 10px;font-size:10px;color:var(--text);line-height:1.4;">
+                    おかたづけって、すごいことなんだよ!
+                  </div>
+                  <img src="images/chokomaru-wave-sakura.webp" alt="" style="width:44px;height:44px;object-fit:contain;" />
+                </div>
+                <div style="background:#E8EFDB;border-radius:14px;padding:12px;margin-top:2px;">
+                  <div class="ribbon-badge">ちょい整え</div>
+                  <div style="font-size:12px;font-weight:600;color:var(--text);margin-top:8px;line-height:1.4;">ダイニングテーブルの上を片づけて拭き掃除</div>
+                  <div style="font-size:9px;color:var(--text-soft);margin-top:6px;">所要時間目安:10分</div>
+                  <div style="background:#fff;border-radius:999px;padding:5px 10px;font-size:9px;color:var(--text-soft);margin-top:8px;display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line-soft);">↻ 別のミッションを表示</div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:flex-start;margin-top:2px;">
+                  <div class="avatar-silhouette" style="width:22px;height:22px;"><img src="images/chokomaru-avatar.webp" alt="" /></div>
+                  <div style="font-size:9px;color:var(--text-soft);line-height:1.5;flex:1;">テーブルの上の物をすべて片づけて拭き、床のゴミも拾ってダイニングをすっきりさせよう!</div>
+                </div>
+                <div style="display:flex;gap:8px;margin-top:auto;padding-top:6px;">
+                  <div style="flex:1;background:#EAE0CB;color:var(--text-soft);text-align:center;padding:10px 0;border-radius:12px;font-size:11px;font-weight:500;">スキップ</div>
+                  <div style="flex:1;background:var(--accent);color:#fff8ea;text-align:center;padding:10px 0;border-radius:12px;font-size:11px;font-weight:600;">やった!</div>
+                </div>
+                <div style="margin-top:auto;display:flex;justify-content:space-around;padding:8px 4px 4px;border-top:1px solid var(--line-soft);">
+                  <div style="text-align:center;color:var(--accent-deep);"><div style="font-size:14px;">⌂</div><div style="font-size:7px;margin-top:1px;">ホーム</div></div>
+                  <div style="text-align:center;color:var(--text-faint);"><div style="font-size:14px;">▢</div><div style="font-size:7px;margin-top:1px;">カレンダー</div></div>
+                  <div style="text-align:center;color:var(--text-faint);"><div style="font-size:14px;">▭</div><div style="font-size:7px;margin-top:1px;">ちょこまる日記</div></div>
+                  <div style="text-align:center;color:var(--text-faint);"><div style="font-size:14px;">✱</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 02 (flipped) -->
+    <div class="container-mid">
+      <div class="md:grid md:grid-cols-2 md:gap-10 md:items-center feature-flip">
+        <div class="feature-text text-center md:text-left">
+          <div style="display: inline-flex; align-items: center; gap: 12px; color: var(--accent-deep);">
+            <span style="font-size: 32px; font-weight: 600; font-family: 'M PLUS Rounded 1c', system-ui; color: var(--accent);">02</span>
+            <span style="height: 1px; width: 40px; background: var(--accent); display: inline-block;"></span>
+          </div>
+          <h3 class="reveal" style="font-size: clamp(20px, 5vw, 26px); font-weight: 500; color: var(--text); margin-top: 14px; line-height: 1.5;">考えなくていい、選ばなくていい</h3>
+          <p class="reveal" data-delay="100" style="font-size: 15px; color: var(--text-soft); line-height: 1.9; margin-top: 14px;">
+            何を片付けるかは、ちょこまるが提案。「別のミッションを表示」ボタンで気軽に切り替え。お片付けモード/断捨離モードも選べる。
+          </p>
+          <div class="pop" data-delay="400" style="display: inline-block; margin-top: 24px; padding-bottom: 12px;">
+            <div class="bubble tail-br">今日はこれにしてみる?</div>
+          </div>
+        </div>
+        <div class="feature-visual" style="position: relative; display: flex; justify-content: center; margin-top: 40px; padding: 20px 0;">
+          <div style="position: absolute; inset: 10% 8%; background: #FFF1E0; border-radius: 32px; z-index: 0;"></div>
+          <div class="phone-frame" style="position: relative; z-index: 1;">
+            <div class="phone-screen">
+              <div class="phone-notch"></div>
+              <!-- Calendar Screen -->
+              <div class="app-screen" style="padding-top: 30px;">
+                <div class="app-status"><span>20:47</span><span style="display:flex;gap:4px;"><span>􀙇</span><span>􀛨</span></span></div>
+                <div style="text-align:center;font-size:13px;font-weight:600;color:var(--text);margin-top:4px;">カレンダー</div>
+                <div style="background:#fffaf0;border-radius:14px;padding:10px;border:1px solid var(--line-soft);">
+                  <div style="display:flex;justify-content:space-between;align-items:center;padding:0 4px 6px;">
+                    <span style="font-size:11px;color:var(--text-soft);">‹</span>
+                    <span style="font-size:11px;font-weight:600;color:var(--text);">May 2025</span>
+                    <span style="font-size:9px;padding:3px 8px;border-radius:999px;border:1px solid var(--line);color:var(--text-soft);">Today</span>
+                    <span style="font-size:11px;color:var(--text-soft);">›</span>
+                  </div>
+                  <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;font-size:8px;text-align:center;">
+                    <div style="color:var(--coral);padding:2px 0;font-weight:600;">Sun</div>
+                    <div style="color:var(--text-soft);padding:2px 0;font-weight:600;">Mon</div>
+                    <div style="color:var(--text-soft);padding:2px 0;font-weight:600;">Tue</div>
+                    <div style="color:var(--text-soft);padding:2px 0;font-weight:600;">Wed</div>
+                    <div style="color:var(--text-soft);padding:2px 0;font-weight:600;">Thu</div>
+                    <div style="color:var(--text-soft);padding:2px 0;font-weight:600;">Fri</div>
+                    <div style="color:var(--coral);padding:2px 0;font-weight:600;">Sat</div>
+                    <!-- prev month: 28 29 30 -->
+                    <div style="padding:5px 0;color:var(--text-faint);font-size:9px;">28</div>
+                    <div style="padding:5px 0;color:var(--text-faint);font-size:9px;">29</div>
+                    <div style="padding:5px 0;color:var(--text-faint);font-size:9px;">30</div>
+                    <!-- May 1..31 -->
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">1</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">2</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">3</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">4</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">5</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">6</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">7</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">8</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">9</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">10</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">11</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">12</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">13</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">14</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">15</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">16</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">17</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">18</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">19</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">20</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">21</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;"><span style="background:var(--coral);color:#fff;border-radius:50%;width:18px;height:18px;display:inline-grid;place-items:center;">22</span></div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">23</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">24</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">25</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">26</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">27</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">28</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">29</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">30</div>
+                    <div style="padding:5px 0;color:var(--text-soft);font-size:9px;">31</div>
+                  </div>
+                </div>
+                <div style="background:#fffaf0;border:1px solid var(--line-soft);border-radius:12px;padding:10px;">
+                  <div style="font-size:10px;font-weight:600;color:var(--text);">お片付けミッション履歴</div>
+                  <div style="font-size:9px;color:var(--text-soft);margin-top:4px;line-height:1.5;">ダイニングテーブルの上をすべて片づけて拭き掃除→周りの床に落ちたゴミも拾う</div>
+                </div>
+                <div style="background:#fffaf0;border:1px solid var(--line-soft);border-radius:12px;padding:10px;">
+                  <div style="font-size:10px;font-weight:600;color:var(--text);">断捨離ミッション履歴</div>
+                  <div style="font-size:9px;color:var(--text-soft);margin-top:4px;">古いレシートを捨てよう (0個)</div>
+                </div>
+                <div style="margin-top:auto;display:flex;justify-content:space-around;padding:8px 4px 4px;border-top:1px solid var(--line-soft);">
+                  <div style="text-align:center;color:var(--text-faint);"><div style="font-size:14px;">⌂</div><div style="font-size:7px;margin-top:1px;">ホーム</div></div>
+                  <div style="text-align:center;color:var(--accent-deep);"><div style="font-size:14px;">▢</div><div style="font-size:7px;margin-top:1px;">カレンダー</div></div>
+                  <div style="text-align:center;color:var(--text-faint);"><div style="font-size:14px;">▭</div><div style="font-size:7px;margin-top:1px;">ちょこまる日記</div></div>
+                  <div style="text-align:center;color:var(--text-faint);"><div style="font-size:14px;">✱</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 03 -->
+    <div class="container-mid">
+      <div class="md:grid md:grid-cols-2 md:gap-10 md:items-center">
+        <div class="feature-text text-center md:text-left">
+          <div style="display: inline-flex; align-items: center; gap: 12px; color: var(--accent-deep);">
+            <span style="font-size: 32px; font-weight: 600; font-family: 'M PLUS Rounded 1c', system-ui; color: var(--accent);">03</span>
+            <span style="height: 1px; width: 40px; background: var(--accent); display: inline-block;"></span>
+          </div>
+          <h3 class="reveal" style="font-size: clamp(20px, 5vw, 26px); font-weight: 500; color: var(--text); margin-top: 14px; line-height: 1.5;">ちょこまる日記で、続けるのが楽しみになる</h3>
+          <p class="reveal" data-delay="100" style="font-size: 15px; color: var(--text-soft); line-height: 1.9; margin-top: 14px;">
+            ミッションを完了すると、ちょこまるの日記が更新。手描き風のイラストと、ちょこまるのつぶやきが見られる。
+          </p>
+          <div class="pop" data-delay="400" style="display: inline-block; margin-top: 24px; padding-bottom: 12px;">
+            <div class="bubble tail-bl">がんばったね〜!</div>
+          </div>
+        </div>
+        <div class="feature-visual" style="position: relative; display: flex; justify-content: center; margin-top: 40px; padding: 20px 0;">
+          <div style="position: absolute; inset: 10% 8%; background: #FCE8E5; border-radius: 32px; z-index: 0;"></div>
+          <div class="phone-frame" style="position: relative; z-index: 1;">
+            <div class="phone-screen">
+              <div class="phone-notch"></div>
+              <!-- Diary Screen -->
+              <div class="app-screen" style="padding-top: 30px;">
+                <div class="app-status"><span>20:47</span><span style="display:flex;gap:4px;"><span>􀙇</span><span>􀛨</span></span></div>
+                <div style="text-align:center;font-size:13px;font-weight:600;color:var(--text);margin-top:4px;">ちょこまるにっき</div>
+                <div style="background:#FFF1D3;border-radius:14px;padding:12px;flex:1;display:flex;flex-direction:column;gap:8px;">
+                  <div style="text-align:center;font-size:11px;color:var(--text);font-weight:500;">く  きょう</div>
+                  <div style="border-radius:10px;overflow:hidden;background:#F8E08C;aspect-ratio:3/2;">
+                    <img src="images/diary-2.webp" alt="" style="width:100%;height:100%;object-fit:cover;" />
+                  </div>
+                  <div style="background:#FFFAEC;border-radius:8px;padding:8px 10px;font-size:10px;color:var(--text);line-height:1.6;">
+                    だいにんぐのテーブルとゆか、ぜんぶきれいにしてた〜!すごい〜
+                  </div>
+                </div>
+                <div style="margin-top:auto;display:flex;justify-content:space-around;padding:8px 4px 4px;border-top:1px solid var(--line-soft);">
+                  <div style="text-align:center;color:var(--text-faint);"><div style="font-size:14px;">⌂</div><div style="font-size:7px;margin-top:1px;">ホーム</div></div>
+                  <div style="text-align:center;color:var(--text-faint);"><div style="font-size:14px;">▢</div><div style="font-size:7px;margin-top:1px;">カレンダー</div></div>
+                  <div style="text-align:center;color:var(--accent-deep);"><div style="font-size:14px;">▭</div><div style="font-size:7px;margin-top:1px;">ちょこまる日記</div></div>
+                  <div style="text-align:center;color:var(--text-faint);"><div style="font-size:14px;">✱</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ MEET CHOKOMARU ═══ -->
+<section style="padding: 70px 0; background: var(--bg-soft);">
+  <div class="container-narrow text-center">
+    <div class="reveal section-eyebrow">あなたの相棒</div>
+    <h2 class="reveal" style="font-size: clamp(24px, 6vw, 32px); margin-top: 8px; line-height: 1.5;">
+      あざらしの<br />
+      <span style="color: var(--accent-deep);">"ちょこまる"</span>
+    </h2>
+    <div style="position: relative; margin: 30px auto 20px; width: min(80vw, 360px);">
+      <img src="images/chokomaru-cheer-sun.webp" alt="ちょこまる" class="bob" style="width: 100%;" />
+      <div class="pop" data-delay="500" style="position: absolute; left: -8%; top: -4%;">
+        <div class="bubble tail-bl">つづけるって、とってもすごいこと!</div>
+      </div>
+    </div>
+    <p class="reveal" data-delay="200" style="font-size: 15px; color: var(--text-soft); line-height: 2; max-width: 480px; margin: 20px auto 0;">
+      ちょこまるは、片付けが苦手なあなたのための相棒。<br />
+      完璧を求めず、できた小さなことを<br class="hide-sm" />
+      一緒に喜んでくれます。<br />
+      ミッションを終えると、その日のことを<br class="hide-sm" />
+      日記に書き残してくれます。
+    </p>
+  </div>
+
+  <div class="container-mid" style="margin-top: 50px;">
+    <p class="reveal section-eyebrow text-center">ちょこまる日記の例</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-top: 18px;">
+      <div class="reveal" data-delay="0">
+        <div class="dashed-frame" style="padding: 12px;">
+          <div style="border-radius: 12px; overflow: hidden; aspect-ratio: 3/2; background: #FFF1D3;">
+            <img src="images/diary-1.webp" alt="" style="width: 100%; height: 100%; object-fit: cover;" />
+          </div>
+          <p style="font-size: 11px; color: var(--text-soft); margin-top: 8px; line-height: 1.6; text-align: center;">きょうのおかたづけ</p>
+        </div>
+      </div>
+      <div class="reveal" data-delay="100">
+        <div class="dashed-frame" style="padding: 12px;">
+          <div style="border-radius: 12px; overflow: hidden; aspect-ratio: 3/2; background: #FFF1D3;">
+            <img src="images/diary-2.webp" alt="" style="width: 100%; height: 100%; object-fit: cover;" />
+          </div>
+          <p style="font-size: 11px; color: var(--text-soft); margin-top: 8px; line-height: 1.6; text-align: center;">ぴかぴかにできたよ</p>
+        </div>
+      </div>
+      <div class="reveal" data-delay="200">
+        <div class="dashed-frame" style="padding: 12px;">
+          <div style="border-radius: 12px; overflow: hidden; aspect-ratio: 3/2; background: #FFF1D3;">
+            <img src="images/diary-3.webp" alt="" style="width: 100%; height: 100%; object-fit: cover;" />
+          </div>
+          <p style="font-size: 11px; color: var(--text-soft); margin-top: 8px; line-height: 1.6; text-align: center;">ちょこっと、できた</p>
+        </div>
+      </div>
+      <div class="reveal" data-delay="300">
+        <div class="dashed-frame" style="padding: 12px;">
+          <div style="border-radius: 12px; overflow: hidden; aspect-ratio: 3/2; background: #FFF1D3;">
+            <img src="images/diary-4.webp" alt="" style="width: 100%; height: 100%; object-fit: cover;" />
+          </div>
+          <p style="font-size: 11px; color: var(--text-soft); margin-top: 8px; line-height: 1.6; text-align: center;">すっきり〜!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ REVIEWS ═══ -->
+<section style="padding: 70px 0;">
+  <div class="container-narrow">
+    <div style="position: relative;">
+      <div class="reveal section-eyebrow text-center">レビュー</div>
+      <h2 class="reveal" style="font-size: clamp(22px, 5vw, 30px); text-align: center; margin-top: 8px;">使っている人の声</h2>
+      <img src="images/chokomaru-cheer-sun.webp" alt="" class="hide-sm wiggle"
+           style="position: absolute; right: -20px; top: -20px; width: 90px;" />
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 36px;">
+      <div class="reveal" data-delay="0">
+        <div class="card-soft" style="padding: 22px;">
+          <div class="stars">★★★★★</div>
+          <p style="font-size: 15px; color: var(--text); line-height: 1.8; margin-top: 10px;">「ミッションを達成していくゲーム感覚で部屋の片付けができる。」</p>
+          <p style="font-size: 12px; color: var(--text-faint); margin-top: 12px;">— 炊きたての栗ご飯さん</p>
+        </div>
+      </div>
+      <div class="reveal" data-delay="100">
+        <div class="card-soft" style="padding: 22px;">
+          <div class="stars">★★★★★</div>
+          <p style="font-size: 15px; color: var(--text); line-height: 1.8; margin-top: 10px;">「あざらし日記が可愛くて、日記見たさで頑張れてます!」</p>
+          <p style="font-size: 12px; color: var(--text-faint); margin-top: 12px;">— ポンコ・ポンコさん</p>
+        </div>
+      </div>
+      <div class="reveal" data-delay="200">
+        <div class="card-soft" style="padding: 22px;">
+          <div class="stars">★★★★★</div>
+          <p style="font-size: 15px; color: var(--text); line-height: 1.8; margin-top: 10px;">「入力する手間がなくていいです!」</p>
+          <p style="font-size: 12px; color: var(--text-faint); margin-top: 12px;">— ひまわり🌻☀️さん</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW TO USE ═══ -->
+<section style="padding: 70px 0; background: var(--bg-soft);">
+  <div class="container-narrow">
+    <div class="reveal section-eyebrow text-center">使い方</div>
+    <h2 class="reveal" style="font-size: clamp(22px, 5vw, 30px); text-align: center; margin-top: 8px;">かんたん3ステップ</h2>
+    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 36px;">
+      <div class="reveal" data-delay="0">
+        <div class="card-soft" style="padding: 22px; display: flex; gap: 18px; align-items: flex-start;">
+          <div class="num-circle">1</div>
+          <div>
+            <h3 style="font-size: 17px; font-weight: 500; color: var(--text);">アプリを開く</h3>
+            <p style="font-size: 14px; color: var(--text-soft); line-height: 1.8; margin-top: 6px;">ちょこまるが今日のミッションを提案してくれます。</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal" data-delay="100">
+        <div class="card-soft" style="padding: 22px; display: flex; gap: 18px; align-items: flex-start;">
+          <div class="num-circle">2</div>
+          <div>
+            <h3 style="font-size: 17px; font-weight: 500; color: var(--text);">やる、またはスキップ</h3>
+            <p style="font-size: 14px; color: var(--text-soft); line-height: 1.8; margin-top: 6px;">気が向いたらやる。気が向かなければスキップ。それでいい。</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal" data-delay="200">
+        <div class="card-soft" style="padding: 22px; display: flex; gap: 18px; align-items: flex-start;">
+          <div class="num-circle">3</div>
+          <div>
+            <h3 style="font-size: 17px; font-weight: 500; color: var(--text);">日記をチェック</h3>
+            <p style="font-size: 14px; color: var(--text-soft); line-height: 1.8; margin-top: 6px;">完了したら、ちょこまる日記でその日のことを残してくれます。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOR YOU ═══ -->
+<section style="padding: 70px 0;">
+  <div class="container-narrow">
+    <div class="reveal section-eyebrow text-center">こんな人に</div>
+    <h2 class="reveal" style="font-size: clamp(22px, 5vw, 30px); text-align: center; margin-top: 8px;">おすすめです</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; margin-top: 32px;">
+      <div class="reveal" data-delay="0">
+        <div class="card-soft" style="padding: 18px 20px; display: flex; gap: 12px; align-items: flex-start;">
+          <div style="flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; background: var(--coral-soft); color: var(--text); display: grid; place-items: center; font-size: 13px; font-weight: 700;">♡</div>
+          <div style="font-size: 14px; color: var(--text); line-height: 1.7;">片付けが苦手で何から始めたらいいかわからない人</div>
+        </div>
+      </div>
+      <div class="reveal" data-delay="80">
+        <div class="card-soft" style="padding: 18px 20px; display: flex; gap: 12px; align-items: flex-start;">
+          <div style="flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; background: var(--coral-soft); color: var(--text); display: grid; place-items: center; font-size: 13px; font-weight: 700;">♡</div>
+          <div style="font-size: 14px; color: var(--text); line-height: 1.7;">完璧主義で、毎回挫折してしまう人</div>
+        </div>
+      </div>
+      <div class="reveal" data-delay="160">
+        <div class="card-soft" style="padding: 18px 20px; display: flex; gap: 12px; align-items: flex-start;">
+          <div style="flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; background: var(--coral-soft); color: var(--text); display: grid; place-items: center; font-size: 13px; font-weight: 700;">♡</div>
+          <div style="font-size: 14px; color: var(--text); line-height: 1.7;">かわいいキャラと一緒にゆるく続けたい人</div>
+        </div>
+      </div>
+      <div class="reveal" data-delay="240">
+        <div class="card-soft" style="padding: 18px 20px; display: flex; gap: 12px; align-items: flex-start;">
+          <div style="flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; background: var(--coral-soft); color: var(--text); display: grid; place-items: center; font-size: 13px; font-weight: 700;">♡</div>
+          <div style="font-size: 14px; color: var(--text); line-height: 1.7;">子育て・仕事で時間がないけど、家を整えたい人</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section style="padding: 70px 0; background: var(--bg-soft);">
+  <div class="container-narrow">
+    <div class="reveal section-eyebrow text-center">FAQ</div>
+    <h2 class="reveal" style="font-size: clamp(22px, 5vw, 30px); text-align: center; margin-top: 8px;">よくある質問</h2>
+    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 32px;">
+      <div class="reveal" data-delay="0">
+        <details class="faq-item">
+          <summary><span>無料ですか?</span><span class="faq-arrow">▾</span></summary>
+          <div class="faq-body">はい、無料でお使いいただけます(広告表示があります)。</div>
+        </details>
+      </div>
+      <div class="reveal" data-delay="60">
+        <details class="faq-item">
+          <summary><span>お片付けモードと断捨離モードの違いは?</span><span class="faq-arrow">▾</span></summary>
+          <div class="faq-body">お片付けモードは片付けや拭き掃除など「整える」ミッション、断捨離モードは「手放す」ためのミッションです。気分や状況にあわせて切り替えてご利用ください。</div>
+        </details>
+      </div>
+      <div class="reveal" data-delay="120">
+        <details class="faq-item">
+          <summary><span>子どもでも使えますか?</span><span class="faq-arrow">▾</span></summary>
+          <div class="faq-body">4+対象です。安心してお使いいただけます。</div>
+        </details>
+      </div>
+      <div class="reveal" data-delay="180">
+        <details class="faq-item">
+          <summary><span>1日にできるミッションは何個まで?</span><span class="faq-arrow">▾</span></summary>
+          <div class="faq-body">1日のメインミッションは1つですが、達成後も「別のミッションを表示」で気軽に追加できます。無理のない範囲で。</div>
+        </details>
+      </div>
+      <div class="reveal" data-delay="240">
+        <details class="faq-item">
+          <summary><span>データのバックアップはできますか?</span><span class="faq-arrow">▾</span></summary>
+          <div class="faq-body">ミッション履歴やちょこまる日記は端末内に保存されます。今後のアップデートでバックアップ機能の追加を検討しています。</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FINAL CTA ═══ -->
+<section style="padding: 80px 0 60px; background: linear-gradient(180deg, var(--bg-base) 0%, #FBE8DC 100%);">
+  <div class="container-narrow text-center">
+    <h2 class="reveal" style="font-size: clamp(24px, 6vw, 34px); line-height: 1.55; font-weight: 500;">
+      今日のひとつから、<br />
+      はじめてみませんか。
+    </h2>
+    <div style="position: relative; width: min(70vw, 280px); margin: 30px auto;">
+      <img src="images/chokomaru-cheer-sun.webp" alt="" class="bob" style="width: 100%;" />
+      <div class="pop" data-delay="400" style="position: absolute; left: -12%; top: -4%;">
+        <div class="bubble tail-br">フレフレ!</div>
+      </div>
+    </div>
+    <a class="btn-store btn-store-large" href="https://apps.apple.com/jp/app/%E3%81%A1%E3%82%87%E3%81%93%E3%81%8B%E3%81%9F/id6746228386" target="_blank" rel="noopener">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+      App Storeで開く
+    </a>
+    <p style="font-size: 12px; color: var(--text-faint); margin-top: 18px;">無料 · iOS 16.0以降 · 4+</p>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer style="padding: 44px 0 40px; background: var(--text); color: #FBE9C7;">
+  <div class="container-narrow">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px;">
+      <img src="images/chokomaru-sleep.webp" alt="" style="width: 44px; height: 44px; object-fit: contain;" />
+      <div style="font-size: 18px; font-weight: 500;">ちょこかた</div>
+    </div>
+    <p style="font-size: 13px; opacity: 0.85; line-height: 1.7; max-width: 420px;">
+      1日1ミッション、ゆる〜く整う暮らし。<br />
+      あざらしの相棒・ちょこまると、片付け習慣を。
+    </p>
+    <div style="margin-top: 28px; padding-top: 22px; border-top: 1px solid rgba(255,248,234,0.18);">
+      <div style="font-size: 12px; opacity: 0.7; margin-bottom: 10px;">開発者の他のアプリ</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px 18px;">
+        <a href="#" style="font-size: 13px; color: #FBE9C7; opacity: 0.9; text-decoration: underline; text-decoration-color: rgba(251,233,199,0.4);">Madobe</a>
+        <a href="#" style="font-size: 13px; color: #FBE9C7; opacity: 0.9; text-decoration: underline; text-decoration-color: rgba(251,233,199,0.4);">うちの子ミュージアム</a>
+        <a href="#" style="font-size: 13px; color: #FBE9C7; opacity: 0.9; text-decoration: underline; text-decoration-color: rgba(251,233,199,0.4);">みずログ</a>
+        <a href="#" style="font-size: 13px; color: #FBE9C7; opacity: 0.9; text-decoration: underline; text-decoration-color: rgba(251,233,199,0.4);">おそうじリマインダー</a>
+      </div>
+    </div>
+    <div style="margin-top: 28px; padding-top: 18px; border-top: 1px solid rgba(255,248,234,0.18); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 12px; opacity: 0.7;">
+      <div>© 2025 Kaoru Nishimura</div>
+      <a href="https://chokokata.github.io/chokokata-privacy/" target="_blank" rel="noopener" style="color: #FBE9C7; text-decoration: underline;">プライバシーポリシー</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Reveal-on-scroll (gentle fade-up)
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const delay = parseInt(entry.target.dataset.delay || '0', 10);
+        setTimeout(() => entry.target.classList.add('visible'), delay);
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+
+  // Pop-in for speech bubbles
+  const popObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const delay = parseInt(entry.target.dataset.delay || '0', 10);
+        setTimeout(() => entry.target.classList.add('visible'), delay);
+        popObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.pop').forEach((el) => popObserver.observe(el));
+</script>
+
+</body>
+</html>
