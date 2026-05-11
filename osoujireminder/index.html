@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>おそうじリマインダー — 換気扇、いつ掃除した？</title>
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="description" content="月1回・季節ごとの掃除や、第3日曜の資源ごみまで、繰り返し家事をやさしくリマインド。通知・タスク一覧・予定カレンダー・在庫管理を1つに。完全オフライン、登録不要、データは端末内のみ。iOS / Android。">
+<link rel="canonical" href="https://plumahatchery.com/osoujireminder/">
+<meta name="theme-color" content="#BBD6CC">
+<meta name="robots" content="index,follow">
+
+<!-- Smart App Banner (iOS Safari) — TODO: replace app-id once on the App Store -->
+<!-- <meta name="apple-itunes-app" content="app-id=XXXXXXXXXX"> -->
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="おそうじリマインダー">
+<meta property="og:url" content="https://plumahatchery.com/osoujireminder/">
+<meta property="og:title" content="おそうじリマインダー — 換気扇、いつ掃除した？">
+<meta property="og:description" content="月1回・季節ごとの掃除も、第N曜日のごみ収集も、洗剤のストックも。繰り返し家事をやさしくリマインドする、完全オフラインの無料アプリ。">
+<meta property="og:locale" content="ja_JP">
+<!-- TODO: render and add og-image.png (1200x630) -->
+<!-- <meta property="og:image" content="https://plumahatchery.com/osoujireminder/og-image.png"> -->
+<!-- <meta property="og:image:width" content="1200"> -->
+<!-- <meta property="og:image:height" content="630"> -->
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="おそうじリマインダー — 換気扇、いつ掃除した？">
+<meta name="twitter:description" content="月1回・季節ごとの掃除も、第N曜日のごみ収集も、洗剤のストックも。繰り返し家事をやさしくリマインドする、完全オフラインの無料アプリ。">
+<!-- <meta name="twitter:image" content="https://plumahatchery.com/osoujireminder/og-image.png"> -->
+
+<!-- Structured data: MobileApplication -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "おそうじリマインダー",
+  "alternateName": "Osouji Reminder",
+  "description": "月1回・季節ごとの掃除や、第3日曜の資源ごみなど、繰り返し家事をやさしくリマインドするアプリ。柔軟な繰り返し設定、通知、予定カレンダー、在庫管理を搭載。完全オフライン、アカウント登録不要、データは端末内のみに保存。",
+  "applicationCategory": "LifestyleApplication",
+  "operatingSystem": "iOS, Android",
+  "url": "https://plumahatchery.com/osoujireminder/",
+  "inLanguage": "ja",
+  "publisher": { "@type": "Organization", "name": "Pluma Hatchery" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+}
+</script>
+
+<!-- Structured data: FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "ja",
+  "mainEntity": [
+    { "@type": "Question", "name": "データはどこに保存されますか？", "acceptedAnswer": { "@type": "Answer", "text": "すべて端末内に保存されます。外部サーバーには一切送信されません。現在は端末内保存のみのため、新端末では再登録をお願いします。" } },
+    { "@type": "Question", "name": "通知音は変えられますか？", "acceptedAnswer": { "@type": "Answer", "text": "端末の通知設定からアプリごとに変更できます。" } },
+    { "@type": "Question", "name": "広告はありますか？", "acceptedAnswer": { "@type": "Answer", "text": "画面下部に控えめなバナー広告が1つだけ表示されます。動画広告やポップアップはありません。" } },
+    { "@type": "Question", "name": "料金はかかりますか？", "acceptedAnswer": { "@type": "Answer", "text": "基本機能はすべて無料でお使いいただけます。アカウント登録も不要です。" } }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          base:    "#F7F6F2",
+          card:    "#FDFCF9",
+          mint:    "#BBD6CC",
+          mintDeep:"#A4C3B2",
+          mintSoft:"#E4EEE9",
+          ink:     "#333333",
+          inkSoft: "#6B6B66",
+          accent:  "#E86A5B",
+        },
+        fontFamily: {
+          sans: ['"Noto Sans JP"', 'Inter', 'system-ui', 'sans-serif'],
+          en:   ['Inter', '"Noto Sans JP"', 'sans-serif'],
+        },
+        boxShadow: {
+          soft:  "0 12px 40px -16px rgba(164,195,178,0.55), 0 2px 6px -2px rgba(51,51,51,0.06)",
+          card:  "0 1px 2px rgba(51,51,51,0.04), 0 8px 24px -16px rgba(51,51,51,0.08)",
+          phone: "0 40px 80px -30px rgba(122,158,140,0.45), 0 10px 30px -10px rgba(51,51,51,0.08)",
+        },
+        borderRadius: { '2xl': '20px', '3xl': '24px' },
+      },
+    },
+  };
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Noto Sans JP','Inter',system-ui,sans-serif; color:#333; background:#F7F6F2; line-height:1.75; -webkit-font-smoothing:antialiased; }
+  .en { font-family: 'Inter','Noto Sans JP',sans-serif; }
+  .leading-loose-jp { line-height: 1.85; }
+
+  /* phone frame */
+  .phone {
+    position: relative;
+    width: 280px;
+    border-radius: 44px;
+    padding: 10px;
+    background: linear-gradient(160deg,#EFEEEA,#DCDCD6 60%,#CFCEC8);
+    box-shadow: 0 40px 80px -30px rgba(122,158,140,0.45), 0 10px 30px -10px rgba(51,51,51,0.08), inset 0 0 0 1.5px rgba(255,255,255,0.6);
+  }
+  .phone::before {
+    content:""; position:absolute; left:50%; top:18px; transform:translateX(-50%);
+    width:90px; height:22px; background:#2a2a2a; border-radius:14px; z-index:2; opacity:.85;
+  }
+  .phone-screen {
+    border-radius: 34px; overflow:hidden; background:#BBD6CC; aspect-ratio: 712 / 1498;
+    box-shadow: inset 0 0 0 1px rgba(51,51,51,0.05);
+  }
+  .phone-screen img { display:block; width:100%; height:100%; object-fit:cover; }
+  .phone-lg { width: 320px; }
+  .phone-sm { width: 240px; }
+
+  /* badges */
+  .store-badge {
+    display:inline-flex; align-items:center; gap:12px;
+    padding: 14px 22px; border-radius: 16px;
+    background:#333; color:#FDFCF9; text-decoration:none;
+    transition: transform .15s ease, box-shadow .15s ease;
+    box-shadow: 0 8px 20px -10px rgba(51,51,51,0.4);
+    min-width: 220px;
+  }
+  .store-badge:hover { transform: translateY(-1px); box-shadow: 0 14px 28px -12px rgba(51,51,51,0.45); }
+  .store-badge.light { background:#FDFCF9; color:#333; border:1.5px solid #333; }
+  .store-badge .sm { font-size: 11px; letter-spacing:.04em; opacity:.85; line-height:1; }
+  .store-badge .lg { font-size: 18px; font-weight:600; line-height:1.1; letter-spacing:.01em; }
+
+  /* soft blobs */
+  .blob {
+    position: absolute; border-radius: 50%; filter: blur(8px); opacity:.55; pointer-events:none;
+    background: radial-gradient(closest-side, #BBD6CC, rgba(187,214,204,0));
+  }
+
+  /* leaf decoration */
+  .leaf path { stroke:#A4C3B2; fill:none; stroke-width:1.2; stroke-linecap:round; stroke-linejoin:round; }
+
+  /* card */
+  .nat-card {
+    background:#FDFCF9; border-radius: 22px; padding: 28px;
+    box-shadow: 0 1px 2px rgba(51,51,51,0.04), 0 12px 28px -22px rgba(51,51,51,0.18);
+    border: 1px solid rgba(164,195,178,0.18);
+  }
+
+  /* checklist */
+  .check-row { display:flex; align-items:flex-start; gap:14px; padding: 10px 0; }
+  .check-row .ic {
+    flex:none; width:26px; height:26px; border-radius:50%;
+    background:#BBD6CC; color:#333; display:grid; place-items:center; margin-top:3px;
+  }
+
+  /* FAQ */
+  details.faq { background:#FDFCF9; border-radius:18px; border:1px solid rgba(164,195,178,0.25); padding: 4px 6px; transition: box-shadow .2s; }
+  details.faq[open] { box-shadow: 0 10px 24px -18px rgba(51,51,51,0.18); }
+  details.faq > summary {
+    list-style:none; cursor:pointer; padding: 18px 20px; display:flex; gap:16px; align-items:flex-start; font-weight:500;
+  }
+  details.faq > summary::-webkit-details-marker { display:none; }
+  details.faq .q-mark { flex:none; width:28px; height:28px; border-radius:50%; background:#E4EEE9; color:#A4C3B2; display:grid; place-items:center; font-weight:700; font-family:Inter; font-size:14px; }
+  details.faq[open] .q-mark { background:#A4C3B2; color:#FDFCF9; }
+  details.faq .chev { margin-left:auto; transition: transform .2s; color:#A4C3B2; }
+  details.faq[open] .chev { transform: rotate(180deg); }
+  details.faq .ans { padding: 0 20px 20px 64px; color:#555; }
+
+  /* feature alt rows */
+  .feat-row { display:grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items:center; }
+  .feat-row.reverse > .feat-art { order: 2; }
+  @media (max-width: 880px) {
+    .feat-row { grid-template-columns: 1fr; gap: 32px; }
+    .feat-row.reverse > .feat-art { order: 0; }
+  }
+
+  /* hero headline */
+  .h-display { font-weight:700; letter-spacing: 0.005em; line-height: 1.55; }
+
+  /* section labels */
+  .eyebrow { font-family: Inter; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color:#A4C3B2; font-weight:600; }
+
+  /* logo */
+  .logo-mark {
+    width:36px; height:36px; border-radius:12px;
+    background: linear-gradient(150deg,#BBD6CC,#A4C3B2);
+    display:grid; place-items:center; color:#FDFCF9;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4), 0 6px 14px -8px rgba(164,195,178,0.7);
+  }
+</style>
+</head>
+<body class="font-sans text-ink">
+
+<!-- ============================ NAV ============================ -->
+<header class="sticky top-0 z-40 backdrop-blur bg-base/80 border-b border-mintDeep/15">
+  <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center gap-6">
+    <a href="#top" class="flex items-center gap-3">
+      <span class="logo-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#FDFCF9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="font-bold text-[15px] tracking-wide">おそうじリマインダー</span>
+    </a>
+    <div class="hidden md:flex items-center gap-7 ml-auto text-[14px] text-inkSoft">
+      <a href="#features" class="hover:text-ink">機能</a>
+      <a href="#steps" class="hover:text-ink">使い方</a>
+      <a href="#faq" class="hover:text-ink">FAQ</a>
+    </div>
+    <a href="#download" class="ml-auto md:ml-0 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-mintDeep text-card text-[13px] font-medium hover:bg-[#94b6a4] transition">
+      ダウンロード
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </nav>
+</header>
+
+<!-- ============================ HERO ============================ -->
+<section id="top" class="relative overflow-hidden">
+  <div class="blob" style="width:520px;height:520px; top:-140px; right:-120px;"></div>
+  <div class="blob" style="width:340px;height:340px; bottom:-80px; left:-80px; opacity:.35;"></div>
+  <svg class="leaf absolute top-24 left-8 hidden lg:block" width="120" height="80" viewBox="0 0 120 80" aria-hidden="true">
+    <path d="M5 60 Q40 10 115 18 Q70 28 55 70" />
+    <path d="M40 40 L48 50 M55 30 L62 42 M72 24 L78 36" />
+  </svg>
+  <svg class="leaf absolute top-40 right-10 hidden lg:block" width="140" height="100" viewBox="0 0 140 100" aria-hidden="true">
+    <path d="M130 75 Q90 20 12 30 Q60 38 80 88" />
+    <path d="M95 50 L88 60 M75 40 L68 52" />
+  </svg>
+
+  <div class="max-w-6xl mx-auto px-6 pt-20 pb-12 text-center relative">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-card border border-mintDeep/25 text-[12px] text-inkSoft mb-8">
+      <span class="w-1.5 h-1.5 rounded-full bg-mintDeep"></span>
+      <span class="en">iOS &amp; Android</span>
+      <span class="text-mintDeep">·</span>
+      <span>完全オフライン・無料</span>
+    </div>
+
+    <h1 class="h-display text-[34px] sm:text-[44px] md:text-[56px] text-ink">
+      換気扇、いつ掃除した？<br/>
+      <span class="text-inkSoft text-[28px] sm:text-[36px] md:text-[44px]">── 思い出せないなら、アプリに任せよう。</span>
+    </h1>
+
+    <p class="mt-8 max-w-2xl mx-auto text-[15px] sm:text-[16px] text-inkSoft leading-loose-jp">
+      通知で気づいて、チェックして終わり。<br class="hidden sm:block"/>
+      洗剤やスポンジのストックまで、これひとつで。
+    </p>
+
+    <div class="mt-10 flex flex-wrap gap-4 justify-center">
+      <a href="#download" class="store-badge">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.467 2.231-1.213 3.013-.812.866-2.121 1.532-3.196 1.447-.13-1.115.43-2.286 1.155-3.044C13.93 1.94 15.36 1.46 16.365 1.43zM20.4 17.32c-.547 1.26-.81 1.823-1.516 2.937-.985 1.553-2.373 3.487-4.093 3.502-1.527.014-1.92-.99-3.992-.978-2.072.011-2.504 1-4.032.986-1.72-.016-3.035-1.762-4.02-3.315C-.06 16.21-.353 11.43 1.346 8.88c1.208-1.814 3.114-2.875 4.905-2.875 1.823 0 2.97.999 4.475.999 1.46 0 2.35-1 4.458-1 1.594 0 3.283.867 4.487 2.367-3.945 2.16-3.305 7.79.73 8.949z"/></svg>
+        <div class="text-left">
+          <div class="sm en">Download on the</div>
+          <div class="lg en">App Store</div>
+        </div>
+      </a>
+      <a href="#download" class="store-badge light">
+        <svg width="24" height="26" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M325.3 234.3L104.7 32.4c-7.3-6.7-19-1.5-19 8.7v429.8c0 10.2 11.7 15.4 19 8.7l220.6-201.9c5.4-4.9 5.4-13.5 0-18.4z" opacity=".75"/><path d="M407.6 273.9l-58.4-33.7c-3.4-2-7.7-1.6-10.6 1.1l-46.2 42.3 46.2 42.3c2.9 2.7 7.2 3.1 10.6 1.1l58.4-33.7c10.1-5.9 10.1-19.5 0-25.4z"/></svg>
+        <div class="text-left">
+          <div class="sm en" style="color:#6B6B66">GET IT ON</div>
+          <div class="lg en">Google Play</div>
+        </div>
+      </a>
+    </div>
+
+    <p class="mt-5 text-[12px] text-inkSoft/80">無料・登録不要・データは端末内のみ</p>
+
+    <div class="mt-16 relative inline-block">
+      <div class="absolute inset-0 -m-12 rounded-full bg-mint/40 blur-3xl"></div>
+      <div class="phone phone-lg relative">
+        <div class="phone-screen">
+          <img src="images/screenshot-home.png" alt="今日のタスク画面" />
+        </div>
+      </div>
+      <div class="hidden md:flex absolute -left-24 top-1/3 items-center gap-3 bg-card px-4 py-3 rounded-2xl shadow-soft border border-mintDeep/15">
+        <div class="w-9 h-9 rounded-full bg-mint grid place-items-center">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3a7 7 0 00-7 7v4l-2 3h18l-2-3v-4a7 7 0 00-7-7z" stroke="#333" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 20a2 2 0 004 0" stroke="#333" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="text-left">
+          <div class="text-[12px] text-inkSoft">9:00 通知</div>
+          <div class="text-[13px] font-medium">換気扇を掃除する</div>
+        </div>
+      </div>
+      <div class="hidden md:flex absolute -right-20 bottom-12 items-center gap-3 bg-card px-4 py-3 rounded-2xl shadow-soft border border-mintDeep/15">
+        <div class="w-9 h-9 rounded-full bg-mintSoft grid place-items-center">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#A4C3B2" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="text-left">
+          <div class="text-[12px] text-inkSoft">完了</div>
+          <div class="text-[13px] font-medium">次は3日後にお知らせ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 2. EMPATHY ============================ -->
+<section id="empathy" class="relative py-24 md:py-32">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <div class="eyebrow mb-4">こんなこと、ありませんか？</div>
+      <h2 class="h-display text-[28px] sm:text-[36px] md:text-[40px]">
+        毎日じゃないお掃除ほど、<br class="sm:hidden"/>忘れてしまう。
+      </h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-5">
+      <div class="nat-card">
+        <div class="text-mintDeep mb-3">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <p class="leading-loose-jp">換気扇、エアコンのフィルター、排水溝…<br/>前回いつだったか思い出せない。</p>
+      </div>
+      <div class="nat-card">
+        <div class="text-mintDeep mb-3">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 9h16M9 3v4M15 3v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <p class="leading-loose-jp">「第3日曜は資源ごみ」── 気づいたら<br/>翌朝になっていた。</p>
+      </div>
+      <div class="nat-card">
+        <div class="text-mintDeep mb-3">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <p class="leading-loose-jp">洗剤の詰め替えを買い忘れて、<br/>切らしてから慌てる。</p>
+      </div>
+      <div class="nat-card">
+        <div class="text-mintDeep mb-3">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 10h18M8 14h3M8 17h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <p class="leading-loose-jp">カレンダーアプリに書き込むのは、<br/>なんだか大げさで続かない。</p>
+      </div>
+    </div>
+
+    <p class="text-center mt-14 max-w-2xl mx-auto text-inkSoft leading-loose-jp">
+      そんな<span class="text-ink font-medium">"ちょっと面倒な家のこと"</span>を、<br/>やさしくリマインドするためのアプリです。
+    </p>
+  </div>
+</section>
+
+<!-- ============================ 3. FEATURES ============================ -->
+<section id="features" class="relative py-20 md:py-28 bg-card/60 border-y border-mintDeep/10">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-20">
+      <div class="eyebrow mb-4">FEATURES</div>
+      <h2 class="h-display text-[28px] sm:text-[36px] md:text-[42px]">5つの、ちいさな仕組み。</h2>
+    </div>
+
+    <div class="space-y-28">
+
+      <div class="feat-row">
+        <div>
+          <div class="text-[12px] en tracking-widest text-mintDeep font-semibold mb-3">01 ／ 柔軟な繰り返し設定</div>
+          <h3 class="h-display text-[24px] sm:text-[30px] mb-5">「毎日」も「第3日曜」も、<br/>思いどおりに。</h3>
+          <p class="text-inkSoft leading-loose-jp">
+            毎日／毎週／毎月はもちろん、<span class="text-ink">「毎月 第3日曜日」「14日ごと」</span>のような細かい指定もOK。月によって日数が違っても、末日に自動でなじませてくれます。
+          </p>
+        </div>
+        <div class="feat-art flex justify-center">
+          <div class="phone"><div class="phone-screen"><img src="images/screenshot-task-edit.png" alt="タスク編集画面"/></div></div>
+        </div>
+      </div>
+
+      <div class="feat-row reverse">
+        <div>
+          <div class="text-[12px] en tracking-widest text-mintDeep font-semibold mb-3">02 ／ 通知</div>
+          <h3 class="h-display text-[24px] sm:text-[30px] mb-5">忙しい朝でも、<br/>ちゃんと届く。</h3>
+          <p class="text-inkSoft leading-loose-jp">
+            指定した時刻に、端末から直接お知らせ。通信がなくても動くので、機内モードでも安心。端末再起動やタイムゾーン変更にも対応しています。
+          </p>
+        </div>
+        <div class="feat-art flex justify-center">
+          <div class="phone phone-sm">
+            <div class="phone-screen relative" style="background:linear-gradient(180deg,#A4C3B2,#BBD6CC 60%,#E4EEE9);">
+              <div class="absolute top-3 left-0 right-0 flex justify-between px-6 text-[11px] en text-card/95 font-medium">
+                <span>9:00</span><span>•••• 5G</span>
+              </div>
+              <div class="absolute top-14 left-0 right-0 text-center text-card">
+                <div class="en text-[14px] font-medium opacity-90">月曜日 6月16日</div>
+                <div class="en text-[68px] font-semibold leading-none mt-1">9:00</div>
+              </div>
+              <div class="absolute left-3 right-3" style="top:46%;">
+                <div class="bg-card/90 backdrop-blur rounded-2xl p-3 shadow-card border border-card/60">
+                  <div class="flex items-center gap-2 text-[10px] text-inkSoft mb-1.5">
+                    <span class="logo-mark" style="width:18px;height:18px;border-radius:5px;">
+                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#FDFCF9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                    <span class="font-medium text-ink">おそうじリマインダー</span>
+                    <span class="ml-auto en">now</span>
+                  </div>
+                  <div class="text-[12px] font-bold text-ink leading-tight">換気扇を掃除する</div>
+                  <div class="text-[10.5px] text-inkSoft mt-0.5">今日のタスクをチェックしましょう。</div>
+                </div>
+              </div>
+              <div class="absolute left-6 right-6" style="top:64%;">
+                <div class="bg-card/70 backdrop-blur rounded-xl p-2.5 shadow-card border border-card/50">
+                  <div class="text-[10px] text-inkSoft">8:00 · 天気</div>
+                  <div class="text-[11px] font-medium text-ink">今日は晴れ、最高24°</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-row">
+        <div>
+          <div class="text-[12px] en tracking-widest text-mintDeep font-semibold mb-3">03 ／ 今日のタスク</div>
+          <h3 class="h-display text-[24px] sm:text-[30px] mb-5">開いた瞬間に、<br/>迷わない。</h3>
+          <p class="text-inkSoft leading-loose-jp">
+            ホーム画面に並ぶのは、今日予定されているタスクだけ。終わったらチェックを入れるだけで、翌日にはまたきれいなリストに戻ります。
+          </p>
+        </div>
+        <div class="feat-art flex justify-center">
+          <div class="phone"><div class="phone-screen"><img src="images/screenshot-tasks-list.png" alt="タスク一覧画面"/></div></div>
+        </div>
+      </div>
+
+      <div class="feat-row reverse">
+        <div>
+          <div class="text-[12px] en tracking-widest text-mintDeep font-semibold mb-3">04 ／ 予定カレンダー</div>
+          <h3 class="h-display text-[24px] sm:text-[30px] mb-5">「来週、何があるんだっけ？」<br/>に、すぐ答える。</h3>
+          <p class="text-inkSoft leading-loose-jp">
+            登録した掃除予定を月単位で確認できます。「今日へ戻る」ボタンですぐ現在地へ。
+          </p>
+        </div>
+        <div class="feat-art flex justify-center">
+          <div class="phone">
+            <div class="phone-screen" style="background:#F7F6F2;">
+              <div class="px-4 pt-10 pb-4" style="background:#BBD6CC;">
+                <div class="text-center text-[15px] font-medium text-ink">予定カレンダー</div>
+              </div>
+              <div class="px-4 py-3 flex items-center justify-between">
+                <button class="text-mintDeep text-[14px]">‹</button>
+                <div class="text-[15px] font-bold en">2026 . 5</div>
+                <button class="text-mintDeep text-[14px]">›</button>
+              </div>
+              <div class="px-3 grid grid-cols-7 text-[10px] text-inkSoft text-center py-1">
+                <div>日</div><div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div>
+              </div>
+              <div class="px-3 grid grid-cols-7 gap-1 text-[11px] en text-center">
+                <div class="opacity-30 py-2">26</div><div class="opacity-30 py-2">27</div><div class="opacity-30 py-2">28</div><div class="opacity-30 py-2">29</div><div class="opacity-30 py-2">30</div><div class="py-2">1</div><div class="py-2">2</div>
+                <div class="py-2">3</div><div class="py-2">4</div><div class="py-2 relative">5<span class="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-mintDeep"></span></div><div class="py-2">6</div><div class="py-2">7</div><div class="py-2 relative">8<span class="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-mintDeep"></span></div><div class="py-2">9</div>
+                <div class="py-2">10</div><div class="py-2">11</div><div class="py-2 rounded-full bg-mintDeep text-card font-bold">12</div><div class="py-2 relative">13<span class="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-mintDeep"></span></div><div class="py-2">14</div><div class="py-2">15</div><div class="py-2">16</div>
+                <div class="py-2 relative">17<span class="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-accent"></span></div><div class="py-2">18</div><div class="py-2">19</div><div class="py-2">20</div><div class="py-2">21</div><div class="py-2 relative">22<span class="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-mintDeep"></span></div><div class="py-2">23</div>
+                <div class="py-2">24</div><div class="py-2">25</div><div class="py-2">26</div><div class="py-2 relative">27<span class="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-mintDeep"></span></div><div class="py-2">28</div><div class="py-2">29</div><div class="py-2">30</div>
+              </div>
+              <div class="px-4 mt-4 space-y-2">
+                <div class="bg-card rounded-xl px-3 py-2 text-[11px] flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-mintDeep"></span>
+                  <span class="font-medium">換気扇の掃除</span><span class="text-inkSoft ml-auto en">5/12</span>
+                </div>
+                <div class="bg-card rounded-xl px-3 py-2 text-[11px] flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+                  <span class="font-medium">資源ごみの日</span><span class="text-inkSoft ml-auto en">5/17</span>
+                </div>
+                <div class="bg-card rounded-xl px-3 py-2 text-[11px] flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full bg-mintDeep"></span>
+                  <span class="font-medium">食洗機フィルター</span><span class="text-inkSoft ml-auto en">5/22</span>
+                </div>
+              </div>
+              <div class="absolute bottom-4 right-4">
+                <div class="px-3 py-1.5 rounded-full bg-mintDeep text-card text-[10px] font-medium shadow-card">今日へ戻る</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feat-row">
+        <div>
+          <div class="text-[12px] en tracking-widest text-mintDeep font-semibold mb-3">05 ／ 在庫管理</div>
+          <h3 class="h-display text-[24px] sm:text-[30px] mb-5">掃除のたびに、<br/>ストックも確認。</h3>
+          <p class="text-inkSoft leading-loose-jp">
+            よく使う洗剤やスポンジを登録しておけば、残量がひと目で。タスクと紐づければ、ワンタップで在庫画面へ移動できます。
+          </p>
+        </div>
+        <div class="feat-art flex justify-center">
+          <div class="phone"><div class="phone-screen"><img src="images/screenshot-inventory.png" alt="在庫一覧画面"/></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 4. STEPS ============================ -->
+<section id="steps" class="py-24 md:py-32 relative overflow-hidden">
+  <svg class="leaf absolute top-12 right-12 hidden md:block" width="120" height="80" viewBox="0 0 120 80" aria-hidden="true">
+    <path d="M5 60 Q40 10 115 18 Q70 28 55 70"/><path d="M40 40 L48 50 M55 30 L62 42"/>
+  </svg>
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <div class="eyebrow mb-4">HOW IT WORKS</div>
+      <h2 class="h-display text-[28px] sm:text-[36px] md:text-[40px]">はじめかたは、とてもシンプル。</h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="nat-card">
+        <div class="flex items-baseline gap-3 mb-4">
+          <span class="en text-mintDeep text-[40px] font-bold leading-none">01</span>
+          <span class="text-[13px] text-inkSoft">STEP</span>
+        </div>
+        <h4 class="text-[18px] font-bold mb-3">タスクを追加</h4>
+        <p class="text-inkSoft text-[14px] leading-loose-jp">
+          タイトル、繰り返し方、通知する時刻を選ぶだけ。<br/>1分もかかりません。
+        </p>
+      </div>
+      <div class="nat-card">
+        <div class="flex items-baseline gap-3 mb-4">
+          <span class="en text-mintDeep text-[40px] font-bold leading-none">02</span>
+          <span class="text-[13px] text-inkSoft">STEP</span>
+        </div>
+        <h4 class="text-[18px] font-bold mb-3">通知を受け取る</h4>
+        <p class="text-inkSoft text-[14px] leading-loose-jp">
+          指定した日時に、端末がそっとお知らせ。アプリを開いていなくても大丈夫。
+        </p>
+      </div>
+      <div class="nat-card">
+        <div class="flex items-baseline gap-3 mb-4">
+          <span class="en text-mintDeep text-[40px] font-bold leading-none">03</span>
+          <span class="text-[13px] text-inkSoft">STEP</span>
+        </div>
+        <h4 class="text-[18px] font-bold mb-3">チェックして、完了</h4>
+        <p class="text-inkSoft text-[14px] leading-loose-jp">
+          終わったらチェックを入れるだけ。次の予定はアプリが覚えています。
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 5. FOR YOU ============================ -->
+<section id="foryou" class="py-24 md:py-28 bg-card/60 border-y border-mintDeep/10">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <div class="eyebrow mb-4">FOR YOU</div>
+      <h2 class="h-display text-[28px] sm:text-[36px] md:text-[40px]">
+        暮らしのリズムを、<br class="sm:hidden"/>整えたいすべての人へ。
+      </h2>
+    </div>
+
+    <div class="nat-card max-w-3xl mx-auto" style="padding:32px 40px;">
+      <ul class="divide-y divide-mintDeep/15">
+        <li class="check-row"><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>共働き・一人暮らしで、家事の抜け漏れを減らしたい方</span></li>
+        <li class="check-row"><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>月1回・季節ごとの掃除を、毎回忘れてしまう方</span></li>
+        <li class="check-row"><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>「第N曜日」のごみ収集を逃したくない方</span></li>
+        <li class="check-row"><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>ペットフードや日用品のストックを切らしがちな方</span></li>
+        <li class="check-row"><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#333" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>カレンダーアプリだと続かなかった方</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 6. TRUST ============================ -->
+<section id="trust" class="py-24 md:py-28 relative overflow-hidden">
+  <div class="blob" style="width:380px;height:380px; top:30%; right:-120px;"></div>
+  <div class="max-w-5xl mx-auto px-6 relative">
+    <div class="text-center mb-16">
+      <div class="eyebrow mb-4">PEACE OF MIND</div>
+      <h2 class="h-display text-[28px] sm:text-[36px] md:text-[40px]">シンプルだから、ずっと使える。</h2>
+    </div>
+
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="nat-card flex items-start gap-4">
+        <div class="w-9 h-9 rounded-full bg-mint flex-none grid place-items-center">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12a9 9 0 1018 0M3 12a9 9 0 019-9" stroke="#333" stroke-width="1.6" stroke-linecap="round"/><path d="M3 12l18 0" stroke="#333" stroke-width="1.6" stroke-dasharray="2 3"/></svg>
+        </div>
+        <div>
+          <div class="font-bold mb-1">完全オフライン動作</div>
+          <div class="text-[13px] text-inkSoft">通信なしで動きます</div>
+        </div>
+      </div>
+      <div class="nat-card flex items-start gap-4">
+        <div class="w-9 h-9 rounded-full bg-mint flex-none grid place-items-center">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 11V8a7 7 0 1114 0v3M5 11h14v9a1 1 0 01-1 1H6a1 1 0 01-1-1v-9z" stroke="#333" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="font-bold mb-1">端末内のみに保存</div>
+          <div class="text-[13px] text-inkSoft">クラウドにアップしません</div>
+        </div>
+      </div>
+      <div class="nat-card flex items-start gap-4">
+        <div class="w-9 h-9 rounded-full bg-mint flex-none grid place-items-center">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="4" stroke="#333" stroke-width="1.6"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke="#333" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <div class="font-bold mb-1">アカウント登録 不要</div>
+          <div class="text-[13px] text-inkSoft">ダウンロードしてすぐに</div>
+        </div>
+      </div>
+      <div class="nat-card flex items-start gap-4">
+        <div class="w-9 h-9 rounded-full bg-mint flex-none grid place-items-center">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.5 6.5L21 9l-5 4.5L17.5 21 12 17.5 6.5 21 8 13.5 3 9l6.5-.5L12 2z" stroke="#333" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="font-bold mb-1">基本機能はすべて無料</div>
+          <div class="text-[13px] text-inkSoft">広告は控えめなバナーのみ</div>
+        </div>
+      </div>
+      <div class="nat-card flex items-start gap-4">
+        <div class="w-9 h-9 rounded-full bg-mint flex-none grid place-items-center">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="6" y="3" width="12" height="18" rx="2" stroke="#333" stroke-width="1.6"/><path d="M10 18h4" stroke="#333" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <div class="font-bold mb-1">iOS / Android 対応</div>
+          <div class="text-[13px] text-inkSoft">同じ体験をどちらでも</div>
+        </div>
+      </div>
+      <div class="nat-card flex items-start gap-4">
+        <div class="w-9 h-9 rounded-full bg-mint flex-none grid place-items-center">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-7-4.5-7-11a4 4 0 017-2.6A4 4 0 0119 10c0 6.5-7 11-7 11z" stroke="#333" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="font-bold mb-1">やさしいデザイン</div>
+          <div class="text-[13px] text-inkSoft">毎日見ても疲れない</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 7. FINAL CTA ============================ -->
+<section id="download" class="relative py-24 md:py-32 overflow-hidden" style="background:#BBD6CC;">
+  <svg class="leaf absolute -top-4 left-10 opacity-60" width="180" height="120" viewBox="0 0 180 120" aria-hidden="true">
+    <path d="M10 90 Q60 20 170 28 Q100 40 80 105" stroke="#FDFCF9" fill="none" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M60 60 L70 72 M85 50 L94 64 M110 42 L118 56" stroke="#FDFCF9" fill="none" stroke-width="1.2" stroke-linecap="round"/>
+  </svg>
+  <svg class="leaf absolute -bottom-6 right-8 opacity-60" width="200" height="130" viewBox="0 0 200 130" aria-hidden="true">
+    <path d="M190 100 Q130 30 20 38 Q90 50 110 115" stroke="#FDFCF9" fill="none" stroke-width="1.4" stroke-linecap="round"/>
+  </svg>
+
+  <div class="max-w-3xl mx-auto px-6 text-center relative">
+    <h2 class="h-display text-[28px] sm:text-[38px] md:text-[46px]">
+      今日から、<br class="sm:hidden"/>"気づける暮らし"を。
+    </h2>
+    <p class="mt-8 text-[15px] sm:text-[16px] text-ink/85 leading-loose-jp max-w-2xl mx-auto">
+      換気扇のことも、ごみ出しのことも、洗剤のことも。<br/>
+      ぜんぶ、アプリが覚えておきます。<br/>
+      あなたは、その時間に手を動かすだけ。
+    </p>
+    <div class="mt-12 flex flex-wrap gap-4 justify-center">
+      <a href="#" class="store-badge">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.467 2.231-1.213 3.013-.812.866-2.121 1.532-3.196 1.447-.13-1.115.43-2.286 1.155-3.044C13.93 1.94 15.36 1.46 16.365 1.43zM20.4 17.32c-.547 1.26-.81 1.823-1.516 2.937-.985 1.553-2.373 3.487-4.093 3.502-1.527.014-1.92-.99-3.992-.978-2.072.011-2.504 1-4.032.986-1.72-.016-3.035-1.762-4.02-3.315C-.06 16.21-.353 11.43 1.346 8.88c1.208-1.814 3.114-2.875 4.905-2.875 1.823 0 2.97.999 4.475.999 1.46 0 2.35-1 4.458-1 1.594 0 3.283.867 4.487 2.367-3.945 2.16-3.305 7.79.73 8.949z"/></svg>
+        <div class="text-left">
+          <div class="sm en">Download on the</div>
+          <div class="lg en">App Store</div>
+        </div>
+      </a>
+      <a href="#" class="store-badge light">
+        <svg width="24" height="26" viewBox="0 0 512 512" fill="currentColor" aria-hidden="true"><path d="M325.3 234.3L104.7 32.4c-7.3-6.7-19-1.5-19 8.7v429.8c0 10.2 11.7 15.4 19 8.7l220.6-201.9c5.4-4.9 5.4-13.5 0-18.4z" opacity=".75"/></svg>
+        <div class="text-left">
+          <div class="sm en" style="color:#6B6B66">GET IT ON</div>
+          <div class="lg en">Google Play</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 8. FAQ ============================ -->
+<section id="faq" class="py-24 md:py-28">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="text-center mb-14">
+      <div class="eyebrow mb-4">FAQ</div>
+      <h2 class="h-display text-[28px] sm:text-[36px]">よくあるご質問。</h2>
+    </div>
+    <div class="space-y-3">
+      <details class="faq">
+        <summary>
+          <span class="q-mark en">Q</span>
+          <span>データはどこに保存されますか？</span>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="ans leading-loose-jp">
+          すべて端末内に保存されます。外部サーバーには一切送信されません。<br/>
+          現在は端末内保存のみのため、新端末で再登録をお願いします。
+        </div>
+      </details>
+      <details class="faq">
+        <summary>
+          <span class="q-mark en">Q</span>
+          <span>通知音は変えられますか？</span>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="ans leading-loose-jp">
+          端末の通知設定からアプリごとに変更できます。
+        </div>
+      </details>
+      <details class="faq">
+        <summary>
+          <span class="q-mark en">Q</span>
+          <span>広告はありますか？</span>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="ans leading-loose-jp">
+          画面下部に控えめなバナー広告が1つだけ表示されます。動画広告やポップアップはありません。
+        </div>
+      </details>
+      <details class="faq">
+        <summary>
+          <span class="q-mark en">Q</span>
+          <span>料金はかかりますか？</span>
+          <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </summary>
+        <div class="ans leading-loose-jp">
+          基本機能はすべて無料でお使いいただけます。アカウント登録も不要です。
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="border-t border-mintDeep/15 bg-card/40">
+  <div class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-8 items-center">
+    <div class="flex items-center gap-3">
+      <span class="logo-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#FDFCF9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <div>
+        <div class="font-bold text-[15px]">おそうじリマインダー</div>
+        <div class="text-[12px] text-inkSoft">developed by <span class="en font-medium">Pluma</span></div>
+      </div>
+    </div>
+    <div class="flex flex-wrap gap-6 md:justify-end text-[13px] text-inkSoft">
+      <a href="#" class="hover:text-ink">プライバシーポリシー</a>
+      <a href="#" class="hover:text-ink">お問い合わせ</a>
+      <a href="#faq" class="hover:text-ink">FAQ</a>
+    </div>
+  </div>
+  <div class="border-t border-mintDeep/15">
+    <div class="max-w-6xl mx-auto px-6 py-5 text-[12px] text-inkSoft flex flex-wrap justify-between gap-2">
+      <span class="en">© 2026 Pluma. All rights reserved.</span>
+      <span>つくる人にも、使う人にも、やさしく。</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
