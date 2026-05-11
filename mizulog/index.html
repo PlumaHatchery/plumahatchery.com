@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>みずログ — 家族の水分補給を、ひとつのアプリで。</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'none'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="description" content="みずログは、家族みんなの水分補給を1つのアプリで管理できるiPhoneアプリ。年齢と体重から1日の目標量を自動計算し、暑い日には自動で増量。アカウント登録不要、データはすべて端末内に保存。">
+<link rel="canonical" href="https://plumahatchery.com/mizulog/">
+<meta name="theme-color" content="#03A9F4">
+<meta name="robots" content="index,follow">
+
+<!-- Smart App Banner (iOS Safari) — TODO: replace app-id once Mizulog is on the App Store -->
+<!-- <meta name="apple-itunes-app" content="app-id=XXXXXXXXXX"> -->
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="みずログ">
+<meta property="og:url" content="https://plumahatchery.com/mizulog/">
+<meta property="og:title" content="みずログ — 家族の水分補給を、ひとつのアプリで。">
+<meta property="og:description" content="家族みんなの水分補給を、メンバーごとに記録。年齢と体重から自動で目標量を計算し、暑い日は自動で +10%。アカウント登録不要。">
+<meta property="og:locale" content="ja_JP">
+<!-- TODO: render and add og-image.png (1200x630) -->
+<!-- <meta property="og:image" content="https://plumahatchery.com/mizulog/og-image.png"> -->
+<!-- <meta property="og:image:width" content="1200"> -->
+<!-- <meta property="og:image:height" content="630"> -->
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="みずログ — 家族の水分補給を、ひとつのアプリで。">
+<meta name="twitter:description" content="家族みんなの水分補給を、メンバーごとに記録。自動目標計算と天気連動。アカウント登録不要、データは端末内のみ。">
+<!-- <meta name="twitter:image" content="https://plumahatchery.com/mizulog/og-image.png"> -->
+
+<!-- Structured data: MobileApplication -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "みずログ",
+  "alternateName": "Mizulog",
+  "description": "家族みんなの水分補給を、ひとつのアプリで管理できるiPhoneアプリ。メンバーごとの記録、自動目標計算、暑い日モード、やさしいリマインダーを搭載。アカウント登録不要、データは端末内のみに保存。",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "iOS",
+  "url": "https://plumahatchery.com/mizulog/",
+  "inLanguage": "ja",
+  "publisher": { "@type": "Organization", "name": "Pluma Hatchery" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ===== Nav ===== -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3c3.5 4 6 7.2 6 10.5a6 6 0 1 1-12 0C6 10.2 8.5 7 12 3z" fill="white"/></svg>
+      </span>
+      <span class="brand-name">みずログ</span>
+    </a>
+    <a class="nav-cta" href="#download">無料でダウンロード</a>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<header class="hero">
+  <svg class="hero-deco cloud-1" viewBox="0 0 100 50" fill="#B3E5FC" aria-hidden="true"><ellipse cx="30" cy="30" rx="22" ry="14"/><ellipse cx="55" cy="25" rx="26" ry="16"/><ellipse cx="78" cy="32" rx="18" ry="12"/></svg>
+  <svg class="hero-deco cloud-2" viewBox="0 0 100 50" fill="#B3E5FC" aria-hidden="true"><ellipse cx="30" cy="30" rx="22" ry="14"/><ellipse cx="55" cy="25" rx="26" ry="16"/><ellipse cx="78" cy="32" rx="18" ry="12"/></svg>
+  <svg class="hero-deco drop-1" viewBox="0 0 24 24" fill="#03A9F4" aria-hidden="true"><path d="M12 2c4 4.5 7 8.4 7 12.2A7 7 0 1 1 5 14.2C5 10.4 8 6.5 12 2z"/></svg>
+  <svg class="hero-deco drop-2" viewBox="0 0 24 24" fill="#0288D1" aria-hidden="true"><path d="M12 2c4 4.5 7 8.4 7 12.2A7 7 0 1 1 5 14.2C5 10.4 8 6.5 12 2z"/></svg>
+  <svg class="hero-deco sun" viewBox="0 0 60 60" fill="none" stroke="#FFC107" stroke-width="3" stroke-linecap="round" aria-hidden="true"><circle cx="30" cy="30" r="10" fill="#FFE082" stroke="none"/><g><line x1="30" y1="6" x2="30" y2="12"/><line x1="30" y1="48" x2="30" y2="54"/><line x1="6" y1="30" x2="12" y2="30"/><line x1="48" y1="30" x2="54" y2="30"/><line x1="13" y1="13" x2="17" y2="17"/><line x1="43" y1="43" x2="47" y2="47"/><line x1="47" y1="13" x2="43" y2="17"/><line x1="17" y1="43" x2="13" y2="47"/></g></svg>
+
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow"><span class="dot"></span>家族みんなの水分補給アプリ</span>
+      <h1>家族みんなの<br><span class="quote">「飲んだ？」</span>を、<br>ひとつのアプリで。</h1>
+      <p class="hero-sub">
+        子どもにも、自分にも、おじいちゃんおばあちゃんにも。<br>
+        年齢と体重から1日の目標量を自動計算、暑い日には自動で増量。<br>
+        もう「ちゃんと飲んだ？」と聞かなくていい。
+      </p>
+      <div class="cta-row">
+        <a class="store-btn" href="#download" aria-label="Download on the App Store">
+          <svg viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M16.5 1.5c.1 1.2-.4 2.4-1.1 3.3-.8.9-2.1 1.6-3.3 1.5-.1-1.2.5-2.4 1.2-3.2.8-.9 2.1-1.5 3.2-1.6zm3.7 17.6c-.7 1.5-1 2.2-1.9 3.5-1.2 1.8-3 4-5.1 4-1.9 0-2.4-1.2-5-1.2-2.6 0-3.1 1.3-5 1.2-2.2 0-3.8-2-5-3.8-3.5-5.1-3.9-11-1.7-14.2 1.5-2.2 4-3.5 6.3-3.5 2.4 0 3.9 1.3 5.9 1.3 1.9 0 3.1-1.3 5.9-1.3 2.1 0 4.3 1.1 5.9 3.1-5.2 2.8-4.4 10.2.7 10.9z"/></svg>
+          <span class="label"><small>Download on the</small><span>App Store</span></span>
+        </a>
+        <a class="store-btn" href="#download" aria-label="Get it on Google Play">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="gp1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00DDFF"/><stop offset="1" stop-color="#0094FF"/></linearGradient><linearGradient id="gp2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD600"/><stop offset="1" stop-color="#FF8E00"/></linearGradient><linearGradient id="gp3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF3A44"/><stop offset="1" stop-color="#C31162"/></linearGradient><linearGradient id="gp4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#32A071"/><stop offset="1" stop-color="#2DA771"/></linearGradient></defs><path d="M3.5 2.2c-.3.3-.5.8-.5 1.4v16.8c0 .6.2 1.1.5 1.4l9.4-9.4z" fill="url(#gp1)"/><path d="M16.7 15l-3.8-3.6 3.8-3.8 4.2 2.4c1.2.7 1.2 1.8 0 2.5z" fill="url(#gp2)"/><path d="M3.5 21.8c.4.4 1.1.5 1.9.1L16.7 15l-3.8-3.6z" fill="url(#gp3)"/><path d="M5.4 2.1c-.8-.4-1.5-.4-1.9.1l9.4 9.2L16.7 7.6 5.4 2.1z" fill="url(#gp4)"/></svg>
+          <span class="label"><small>GET IT ON</small><span>Google Play</span></span>
+        </a>
+      </div>
+      <div class="hero-meta">
+        <span><span class="check">✓</span>家族で使える</span>
+        <span><span class="check">✓</span>登録不要</span>
+        <span><span class="check">✓</span>無料</span>
+      </div>
+    </div>
+
+    <div class="hero-phone-wrap">
+      <div class="phone lg">
+        <div class="phone-screen"><img src="images/home-progress.png" alt="みずログのホーム画面"></div>
+      </div>
+
+      <div class="hero-badge">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 3c3.5 4 6 7.2 6 10.5a6 6 0 1 1-12 0C6 10.2 8.5 7 12 3z"/></svg>
+        </div>
+        <div>
+          <div>1,450 ml / 日</div>
+          <div class="v">あなたの目標量</div>
+        </div>
+      </div>
+      <div class="hero-badge b2">
+        <div class="ico">☀️</div>
+        <div>
+          <div>暑い日 +10%</div>
+          <div class="v">自動で増量中</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Sub-head 3 points ===== -->
+<section class="points">
+  <div class="wrap">
+    <div class="points-grid">
+      <div class="point">
+        <div class="point-ico">🥛</div>
+        <h3>メンバーごとに記録</h3>
+        <p>家族全員ぶんを、1つのアプリでまとめて。スワイプで切り替え。</p>
+      </div>
+      <div class="point">
+        <div class="point-ico">📐</div>
+        <h3>目標量を自動計算</h3>
+        <p>年齢・体重・運動量から、ひとりひとりに合った目標を自動で。</p>
+      </div>
+      <div class="point">
+        <div class="point-ico">☀️</div>
+        <h3>天気と連動</h3>
+        <p>暑い日は自動で +10%。アプリから「今日は多めに」と提案します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Audience ===== -->
+<section class="audience">
+  <div class="wrap center">
+    <div class="section-eyebrow">For Families</div>
+    <h2 class="section-title">こんな方のためのアプリです</h2>
+    <p class="section-lead">毎日の「ちゃんと飲んだ？」を、もう少しラクにしたい方へ。</p>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <span class="check-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>
+        <span>子どもがちゃんと水を飲めているか心配なパパ・ママ</span>
+      </div>
+      <div class="audience-card">
+        <span class="check-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>
+        <span>夏のあいだ、離れて暮らす親の熱中症が気になる方</span>
+      </div>
+      <div class="audience-card">
+        <span class="check-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>
+        <span>デスクワークで、つい何時間も飲み忘れてしまう方</span>
+      </div>
+      <div class="audience-card">
+        <span class="check-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span>
+        <span>家族の健康管理を、シンプルなアプリにまとめたい方</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Features ===== -->
+<section class="features">
+  <div class="wrap">
+
+    <div class="feature">
+      <div class="phone-col">
+        <div class="blob"></div>
+        <div class="phone"><div class="phone-screen"><img src="images/home.png" alt="みずログ ホーム画面"></div></div>
+      </div>
+      <div>
+        <div class="feature-num"><span class="badge">1</span>メンバー機能</div>
+        <h2>家族ぜんいん、<br>ひとつのアプリに。</h2>
+        <p>パパ、ママ、お子さん、おじいちゃん。名前と写真を登録するだけで、メンバーごとに記録できます。</p>
+        <p>ホーム画面のタブをスワイプするだけで、家族全員の今日の進捗がひと目で分かります。</p>
+      </div>
+    </div>
+
+    <div class="feature reverse">
+      <div class="phone-col">
+        <div class="blob"></div>
+        <div class="phone"><div class="phone-screen"><img src="images/stats.png" alt="メンバー統計画面"></div></div>
+      </div>
+      <div>
+        <div class="feature-num"><span class="badge">2</span>自動目標計算</div>
+        <h2>「うちの子、どれくらい<br>飲めばいいの？」に答えます。</h2>
+        <p>年齢と体重を入力するだけで、1日の目標量を自動で計算。年齢に合わせて目安を切り替え、運動した日はその分も加算します。</p>
+        <p>自分で目標値を決めたい方は、固定の数値で上書きもできます。</p>
+        <div class="note">※0歳のお子さまについては、安全のため自動で目標値を出していません。</div>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="phone-col">
+        <div class="blob"></div>
+        <div class="phone"><div class="phone-screen"><img src="images/hot-day.png" alt="暑い日カードが表示されたホーム画面"></div></div>
+      </div>
+      <div>
+        <div class="feature-num"><span class="badge">3</span>暑い日モード</div>
+        <h2>きょうが暑い日かどうかは、<br>アプリが教えてくれます。</h2>
+        <p>現在地の今日の最高気温を取得して、設定したしきい値を超えたら自動で目標量を +10% に。「今日は暑いから、いつもより多めに飲もうね」を、アプリ側から提案します。</p>
+        <div class="note">位置情報はバックグラウンドでは使いません。気温の取得は1日のはじめに1回だけです。</div>
+      </div>
+    </div>
+
+    <div class="feature reverse">
+      <div class="phone-col">
+        <div class="blob"></div>
+        <div class="phone"><div class="phone-screen"><img src="images/log-sheet.png" alt="飲んだ量を記録するシート"></div></div>
+      </div>
+      <div>
+        <div class="feature-num"><span class="badge">4</span>やさしいリマインダー</div>
+        <h2>生活リズムに合わせた通知で、<br>習慣に。</h2>
+        <p>朝起きる時間と通知の間隔を決めるだけ。あとはアプリが、その日のリマインドを自動で組み立てます。「夜寝ている間は通知しない」サイレント時間も設定できます。</p>
+        <p>今日いつ通知が来るか、設定画面でぜんぶ確認できるので安心です。</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== Privacy ===== -->
+<section class="privacy">
+  <div class="wrap">
+    <div class="privacy-inner">
+      <div class="privacy-shield">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+      </div>
+      <div class="section-eyebrow">Privacy First</div>
+      <h2 class="section-title">データは、あなたの端末の中だけに。</h2>
+      <p class="section-lead">アカウント登録もメールアドレスも要りません。家族の記録は、ぜんぶあなたの手元に。</p>
+      <ul class="privacy-list">
+        <li><span class="check-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span><span>記録データはすべて端末内に保存。クラウドに送信しません</span></li>
+        <li><span class="check-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span><span>アカウント登録不要、メールアドレスも聞きません</span></li>
+        <li><span class="check-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span><span>位置情報はバックグラウンドで取得しません</span></li>
+        <li><span class="check-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span><span>広告の追跡（IDFA）は許可しなくてもアプリは使えます</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Final CTA ===== -->
+<section class="final-cta" id="download">
+  <div class="wrap final-cta-inner">
+    <h2>きょうから、家族の<br>水分補給がラクになる。</h2>
+    <p class="sub">ダウンロードは無料です。</p>
+    <div class="cta-row center">
+      <a class="store-btn" href="#" aria-label="Download on the App Store">
+        <svg viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M16.5 1.5c.1 1.2-.4 2.4-1.1 3.3-.8.9-2.1 1.6-3.3 1.5-.1-1.2.5-2.4 1.2-3.2.8-.9 2.1-1.5 3.2-1.6zm3.7 17.6c-.7 1.5-1 2.2-1.9 3.5-1.2 1.8-3 4-5.1 4-1.9 0-2.4-1.2-5-1.2-2.6 0-3.1 1.3-5 1.2-2.2 0-3.8-2-5-3.8-3.5-5.1-3.9-11-1.7-14.2 1.5-2.2 4-3.5 6.3-3.5 2.4 0 3.9 1.3 5.9 1.3 1.9 0 3.1-1.3 5.9-1.3 2.1 0 4.3 1.1 5.9 3.1-5.2 2.8-4.4 10.2.7 10.9z"/></svg>
+        <span class="label"><small>Download on the</small><span>App Store</span></span>
+      </a>
+      <a class="store-btn" href="#" aria-label="Get it on Google Play">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="gp1b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00DDFF"/><stop offset="1" stop-color="#0094FF"/></linearGradient><linearGradient id="gp2b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD600"/><stop offset="1" stop-color="#FF8E00"/></linearGradient><linearGradient id="gp3b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF3A44"/><stop offset="1" stop-color="#C31162"/></linearGradient><linearGradient id="gp4b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#32A071"/><stop offset="1" stop-color="#2DA771"/></linearGradient></defs><path d="M3.5 2.2c-.3.3-.5.8-.5 1.4v16.8c0 .6.2 1.1.5 1.4l9.4-9.4z" fill="url(#gp1b)"/><path d="M16.7 15l-3.8-3.6 3.8-3.8 4.2 2.4c1.2.7 1.2 1.8 0 2.5z" fill="url(#gp2b)"/><path d="M3.5 21.8c.4.4 1.1.5 1.9.1L16.7 15l-3.8-3.6z" fill="url(#gp3b)"/><path d="M5.4 2.1c-.8-.4-1.5-.4-1.9.1l9.4 9.2L16.7 7.6 5.4 2.1z" fill="url(#gp4b)"/></svg>
+        <span class="label"><small>GET IT ON</small><span>Google Play</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3c3.5 4 6 7.2 6 10.5a6 6 0 1 1-12 0C6 10.2 8.5 7 12 3z" fill="white"/></svg></span>
+      <span class="foot-brand-name">みずログ</span>
+      <small>© 2026 Pluma Hatchery</small>
+    </div>
+    <div class="foot-links">
+      <a href="#">プライバシーポリシー</a>
+      <a href="#">利用規約</a>
+      <a href="#">お問い合わせ</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
