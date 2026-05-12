@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>おそうじリマインダー — 換気扇、いつ掃除した？</title>
+<title>おそうじリマインダー｜換気扇いつ掃除した？を解決する掃除・家事リマインダーアプリ</title>
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="description" content="月1回・季節ごとの掃除や、第3日曜の資源ごみまで、繰り返し家事をやさしくリマインド。通知・タスク一覧・予定カレンダー・在庫管理を1つに。完全オフライン、登録不要、データは端末内のみ。iOS / Android。">
+<meta name="description" content="換気扇・エアコンフィルター・排水溝の掃除、第3日曜の資源ごみ、洗剤のストックまで、繰り返し家事をやさしくリマインドするiPhoneアプリ。「毎月第3日曜」「14日ごと」のような柔軟な繰り返し設定、通知、予定カレンダー、在庫管理を1つに。完全オフライン、アカウント登録不要、データは端末内のみ。無料・iOS。">
+<meta name="keywords" content="掃除リマインダー,家事リマインダー,掃除アプリ,家事アプリ,換気扇 掃除 タイミング,ごみ収集 通知,第3日曜 ごみ,在庫管理 家庭,習慣化アプリ,iPhoneアプリ">
 <link rel="canonical" href="https://plumahatchery.com/osoujireminder/">
 <meta name="theme-color" content="#BBD6CC">
 <meta name="robots" content="index,follow">
@@ -17,19 +18,20 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="おそうじリマインダー">
 <meta property="og:url" content="https://plumahatchery.com/osoujireminder/">
-<meta property="og:title" content="おそうじリマインダー — 換気扇、いつ掃除した？">
-<meta property="og:description" content="月1回・季節ごとの掃除も、第N曜日のごみ収集も、洗剤のストックも。繰り返し家事をやさしくリマインドする、完全オフラインの無料アプリ。">
+<meta property="og:title" content="おそうじリマインダー｜換気扇いつ掃除した？を解決する掃除・家事リマインダーアプリ">
+<meta property="og:description" content="月1回・季節ごとの掃除も、第N曜日のごみ収集も、洗剤のストックも。繰り返し家事をやさしくリマインドする、完全オフラインの無料アプリ。柔軟な繰り返し・通知・予定カレンダー・在庫管理を1つに。">
 <meta property="og:locale" content="ja_JP">
-<!-- TODO: render and add og-image.png (1200x630) -->
-<!-- <meta property="og:image" content="https://plumahatchery.com/osoujireminder/og-image.png"> -->
-<!-- <meta property="og:image:width" content="1200"> -->
-<!-- <meta property="og:image:height" content="630"> -->
+<meta property="og:image" content="https://plumahatchery.com/osoujireminder/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="おそうじリマインダー — 換気扇、いつ掃除した？ 家事リマインダーアプリ">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="おそうじリマインダー — 換気扇、いつ掃除した？">
+<meta name="twitter:title" content="おそうじリマインダー｜換気扇いつ掃除した？を解決する家事リマインダーアプリ">
 <meta name="twitter:description" content="月1回・季節ごとの掃除も、第N曜日のごみ収集も、洗剤のストックも。繰り返し家事をやさしくリマインドする、完全オフラインの無料アプリ。">
-<!-- <meta name="twitter:image" content="https://plumahatchery.com/osoujireminder/og-image.png"> -->
+<meta name="twitter:image" content="https://plumahatchery.com/osoujireminder/og-image.png">
+<meta name="twitter:image:alt" content="おそうじリマインダー — 換気扇、いつ掃除した？">
 
 <!-- Structured data: MobileApplication -->
 <script type="application/ld+json">
@@ -42,10 +44,20 @@
   "applicationCategory": "LifestyleApplication",
   "operatingSystem": "iOS, Android",
   "url": "https://plumahatchery.com/osoujireminder/",
+  "image": "https://plumahatchery.com/osoujireminder/og-image.png",
   "downloadUrl": "https://apps.apple.com/jp/app/id6747059607",
   "inLanguage": "ja",
-  "publisher": { "@type": "Organization", "name": "Pluma Hatchery" },
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+  "publisher": { "@type": "Organization", "name": "Pluma Hatchery", "url": "https://plumahatchery.com/" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" },
+  "featureList": [
+    "柔軟な繰り返し設定（毎日／毎週／毎月／第N曜日／N日ごと）",
+    "通知（端末ローカル・オフライン動作・タイムゾーン対応）",
+    "今日のタスク一覧",
+    "予定カレンダー（月単位表示）",
+    "在庫管理（洗剤・スポンジ等のストック追跡）",
+    "完全オフライン動作",
+    "アカウント登録不要"
+  ]
 }
 </script>
 
@@ -56,11 +68,76 @@
   "@type": "FAQPage",
   "inLanguage": "ja",
   "mainEntity": [
+    { "@type": "Question", "name": "おそうじリマインダーはどんなアプリですか？", "acceptedAnswer": { "@type": "Answer", "text": "換気扇・エアコンフィルター・排水溝の掃除や、第3日曜の資源ごみ、洗剤のストックなど、繰り返し家事をやさしくリマインドするiPhoneアプリです。柔軟な繰り返し設定、通知、予定カレンダー、在庫管理を1つにまとめました。完全オフラインで動作し、アカウント登録は不要です。" } },
+    { "@type": "Question", "name": "「毎月第3日曜」のような繰り返しは設定できますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい、できます。毎日／毎週／毎月の基本指定に加え、「毎月 第3日曜日」「14日ごと」のような細かい指定にも対応しています。月によって日数が違っても、末日に自動でなじませる動作になります。" } },
     { "@type": "Question", "name": "データはどこに保存されますか？", "acceptedAnswer": { "@type": "Answer", "text": "すべて端末内に保存されます。外部サーバーには一切送信されません。現在は端末内保存のみのため、新端末では再登録をお願いします。" } },
     { "@type": "Question", "name": "通知音は変えられますか？", "acceptedAnswer": { "@type": "Answer", "text": "端末の通知設定からアプリごとに変更できます。" } },
     { "@type": "Question", "name": "広告はありますか？", "acceptedAnswer": { "@type": "Answer", "text": "画面下部に控えめなバナー広告が1つだけ表示されます。動画広告やポップアップはありません。" } },
-    { "@type": "Question", "name": "料金はかかりますか？", "acceptedAnswer": { "@type": "Answer", "text": "基本機能はすべて無料でお使いいただけます。アカウント登録も不要です。" } }
+    { "@type": "Question", "name": "料金はかかりますか？", "acceptedAnswer": { "@type": "Answer", "text": "基本機能はすべて無料でお使いいただけます。アカウント登録も不要です。" } },
+    { "@type": "Question", "name": "オフラインでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい、完全オフラインで動作します。通信なしでも通知が届き、機内モードでも問題なく使えます。端末再起動やタイムゾーン変更にも対応しています。" } }
   ]
+}
+</script>
+
+<!-- Structured data: HowTo (はじめかた) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "inLanguage": "ja",
+  "name": "おそうじリマインダーのはじめかた",
+  "description": "繰り返し家事のリマインダーを設定するまでの3ステップ。",
+  "totalTime": "PT1M",
+  "supply": [],
+  "tool": [],
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "タスクを追加",
+      "text": "タイトル、繰り返し方、通知する時刻を選ぶだけ。1分もかかりません。",
+      "url": "https://plumahatchery.com/osoujireminder/#steps"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "通知を受け取る",
+      "text": "指定した日時に、端末がそっとお知らせ。アプリを開いていなくても大丈夫。",
+      "url": "https://plumahatchery.com/osoujireminder/#steps"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "チェックして、完了",
+      "text": "終わったらチェックを入れるだけ。次の予定はアプリが覚えています。",
+      "url": "https://plumahatchery.com/osoujireminder/#steps"
+    }
+  ]
+}
+</script>
+
+<!-- Structured data: BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Pluma Hatchery", "item": "https://plumahatchery.com/" },
+    { "@type": "ListItem", "position": 2, "name": "おそうじリマインダー", "item": "https://plumahatchery.com/osoujireminder/" }
+  ]
+}
+</script>
+
+<!-- Structured data: WebSite + SoftwareApplication publisher -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "おそうじリマインダー",
+  "alternateName": "Osouji Reminder",
+  "url": "https://plumahatchery.com/osoujireminder/",
+  "inLanguage": "ja",
+  "publisher": { "@type": "Organization", "name": "Pluma Hatchery", "url": "https://plumahatchery.com/" }
 }
 </script>
 
@@ -273,7 +350,7 @@
       <div class="absolute inset-0 -m-12 rounded-full bg-mint/40 blur-3xl"></div>
       <div class="phone phone-lg relative">
         <div class="phone-screen">
-          <img src="images/screenshot-home.png" alt="今日のタスク画面" />
+          <img src="images/screenshot-home.png" alt="おそうじリマインダーの今日のタスク画面 — 換気扇の掃除や資源ごみ収集など、今日やる家事タスクが一覧表示されている" width="712" height="1498" fetchpriority="high" />
         </div>
       </div>
       <div class="hidden md:flex absolute -left-24 top-1/3 items-center gap-3 bg-card px-4 py-3 rounded-2xl shadow-soft border border-mintDeep/15">
@@ -360,7 +437,7 @@
           </p>
         </div>
         <div class="feat-art flex justify-center">
-          <div class="phone"><div class="phone-screen"><img src="images/screenshot-task-edit.png" alt="タスク編集画面"/></div></div>
+          <div class="phone"><div class="phone-screen"><img src="images/screenshot-task-edit.png" alt="タスクの繰り返し設定画面 — 毎月第3日曜日や14日ごとなど、柔軟な繰り返しパターンを設定できる" width="712" height="1498" loading="lazy"/></div></div>
         </div>
       </div>
 
@@ -415,7 +492,7 @@
           </p>
         </div>
         <div class="feat-art flex justify-center">
-          <div class="phone"><div class="phone-screen"><img src="images/screenshot-tasks-list.png" alt="タスク一覧画面"/></div></div>
+          <div class="phone"><div class="phone-screen"><img src="images/screenshot-tasks-list.png" alt="今日のタスク一覧画面 — 今日予定されている掃除タスクだけが並び、チェックして完了するシンプルなUI" width="712" height="1498" loading="lazy"/></div></div>
         </div>
       </div>
 
@@ -479,7 +556,7 @@
           </p>
         </div>
         <div class="feat-art flex justify-center">
-          <div class="phone"><div class="phone-screen"><img src="images/screenshot-inventory.png" alt="在庫一覧画面"/></div></div>
+          <div class="phone"><div class="phone-screen"><img src="images/screenshot-inventory.png" alt="洗剤・スポンジなどの在庫管理画面 — よく使う日用品の残量がひと目で分かり、切らす前に補充できる" width="712" height="1498" loading="lazy"/></div></div>
         </div>
       </div>
 
