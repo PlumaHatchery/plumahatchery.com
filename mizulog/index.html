@@ -3,13 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>みずログ — 家族の水分補給を、ひとつのアプリで。</title>
+<title>みずログ｜家族みんなの水分補給を管理する記録・リマインダーアプリ</title>
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'none'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="description" content="みずログは、家族みんなの水分補給を1つのアプリで管理できるiPhoneアプリ。年齢と体重から1日の目標量を自動計算し、暑い日には自動で増量。アカウント登録不要、データはすべて端末内に保存。">
+<meta name="description" content="家族みんなの水分補給を1つのアプリで管理できるiPhoneアプリ「みずログ」。年齢・体重から1日の目標量を自動計算、暑い日は自動で +10% 増量、メンバーごとに飲水を記録。子ども・自分・離れて暮らす親の熱中症対策にも。アカウント登録不要、データは端末内のみ。無料・iOS。">
+<meta name="keywords" content="水分補給 アプリ,飲水記録,家族 健康管理,熱中症対策 アプリ,目標 水分量 計算,子ども 水分補給,高齢者 熱中症,iPhoneアプリ">
 <link rel="canonical" href="https://plumahatchery.com/mizulog/">
 <meta name="theme-color" content="#03A9F4">
 <meta name="robots" content="index,follow">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="images/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
 
 <!-- Smart App Banner (iOS Safari) -->
 <meta name="apple-itunes-app" content="app-id=6752614948">
@@ -18,19 +22,20 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="みずログ">
 <meta property="og:url" content="https://plumahatchery.com/mizulog/">
-<meta property="og:title" content="みずログ — 家族の水分補給を、ひとつのアプリで。">
-<meta property="og:description" content="家族みんなの水分補給を、メンバーごとに記録。年齢と体重から自動で目標量を計算し、暑い日は自動で +10%。アカウント登録不要。">
+<meta property="og:title" content="みずログ｜家族みんなの水分補給を管理する記録・リマインダーアプリ">
+<meta property="og:description" content="家族みんなの水分補給を、メンバーごとに記録。年齢と体重から自動で目標量を計算し、暑い日は自動で +10%。離れて暮らす親の熱中症対策にも。アカウント登録不要、データは端末内のみ。">
 <meta property="og:locale" content="ja_JP">
-<!-- TODO: render and add og-image.png (1200x630) -->
-<!-- <meta property="og:image" content="https://plumahatchery.com/mizulog/og-image.png"> -->
-<!-- <meta property="og:image:width" content="1200"> -->
-<!-- <meta property="og:image:height" content="630"> -->
+<meta property="og:image" content="https://plumahatchery.com/mizulog/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="みずログ — 家族みんなの水分補給を、ひとつのアプリで。">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="みずログ — 家族の水分補給を、ひとつのアプリで。">
-<meta name="twitter:description" content="家族みんなの水分補給を、メンバーごとに記録。自動目標計算と天気連動。アカウント登録不要、データは端末内のみ。">
-<!-- <meta name="twitter:image" content="https://plumahatchery.com/mizulog/og-image.png"> -->
+<meta name="twitter:title" content="みずログ｜家族みんなの水分補給を管理する記録・リマインダーアプリ">
+<meta name="twitter:description" content="家族みんなの水分補給を、メンバーごとに記録。自動目標計算と天気連動で熱中症対策にも。アカウント登録不要、データは端末内のみ。">
+<meta name="twitter:image" content="https://plumahatchery.com/mizulog/og-image.png">
+<meta name="twitter:image:alt" content="みずログ — 家族みんなの水分補給を、ひとつのアプリで。">
 
 <!-- Structured data: MobileApplication -->
 <script type="application/ld+json">
@@ -43,10 +48,44 @@
   "applicationCategory": "HealthApplication",
   "operatingSystem": "iOS",
   "url": "https://plumahatchery.com/mizulog/",
+  "image": "https://plumahatchery.com/mizulog/og-image.png",
   "downloadUrl": "https://apps.apple.com/jp/app/id6752614948",
   "inLanguage": "ja",
-  "publisher": { "@type": "Organization", "name": "Pluma Hatchery" },
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+  "publisher": { "@type": "Organization", "name": "Pluma Hatchery", "url": "https://plumahatchery.com/" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" },
+  "featureList": [
+    "メンバーごとに飲水を記録（家族みんな分を1つのアプリで）",
+    "年齢・体重から1日の目標水分量を自動計算",
+    "天気と連動して暑い日は自動で +10% 増量",
+    "やさしいリマインダー通知（朝起きる時間に合わせて）",
+    "完全オフライン動作・アカウント登録不要",
+    "データはすべて端末内に保存"
+  ]
+}
+</script>
+
+<!-- Structured data: BreadcrumbList -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Pluma Hatchery", "item": "https://plumahatchery.com/" },
+    { "@type": "ListItem", "position": 2, "name": "みずログ", "item": "https://plumahatchery.com/mizulog/" }
+  ]
+}
+</script>
+
+<!-- Structured data: WebSite -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "みずログ",
+  "alternateName": "Mizulog",
+  "url": "https://plumahatchery.com/mizulog/",
+  "inLanguage": "ja",
+  "publisher": { "@type": "Organization", "name": "Pluma Hatchery", "url": "https://plumahatchery.com/" }
 }
 </script>
 
@@ -61,9 +100,7 @@
 <nav class="nav">
   <div class="nav-inner">
     <a class="brand" href="#">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 3c3.5 4 6 7.2 6 10.5a6 6 0 1 1-12 0C6 10.2 8.5 7 12 3z" fill="white"/></svg>
-      </span>
+      <span class="brand-mark" aria-label="みずログ アイコン"></span>
       <span class="brand-name">みずログ</span>
     </a>
     <a class="nav-cta" href="#download">無料でダウンロード</a>
@@ -106,7 +143,7 @@
 
     <div class="hero-phone-wrap">
       <div class="phone lg">
-        <div class="phone-screen"><img src="images/home-progress.png" alt="みずログのホーム画面"></div>
+        <div class="phone-screen"><img src="images/home-progress.png" alt="みずログのホーム画面 — 今日の進捗バーと家族メンバーごとの飲水記録が表示されている" width="1284" height="2778" fetchpriority="high"></div>
       </div>
 
       <div class="hero-badge">
@@ -186,7 +223,7 @@
     <div class="feature">
       <div class="phone-col">
         <div class="blob"></div>
-        <div class="phone"><div class="phone-screen"><img src="images/home.png" alt="みずログ ホーム画面"></div></div>
+        <div class="phone"><div class="phone-screen"><img src="images/home.png" alt="家族メンバー切替のホーム画面 — タブをスワイプして家族全員の今日の進捗が分かる" width="1284" height="2778" loading="lazy"></div></div>
       </div>
       <div>
         <div class="feature-num"><span class="badge">1</span>メンバー機能</div>
@@ -199,7 +236,7 @@
     <div class="feature reverse">
       <div class="phone-col">
         <div class="blob"></div>
-        <div class="phone"><div class="phone-screen"><img src="images/stats.png" alt="メンバー統計画面"></div></div>
+        <div class="phone"><div class="phone-screen"><img src="images/stats.png" alt="自動目標計算の設定画面 — 年齢と体重から1日の目標水分量を自動算出" width="1284" height="2778" loading="lazy"></div></div>
       </div>
       <div>
         <div class="feature-num"><span class="badge">2</span>自動目標計算</div>
@@ -213,7 +250,7 @@
     <div class="feature">
       <div class="phone-col">
         <div class="blob"></div>
-        <div class="phone"><div class="phone-screen"><img src="images/hot-day.png" alt="暑い日カードが表示されたホーム画面"></div></div>
+        <div class="phone"><div class="phone-screen"><img src="images/hot-day.png" alt="暑い日モードのホーム画面 — 最高気温がしきい値超で自動的に目標量を +10% に増量" width="1284" height="2778" loading="lazy"></div></div>
       </div>
       <div>
         <div class="feature-num"><span class="badge">3</span>暑い日モード</div>
@@ -226,7 +263,7 @@
     <div class="feature reverse">
       <div class="phone-col">
         <div class="blob"></div>
-        <div class="phone"><div class="phone-screen"><img src="images/log-sheet.png" alt="飲んだ量を記録するシート"></div></div>
+        <div class="phone"><div class="phone-screen"><img src="images/log-sheet.png" alt="飲水量を記録するシート — リマインダー通知時刻も生活リズムに合わせて設定できる" width="1284" height="2778" loading="lazy"></div></div>
       </div>
       <div>
         <div class="feature-num"><span class="badge">4</span>やさしいリマインダー</div>
@@ -291,11 +328,12 @@
   <div class="foot-divider"><hr></div>
   <div class="foot-inner">
     <div class="foot-brand">
-      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3c3.5 4 6 7.2 6 10.5a6 6 0 1 1-12 0C6 10.2 8.5 7 12 3z" fill="white"/></svg></span>
+      <span class="brand-mark" aria-label="みずログ アイコン"></span>
       <span class="foot-brand-name">みずログ</span>
       <small>© 2026 Pluma Hatchery</small>
     </div>
     <div class="foot-links">
+      <a href="https://plumahatchery.github.io/mizulog-info/" target="_blank" rel="noopener">プライバシーポリシー</a>
       <a href="mailto:pluma.hatchery@gmail.com">お問い合わせ</a>
     </div>
   </div>

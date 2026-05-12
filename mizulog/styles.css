@@ -54,12 +54,11 @@ a { color: inherit; text-decoration: none; }
 }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
 .brand-mark {
-  width: 32px; height: 32px; border-radius: 9px;
-  background: linear-gradient(160deg, var(--primary) 0%, var(--primary-deep) 100%);
-  display: grid; place-items: center;
+  width: 32px; height: 32px; border-radius: 8px;
+  background: url('images/apple-touch-icon.png') center/cover;
+  display: inline-block; flex: none;
   box-shadow: 0 4px 10px rgba(2,136,209,.32);
 }
-.brand-mark svg { width: 18px; height: 18px; }
 .brand-name { font-size: 17px; letter-spacing: .02em; }
 .nav-cta {
   display: inline-flex; align-items: center; gap: 6px;
