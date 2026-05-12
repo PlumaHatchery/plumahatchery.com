@@ -266,12 +266,12 @@
   /* section labels */
   .eyebrow { font-family: Inter; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color:#A4C3B2; font-weight:600; }
 
-  /* logo */
+  /* logo — uses the real App Store icon */
   .logo-mark {
-    width:36px; height:36px; border-radius:12px;
-    background: linear-gradient(150deg,#BBD6CC,#A4C3B2);
-    display:grid; place-items:center; color:#FDFCF9;
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.4), 0 6px 14px -8px rgba(164,195,178,0.7);
+    width:36px; height:36px; border-radius:10px;
+    background: url('images/apple-touch-icon.png') center/cover;
+    display:inline-block; flex: none;
+    box-shadow: 0 6px 14px -8px rgba(164,195,178,0.7);
   }
 </style>
 </head>
@@ -281,9 +281,7 @@
 <header class="sticky top-0 z-40 backdrop-blur bg-base/80 border-b border-mintDeep/15">
   <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center gap-6">
     <a href="#top" class="flex items-center gap-3">
-      <span class="logo-mark">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#FDFCF9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
+      <span class="logo-mark" aria-label="おそうじリマインダー アイコン"></span>
       <span class="font-bold text-[15px] tracking-wide">おそうじリマインダー</span>
     </a>
     <div class="hidden md:flex items-center gap-7 ml-auto text-[14px] text-inkSoft">
@@ -464,9 +462,7 @@
               <div class="absolute left-3 right-3" style="top:46%;">
                 <div class="bg-card/90 backdrop-blur rounded-2xl p-3 shadow-card border border-card/60">
                   <div class="flex items-center gap-2 text-[10px] text-inkSoft mb-1.5">
-                    <span class="logo-mark" style="width:18px;height:18px;border-radius:5px;">
-                      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#FDFCF9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </span>
+                    <span class="logo-mark" style="width:18px;height:18px;border-radius:5px;" aria-hidden="true"></span>
                     <span class="font-medium text-ink">おそうじリマインダー</span>
                     <span class="ml-auto en">now</span>
                   </div>
@@ -796,9 +792,7 @@
   </div>
   <div class="max-w-6xl mx-auto px-6 py-6 grid md:grid-cols-2 gap-8 items-center border-t border-mintDeep/15">
     <div class="flex items-center gap-3">
-      <span class="logo-mark">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#FDFCF9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
+      <span class="logo-mark" aria-label="おそうじリマインダー アイコン"></span>
       <div>
         <div class="font-bold text-[15px]">おそうじリマインダー</div>
         <div class="text-[12px] text-inkSoft">developed by <span class="en font-medium">Pluma</span></div>
