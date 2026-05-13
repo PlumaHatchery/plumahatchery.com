@@ -136,6 +136,17 @@ a { color: inherit; text-decoration: none; }
 .store-btn .label small { font-size: 10px; opacity: .85; font-weight: 400; white-space: nowrap; }
 .store-btn .label span { font-size: 17px; font-weight: 700; letter-spacing: .01em; white-space: nowrap; }
 
+/* "Coming soon" non-interactive variant for Android (until the Play release) */
+.store-btn-soon {
+  background: transparent; color: var(--text-sub);
+  border: 1.5px dashed rgba(2,136,209,.35);
+  box-shadow: none; cursor: default;
+}
+.store-btn-soon:hover { transform: none; box-shadow: none; }
+.store-btn-soon svg { opacity: .55; }
+.store-btn-soon .label small { opacity: .7; }
+.store-btn-soon .label span { color: var(--text); }
+
 .hero-meta {
   display: flex; gap: 22px; margin-top: 28px;
   color: var(--text-sub); font-size: 13px; flex-wrap: wrap;
