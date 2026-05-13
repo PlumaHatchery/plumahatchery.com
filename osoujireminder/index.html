@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>おそうじリマインダー｜換気扇いつ掃除した？を解決する掃除・家事リマインダーアプリ</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="description" content="換気扇・エアコンフィルター・排水溝の掃除、第3日曜の資源ごみ、洗剤のストックまで、繰り返し家事をやさしくリマインドするiPhoneアプリ。「毎月第3日曜」「14日ごと」のような柔軟な繰り返し設定、通知、予定カレンダー、在庫管理を1つに。完全オフライン、アカウント登録不要、データは端末内のみ。無料・iOS。">
 <meta name="keywords" content="掃除リマインダー,家事リマインダー,掃除アプリ,家事アプリ,換気扇 掃除 タイミング,ごみ収集 通知,第3日曜 ごみ,在庫管理 家庭,習慣化アプリ,iPhoneアプリ">
@@ -146,134 +147,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          base:    "#F7F6F2",
-          card:    "#FDFCF9",
-          mint:    "#BBD6CC",
-          mintDeep:"#A4C3B2",
-          mintSoft:"#E4EEE9",
-          ink:     "#333333",
-          inkSoft: "#6B6B66",
-          accent:  "#E86A5B",
-        },
-        fontFamily: {
-          sans: ['"Noto Sans JP"', 'Inter', 'system-ui', 'sans-serif'],
-          en:   ['Inter', '"Noto Sans JP"', 'sans-serif'],
-        },
-        boxShadow: {
-          soft:  "0 12px 40px -16px rgba(164,195,178,0.55), 0 2px 6px -2px rgba(51,51,51,0.06)",
-          card:  "0 1px 2px rgba(51,51,51,0.04), 0 8px 24px -16px rgba(51,51,51,0.08)",
-          phone: "0 40px 80px -30px rgba(122,158,140,0.45), 0 10px 30px -10px rgba(51,51,51,0.08)",
-        },
-        borderRadius: { '2xl': '20px', '3xl': '24px' },
-      },
-    },
-  };
-</script>
-<style>
-  html { scroll-behavior: smooth; }
-  body { font-family: 'Noto Sans JP','Inter',system-ui,sans-serif; color:#333; background:#F7F6F2; line-height:1.75; -webkit-font-smoothing:antialiased; }
-  .en { font-family: 'Inter','Noto Sans JP',sans-serif; }
-  .leading-loose-jp { line-height: 1.85; }
-
-  /* phone frame */
-  .phone {
-    position: relative;
-    width: 280px;
-    border-radius: 44px;
-    padding: 10px;
-    background: linear-gradient(160deg,#EFEEEA,#DCDCD6 60%,#CFCEC8);
-    box-shadow: 0 40px 80px -30px rgba(122,158,140,0.45), 0 10px 30px -10px rgba(51,51,51,0.08), inset 0 0 0 1.5px rgba(255,255,255,0.6);
-  }
-  .phone::before {
-    content:""; position:absolute; left:50%; top:18px; transform:translateX(-50%);
-    width:90px; height:22px; background:#2a2a2a; border-radius:14px; z-index:2; opacity:.85;
-  }
-  .phone-screen {
-    border-radius: 34px; overflow:hidden; background:#BBD6CC; aspect-ratio: 712 / 1498;
-    box-shadow: inset 0 0 0 1px rgba(51,51,51,0.05);
-  }
-  .phone-screen img { display:block; width:100%; height:100%; object-fit:cover; }
-  .phone-lg { width: 320px; }
-  .phone-sm { width: 240px; }
-
-  /* badges */
-  .store-badge {
-    display:inline-flex; align-items:center; gap:12px;
-    padding: 14px 22px; border-radius: 16px;
-    background:#333; color:#FDFCF9; text-decoration:none;
-    transition: transform .15s ease, box-shadow .15s ease;
-    box-shadow: 0 8px 20px -10px rgba(51,51,51,0.4);
-    min-width: 220px;
-  }
-  .store-badge:hover { transform: translateY(-1px); box-shadow: 0 14px 28px -12px rgba(51,51,51,0.45); }
-  .store-badge.light { background:#FDFCF9; color:#333; border:1.5px solid #333; }
-  .store-badge .sm { font-size: 11px; letter-spacing:.04em; opacity:.85; line-height:1; }
-  .store-badge .lg { font-size: 18px; font-weight:600; line-height:1.1; letter-spacing:.01em; }
-
-  /* soft blobs */
-  .blob {
-    position: absolute; border-radius: 50%; filter: blur(8px); opacity:.55; pointer-events:none;
-    background: radial-gradient(closest-side, #BBD6CC, rgba(187,214,204,0));
-  }
-
-  /* leaf decoration */
-  .leaf path { stroke:#A4C3B2; fill:none; stroke-width:1.2; stroke-linecap:round; stroke-linejoin:round; }
-
-  /* card */
-  .nat-card {
-    background:#FDFCF9; border-radius: 22px; padding: 28px;
-    box-shadow: 0 1px 2px rgba(51,51,51,0.04), 0 12px 28px -22px rgba(51,51,51,0.18);
-    border: 1px solid rgba(164,195,178,0.18);
-  }
-
-  /* checklist */
-  .check-row { display:flex; align-items:flex-start; gap:14px; padding: 10px 0; }
-  .check-row .ic {
-    flex:none; width:26px; height:26px; border-radius:50%;
-    background:#BBD6CC; color:#333; display:grid; place-items:center; margin-top:3px;
-  }
-
-  /* FAQ */
-  details.faq { background:#FDFCF9; border-radius:18px; border:1px solid rgba(164,195,178,0.25); padding: 4px 6px; transition: box-shadow .2s; }
-  details.faq[open] { box-shadow: 0 10px 24px -18px rgba(51,51,51,0.18); }
-  details.faq > summary {
-    list-style:none; cursor:pointer; padding: 18px 20px; display:flex; gap:16px; align-items:flex-start; font-weight:500;
-  }
-  details.faq > summary::-webkit-details-marker { display:none; }
-  details.faq .q-mark { flex:none; width:28px; height:28px; border-radius:50%; background:#E4EEE9; color:#A4C3B2; display:grid; place-items:center; font-weight:700; font-family:Inter; font-size:14px; }
-  details.faq[open] .q-mark { background:#A4C3B2; color:#FDFCF9; }
-  details.faq .chev { margin-left:auto; transition: transform .2s; color:#A4C3B2; }
-  details.faq[open] .chev { transform: rotate(180deg); }
-  details.faq .ans { padding: 0 20px 20px 64px; color:#555; }
-
-  /* feature alt rows */
-  .feat-row { display:grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items:center; }
-  .feat-row.reverse > .feat-art { order: 2; }
-  @media (max-width: 880px) {
-    .feat-row { grid-template-columns: 1fr; gap: 32px; }
-    .feat-row.reverse > .feat-art { order: 0; }
-  }
-
-  /* hero headline */
-  .h-display { font-weight:700; letter-spacing: 0.005em; line-height: 1.55; }
-
-  /* section labels */
-  .eyebrow { font-family: Inter; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color:#A4C3B2; font-weight:600; }
-
-  /* logo — uses the real App Store icon */
-  .logo-mark {
-    width:36px; height:36px; border-radius:10px;
-    background: url('images/apple-touch-icon.png') center/cover;
-    display:inline-block; flex: none;
-    box-shadow: 0 6px 14px -8px rgba(164,195,178,0.7);
-  }
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body class="font-sans text-ink">
 
