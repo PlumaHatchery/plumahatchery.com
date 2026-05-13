@@ -69,6 +69,21 @@ a { color: inherit; text-decoration: none; }
 .nav-cta:hover { opacity: .92; }
 @media (max-width: 640px) { .nav-cta { display: none; } }
 
+/* Language switcher (i18n) */
+.nav-lang { display: flex; gap: 2px; align-items: center; }
+.nav-lang a {
+  padding: 5px 9px; border-radius: 8px;
+  font-size: 12px; font-weight: 600; color: var(--text-sub);
+  text-decoration: none; line-height: 1; letter-spacing: .03em;
+}
+.nav-lang a:hover { background: var(--primary-tint); color: var(--primary-deep); }
+.nav-lang a.active {
+  background: var(--primary); color: white;
+}
+@media (max-width: 480px) {
+  .nav-lang a { padding: 4px 6px; font-size: 11px; }
+}
+
 /* ===== Hero ===== */
 .hero {
   position: relative;
