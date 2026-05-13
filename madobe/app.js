@@ -246,7 +246,8 @@ const I18N = {
   }
 };
 
-let currentLang = 'en';
+// Detect locale from <html lang="..."> (per-URL i18n: /madobe/ = en, /madobe/ja/ = ja)
+let currentLang = (document.documentElement.lang || 'en').toLowerCase().startsWith('ja') ? 'jp' : 'en';
 let currentFilter = 'all';
 
 function getDefaultSeasonFilter() {
@@ -349,10 +350,11 @@ function updateHeroScreenshots() {
     ['hero-shot-2', 'P01'],
     ['hero-shot-3', 'P02'],
   ];
+  // Absolute path so /madobe/ and /madobe/ja/ both resolve to the same image dir
   shots.forEach(([id, base]) => {
     const img = document.getElementById(id);
     if (!img) return;
-    img.src = 'images/' + base + '-' + locale + '.png';
+    img.src = '/madobe/images/' + base + '-' + locale + '.png';
   });
 }
 
@@ -767,9 +769,8 @@ function initFadeObserver() {
 }
 
 function initEventHandlers() {
-  document.querySelectorAll('.lang-btn').forEach((button) => {
-    button.addEventListener('click', () => setLang(button.dataset.lang));
-  });
+  // Lang switching is now navigation-based (per-URL i18n). The lang-btn
+  // elements are <a> anchors that route to the sibling locale URL.
 
   document.querySelectorAll('.season-tab').forEach((button) => {
     button.addEventListener('click', () => filterSeasons(button.dataset.season));
