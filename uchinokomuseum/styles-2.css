@@ -305,19 +305,50 @@ footer {
   .section-eyebrow { font-size: 11px; letter-spacing: 0.24em; }
   .section-body { font-size: 14.5px; line-height: 1.9; }
 
-  /* Hero phones — show only ONE phone on mobile. The 2-phone overlap
-     was the main overflow culprit (rotated bbox + flex side-by-side
-     >= viewport width). One phone reads cleaner on a small screen. */
-  .hero-phones { min-height: 440px; }
-  .hero-phones .phone:nth-child(1) { display: none; }
+  /* Hero phones — turn into a horizontal swipe carousel on mobile.
+     Both phones visible, swipeable, snap to center. Page itself
+     does not scroll horizontally — only this container does. */
+  .hero-phones {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 24px;
+    min-height: 480px;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Extend to viewport edges (cancel wrap's 20px padding) */
+    margin-inline: -20px;
+    /* Center each 230px slide in the viewport on snap */
+    padding-inline: calc(50vw - 115px);
+    /* Vertical breathing room so phone shadow isn't clipped */
+    padding-block: 20px;
+  }
+  .hero-phones::-webkit-scrollbar { display: none; }
+
+  /* Both phones visible as slides, no rotation, no offset translate */
+  .hero-phones .phone {
+    flex-shrink: 0;
+    scroll-snap-align: center;
+    width: 230px;
+    transform: none;
+    margin: 0;
+    position: relative;
+  }
+  /* Reset desktop nth-child overrides */
+  .hero-phones .phone:nth-child(1),
   .hero-phones .phone:nth-child(2) {
+    display: block;
     width: 230px;
     transform: none;
   }
-  .hero-phones .phone:nth-child(2)::before {
+  .hero-phones .phone::before {
     width: 80px; height: 20px; top: 14px;
   }
-  /* Decorative SVGs hidden on mobile */
+
+  /* Decorative SVGs hidden in carousel layout */
   .hero-phones .leaf,
   .hero-phones .button-deco { display: none; }
 
