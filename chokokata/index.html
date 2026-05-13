@@ -4,6 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>ちょこかた｜片付け、ちょこまるとなら続く。｜片付け習慣化アプリ</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests" />
 <meta name="description" content="片付けが苦手な人のための習慣化アプリ「ちょこかた」。あざらしの相棒・ちょこまるが、3分で終わる『ちょこっとサイズ』の片付けミッションを毎日1つ提案。完璧主義で挫折してきた人にも続く、ゆる〜い片付け習慣を。無料・iOS。" />
 <meta name="keywords" content="片付け アプリ,片付け 習慣化,断捨離 アプリ,1日1ミッション,片付けが続かない,ゆる片付け,お片付け iPhone,かわいい あざらし アプリ,完璧主義 片付け,iPhoneアプリ" />
 <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -134,218 +135,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap" rel="stylesheet" />
-<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="styles.css" />
+<script src="app.js" defer></script>
 
-<style>
-/* ─── Tokens ───────────────────────────────────── */
-:root{
-  --bg-base: #FAF3E5;
-  --bg-soft: #FFF8EA;
-  --bg-card: #F0E5D0;
-  --accent: #C4A582;
-  --accent-deep: #A88862;
-  --coral: #F4A5A0;
-  --coral-soft: #FAD4D0;
-  --mustard: #E8B266;
-  --sage: #B8C9A8;
-  --sky: #B5C9DB;
-  --text: #6B4E3D;
-  --text-soft: #8B7361;
-  --text-faint: #B5A18C;
-  --line: #E4D5BC;
-  --line-soft: #EFE3CB;
-}
-
-html, body { background: var(--bg-base); color: var(--text); }
-html { scroll-behavior: smooth; }
-body {
-  font-family: "Zen Maru Gothic", "M PLUS Rounded 1c", -apple-system, BlinkMacSystemFont, "Hiragino Sans", system-ui, sans-serif;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-h1, h2, h3, h4 { font-family: "Zen Maru Gothic", "M PLUS Rounded 1c", system-ui, sans-serif; font-weight: 500; letter-spacing: 0.02em; }
-
-/* Subtle paper grain */
-.paper-grain {
-  background-color: var(--bg-base);
-  background-image:
-    radial-gradient(rgba(196, 165, 130, 0.08) 1px, transparent 1px),
-    radial-gradient(rgba(196, 165, 130, 0.05) 1px, transparent 1px);
-  background-size: 24px 24px, 36px 36px;
-  background-position: 0 0, 12px 18px;
-}
-
-/* Containers */
-.container-narrow { max-width: 720px; margin: 0 auto; padding: 0 20px; }
-.container-mid    { max-width: 960px; margin: 0 auto; padding: 0 20px; }
-
-/* Soft cards */
-.card-soft {
-  background: #fffaf0;
-  border: 1px solid var(--line-soft);
-  border-radius: 22px;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.8) inset, 0 8px 24px -16px rgba(107, 78, 61, 0.18);
-}
-
-/* Pill */
-.pill {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 6px 14px; border-radius: 999px;
-  background: var(--bg-soft); border: 1px solid var(--line);
-  color: var(--text-soft); font-size: 13px;
-}
-
-/* Speech bubble */
-.bubble {
-  position: relative;
-  background: #fffaf0;
-  border: 2px solid var(--text);
-  border-radius: 22px;
-  padding: 12px 18px;
-  color: var(--text);
-  font-weight: 500;
-  display: inline-block;
-  line-height: 1.5;
-  font-size: 14px;
-}
-.bubble::after {
-  content: "";
-  position: absolute;
-  width: 14px; height: 14px;
-  background: #fffaf0;
-  border-right: 2px solid var(--text);
-  border-bottom: 2px solid var(--text);
-  transform: rotate(45deg);
-}
-.bubble.tail-bl::after { left: 22px;  bottom: -9px; }
-.bubble.tail-br::after { right: 22px; bottom: -9px; }
-.bubble.tail-tl::after { left: 22px;  top: -9px;    transform: rotate(225deg); }
-.bubble.tail-tr::after { right: 22px; top: -9px;    transform: rotate(225deg); }
-.bubble.tail-l::after  { left: -9px;  top: 50%;     transform: translateY(-50%) rotate(135deg); }
-.bubble.tail-r::after  { right: -9px; top: 50%;     transform: translateY(-50%) rotate(-45deg);  }
-
-/* Reveal / pop animations */
-.reveal { opacity: 0; transform: translateY(14px); transition: opacity 700ms ease, transform 700ms ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.pop { opacity: 0; transform: scale(0.7) translateY(8px); transition: opacity 600ms cubic-bezier(.34,1.56,.64,1), transform 600ms cubic-bezier(.34,1.56,.64,1); }
-.pop.visible { opacity: 1; transform: scale(1) translateY(0); }
-
-/* Bob animation */
-@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-.bob { animation: bob 4s ease-in-out infinite; }
-
-/* Wiggle animation */
-@keyframes wiggle { 0%,100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
-.wiggle { animation: wiggle 3.5s ease-in-out infinite; }
-
-/* Dotted border for diary frames */
-.dashed-frame {
-  background: #fffaf0;
-  border: 2px dashed var(--accent);
-  border-radius: 18px;
-}
-
-/* Section heading */
-.section-eyebrow {
-  font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--accent-deep); font-weight: 600;
-}
-
-/* App Store button */
-.btn-store {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: var(--text); color: #fff8ea;
-  padding: 14px 22px; border-radius: 16px;
-  font-weight: 500; font-size: 15px;
-  box-shadow: 0 8px 24px -10px rgba(107,78,61,0.5);
-  transition: transform 160ms ease, box-shadow 160ms ease;
-  text-decoration: none;
-}
-.btn-store:hover { transform: translateY(-1px); box-shadow: 0 12px 28px -10px rgba(107,78,61,0.55); }
-.btn-store:active { transform: translateY(0); }
-.btn-store-large { padding: 18px 30px; font-size: 17px; border-radius: 20px; }
-.btn-store-soon {
-  background: transparent; color: var(--text-soft);
-  border: 1.5px dashed rgba(107,78,61,0.35);
-  box-shadow: none; cursor: default;
-}
-.btn-store-soon:hover { transform: none; box-shadow: none; }
-.btn-store-soon .soon-label { display: flex; flex-direction: column; line-height: 1.15; text-align: left; }
-.btn-store-soon .soon-label small { font-size: 11px; opacity: 0.7; font-weight: 400; }
-.btn-store-soon .soon-label span { font-size: 15px; font-weight: 500; }
-.cta-row {
-  display: inline-flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: center;
-}
-
-/* Phone frame */
-.phone-frame {
-  width: 100%; max-width: 280px;
-  aspect-ratio: 9 / 19.5;
-  border-radius: 38px;
-  background: #2a2018;
-  padding: 8px;
-  box-shadow: 0 30px 60px -30px rgba(107,78,61,0.45), 0 8px 20px -10px rgba(107,78,61,0.3);
-  position: relative;
-}
-.phone-screen { width: 100%; height: 100%; background: var(--bg-soft); border-radius: 32px; overflow: hidden; position: relative; }
-.phone-notch { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 90px; height: 22px; background: #2a2018; border-radius: 0 0 14px 14px; z-index: 5; }
-
-/* App mockup */
-.app-screen { padding: 30px 14px 14px; height: 100%; display: flex; flex-direction: column; gap: 10px; }
-.app-status { display: flex; justify-content: space-between; align-items: center; padding: 0 8px; font-size: 10px; color: var(--text); font-weight: 600; }
-
-/* FAQ accordion */
-.faq-item summary {
-  list-style: none; cursor: pointer;
-  padding: 18px 22px; border-radius: 16px;
-  display: flex; justify-content: space-between; align-items: center; gap: 12px;
-  background: #fffaf0; border: 1px solid var(--line-soft);
-  font-weight: 500; color: var(--text);
-  transition: background 200ms;
-}
-.faq-item summary::-webkit-details-marker { display: none; }
-.faq-item[open] summary { background: var(--bg-soft); border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
-.faq-item .faq-body { padding: 18px 22px 22px; background: var(--bg-soft); border: 1px solid var(--line-soft); border-top: 0; border-bottom-left-radius: 16px; border-bottom-right-radius: 16px; color: var(--text-soft); line-height: 1.7; font-size: 14px; }
-.faq-arrow { transition: transform 240ms; color: var(--accent); flex: 0 0 auto; }
-.faq-item[open] .faq-arrow { transform: rotate(180deg); }
-
-/* Stars */
-.stars { color: var(--mustard); letter-spacing: 1px; font-size: 16px; }
-
-/* Hand-drawn underline */
-.hand-underline { position: relative; display: inline-block; }
-.hand-underline::after {
-  content: ""; position: absolute; left: -4%; right: -4%; bottom: -6px;
-  height: 8px;
-  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 8' preserveAspectRatio='none'><path d='M2 5 Q 50 1 100 4 T 198 4' fill='none' stroke='%23F4A5A0' stroke-width='3' stroke-linecap='round'/></svg>") center/100% 100% no-repeat;
-  pointer-events: none;
-}
-
-/* Checklist */
-.check-item { display: flex; align-items: flex-start; gap: 14px; padding: 16px 18px; background: #fffaf0; border: 1px solid var(--line-soft); border-radius: 16px; }
-.check-mark { flex: 0 0 auto; width: 26px; height: 26px; border-radius: 8px; background: var(--coral-soft); color: var(--text); display: grid; place-items: center; font-weight: 700; font-size: 14px; }
-
-/* Feature number */
-.num-circle { width: 40px; height: 40px; border-radius: 50%; background: var(--accent); color: #fff8ea; display: grid; place-items: center; font-weight: 600; font-size: 18px; font-family: "M PLUS Rounded 1c", system-ui; flex: 0 0 auto; }
-
-/* Ribbon */
-.ribbon-badge { display: inline-flex; align-items: center; justify-content: center; background: var(--sage); color: #fff; font-size: 10px; font-weight: 600; padding: 4px 10px; border-radius: 999px; }
-
-/* Avatar */
-.avatar-silhouette { width: 28px; height: 28px; border-radius: 50%; background: var(--mustard); display: grid; place-items: center; flex: 0 0 auto; overflow: hidden; }
-.avatar-silhouette img { width: 100%; height: 100%; object-fit: cover; }
-
-/* hide on small */
-@media (max-width: 640px) { .hide-sm { display: none; } }
-
-/* Feature flip on md+ */
-@media (min-width: 768px) {
-  .feature-flip > .feature-text  { order: 2; }
-  .feature-flip > .feature-visual{ order: 1; }
-}
-</style>
 </head>
 <body class="paper-grain" style="overflow-x: hidden;">
 
@@ -431,8 +223,8 @@ h1, h2, h3, h4 { font-family: "Zen Maru Gothic", "M PLUS Rounded 1c", system-ui,
 
     <!-- Feature 01 -->
     <div class="container-mid">
-      <div class="md:grid md:grid-cols-2 md:gap-10 md:items-center">
-        <div class="feature-text text-center md:text-left">
+      <div class="md-grid md-grid-cols-2 md-gap-10 md-items-center">
+        <div class="feature-text text-center md-text-left">
           <div style="display: inline-flex; align-items: center; gap: 12px; color: var(--accent-deep);">
             <span style="font-size: 32px; font-weight: 600; font-family: 'M PLUS Rounded 1c', system-ui; color: var(--accent);">01</span>
             <span style="height: 1px; width: 40px; background: var(--accent); display: inline-block;"></span>
@@ -496,8 +288,8 @@ h1, h2, h3, h4 { font-family: "Zen Maru Gothic", "M PLUS Rounded 1c", system-ui,
 
     <!-- Feature 02 (flipped) -->
     <div class="container-mid">
-      <div class="md:grid md:grid-cols-2 md:gap-10 md:items-center feature-flip">
-        <div class="feature-text text-center md:text-left">
+      <div class="md-grid md-grid-cols-2 md-gap-10 md-items-center feature-flip">
+        <div class="feature-text text-center md-text-left">
           <div style="display: inline-flex; align-items: center; gap: 12px; color: var(--accent-deep);">
             <span style="font-size: 32px; font-weight: 600; font-family: 'M PLUS Rounded 1c', system-ui; color: var(--accent);">02</span>
             <span style="height: 1px; width: 40px; background: var(--accent); display: inline-block;"></span>
@@ -595,8 +387,8 @@ h1, h2, h3, h4 { font-family: "Zen Maru Gothic", "M PLUS Rounded 1c", system-ui,
 
     <!-- Feature 03 -->
     <div class="container-mid">
-      <div class="md:grid md:grid-cols-2 md:gap-10 md:items-center">
-        <div class="feature-text text-center md:text-left">
+      <div class="md-grid md-grid-cols-2 md-gap-10 md-items-center">
+        <div class="feature-text text-center md-text-left">
           <div style="display: inline-flex; align-items: center; gap: 12px; color: var(--accent-deep);">
             <span style="font-size: 32px; font-weight: 600; font-family: 'M PLUS Rounded 1c', system-ui; color: var(--accent);">03</span>
             <span style="height: 1px; width: 40px; background: var(--accent); display: inline-block;"></span>
@@ -908,31 +700,6 @@ h1, h2, h3, h4 { font-family: "Zen Maru Gothic", "M PLUS Rounded 1c", system-ui,
   </div>
 </footer>
 
-<script>
-  // Reveal-on-scroll (gentle fade-up)
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const delay = parseInt(entry.target.dataset.delay || '0', 10);
-        setTimeout(() => entry.target.classList.add('visible'), delay);
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
-
-  // Pop-in for speech bubbles
-  const popObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const delay = parseInt(entry.target.dataset.delay || '0', 10);
-        setTimeout(() => entry.target.classList.add('visible'), delay);
-        popObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.2 });
-  document.querySelectorAll('.pop').forEach((el) => popObserver.observe(el));
-</script>
 
 </body>
 </html>
