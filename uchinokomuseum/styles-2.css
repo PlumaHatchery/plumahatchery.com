@@ -269,7 +269,7 @@ footer {
   .wrap { padding: 0 20px; }
 
   /* Clip rotated content so it can't push horizontal scroll */
-  .hero, .showcase, .final-cta { overflow: hidden; }
+  .hero, .why, .features, .how, .showcase, .faq, .final-cta { overflow: clip; }
 
   /* Header */
   .site-header .inner { padding: 12px 18px; }
@@ -285,12 +285,19 @@ footer {
   .cta-meta { gap: 10px; font-size: 11px; }
   .btn { padding: 12px 22px; font-size: 13px; }
 
-  /* Hero phones — shrink for tablet/medium phones */
+  /* Hero phones — show only ONE phone on mobile. The 2-phone overlap
+     was the main overflow culprit (rotated bbox + flex side-by-side
+     >= viewport width). One phone reads cleaner on a small screen. */
   .hero-phones { min-height: 440px; }
-  .hero-phones .phone:nth-child(1) { width: 150px; transform: rotate(-6deg) translate(-8px, 6px); }
-  .hero-phones .phone:nth-child(2) { width: 170px; transform: translate(8px, -6px); }
-  .hero-phones .phone::before { width: 60px; height: 16px; top: 10px; }
-  /* Decorative SVGs hidden on mobile — they were the main overflow culprit */
+  .hero-phones .phone:nth-child(1) { display: none; }
+  .hero-phones .phone:nth-child(2) {
+    width: 230px;
+    transform: none;
+  }
+  .hero-phones .phone:nth-child(2)::before {
+    width: 80px; height: 20px; top: 14px;
+  }
+  /* Decorative SVGs hidden on mobile */
   .hero-phones .leaf,
   .hero-phones .button-deco { display: none; }
 
@@ -333,15 +340,3 @@ footer {
   .foot-nav { flex-wrap: wrap; gap: 14px 18px; }
 }
 
-/* === Small phones (≤480px) — show only 1 hero phone, larger ====== */
-@media (max-width: 480px) {
-  .hero-phones { min-height: 420px; }
-  .hero-phones .phone:nth-child(1) { display: none; }
-  .hero-phones .phone:nth-child(2) {
-    width: 220px;
-    transform: none;
-  }
-  .hero-phones .phone:nth-child(2)::before {
-    width: 80px; height: 20px; top: 14px;
-  }
-}
