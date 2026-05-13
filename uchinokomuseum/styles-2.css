@@ -268,6 +268,9 @@ footer {
   section { padding: 64px 0; }
   .wrap { padding: 0 20px; }
 
+  /* Clip rotated content so it can't push horizontal scroll */
+  .hero, .showcase, .final-cta { overflow: hidden; }
+
   /* Header */
   .site-header .inner { padding: 12px 18px; }
   .brand-name { font-size: 15px; }
@@ -282,13 +285,14 @@ footer {
   .cta-meta { gap: 10px; font-size: 11px; }
   .btn { padding: 12px 22px; font-size: 13px; }
 
-  /* Hero phones — shrink so 2 fit in a 375px viewport */
+  /* Hero phones — shrink for tablet/medium phones */
   .hero-phones { min-height: 440px; }
-  .hero-phones .phone:nth-child(1) { width: 140px; transform: rotate(-6deg) translate(-10px, 6px); }
-  .hero-phones .phone:nth-child(2) { width: 160px; transform: translate(10px, -6px); }
+  .hero-phones .phone:nth-child(1) { width: 150px; transform: rotate(-6deg) translate(-8px, 6px); }
+  .hero-phones .phone:nth-child(2) { width: 170px; transform: translate(8px, -6px); }
   .hero-phones .phone::before { width: 60px; height: 16px; top: 10px; }
-  .hero-phones .leaf { width: 140px; right: -10px; top: 0; }
-  .hero-phones .button-deco { width: 44px; left: -4px; bottom: 8px; }
+  /* Decorative SVGs hidden on mobile — they were the main overflow culprit */
+  .hero-phones .leaf,
+  .hero-phones .button-deco { display: none; }
 
   /* Why */
   .why { padding-bottom: 60px; }
@@ -305,13 +309,13 @@ footer {
   .how { padding: 80px 0; }
   .step { padding: 32px 22px 28px; }
 
-  /* Showcase / PDF stack — shrink cards & center middle one */
+  /* Showcase / PDF stack — shrink cards, reduce rotation, center middle one */
   .showcase { padding: 90px 0 70px; }
   .pdf-stack { height: 480px; }
   .pdf-card { width: 200px; }
-  .pdf-card.a { left: 0; top: 20px; }
-  .pdf-card.b { left: 50%; transform: translateX(-50%) rotate(2deg); top: 0; }
-  .pdf-card.c { left: auto; right: 0; top: 60px; }
+  .pdf-card.a { left: 4px; top: 20px; transform: rotate(-4deg); }
+  .pdf-card.b { left: 50%; transform: translateX(-50%) rotate(1deg); top: 0; }
+  .pdf-card.c { left: auto; right: 4px; top: 60px; transform: rotate(4deg); }
 
   /* FAQ */
   .faq { padding: 80px 0 60px; }
@@ -327,4 +331,17 @@ footer {
   /* Footer */
   .foot-inner { flex-direction: column; align-items: flex-start; gap: 18px; }
   .foot-nav { flex-wrap: wrap; gap: 14px 18px; }
+}
+
+/* === Small phones (≤480px) — show only 1 hero phone, larger ====== */
+@media (max-width: 480px) {
+  .hero-phones { min-height: 420px; }
+  .hero-phones .phone:nth-child(1) { display: none; }
+  .hero-phones .phone:nth-child(2) {
+    width: 220px;
+    transform: none;
+  }
+  .hero-phones .phone:nth-child(2)::before {
+    width: 80px; height: 20px; top: 14px;
+  }
 }
