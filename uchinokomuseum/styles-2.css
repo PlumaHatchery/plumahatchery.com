@@ -272,18 +272,38 @@ footer {
   .hero, .why, .features, .how, .showcase, .faq, .final-cta { overflow: clip; }
 
   /* Header */
-  .site-header .inner { padding: 12px 18px; }
-  .brand-name { font-size: 15px; }
-  .brand-sub { font-size: 10px; letter-spacing: 0.12em; }
-  .nav .cta { padding: 8px 14px; font-size: 13px; }
+  .site-header .inner { padding: 12px 16px; gap: 12px; }
+  .brand { gap: 10px; min-width: 0; }
+  .brand-mark { width: 34px; height: 34px; }
+  .brand-mark svg { width: 22px; height: 22px; }
+  .brand-name { font-size: 14px; letter-spacing: 0.06em; }
+  .brand-sub { font-size: 9.5px; letter-spacing: 0.1em; }
+  .nav .cta { padding: 7px 14px; font-size: 12.5px; }
 
   /* Hero */
   .hero { padding: 40px 0 30px; }
-  h1.display { font-size: clamp(28px, 8vw, 38px); line-height: 1.4; margin: 18px 0 16px; }
+  .eyebrow { font-size: 11px; letter-spacing: 0.16em; padding: 6px 14px; }
+  h1.display {
+    font-size: clamp(24px, 7vw, 32px);
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    margin: 16px 0 14px;
+  }
   h1.display em::after { height: 6px; bottom: 0; }
-  .lede { font-size: 15px; line-height: 1.85; }
-  .cta-meta { gap: 10px; font-size: 11px; }
-  .btn { padding: 12px 22px; font-size: 13px; }
+  .lede { font-size: 14.5px; line-height: 1.85; }
+  .cta-row { gap: 10px; }
+  .cta-meta { gap: 8px 14px; font-size: 11px; }
+  .btn { padding: 12px 20px; font-size: 13px; gap: 8px; }
+
+  /* All section titles — keep within viewport width on narrow phones */
+  h2.section-title {
+    font-size: clamp(20px, 5.6vw, 26px);
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+    margin: 10px 0 18px;
+  }
+  .section-eyebrow { font-size: 11px; letter-spacing: 0.24em; }
+  .section-body { font-size: 14.5px; line-height: 1.9; }
 
   /* Hero phones — show only ONE phone on mobile. The 2-phone overlap
      was the main overflow culprit (rotated bbox + flex side-by-side
@@ -333,6 +353,13 @@ footer {
   /* Final CTA */
   .final-cta { padding: 80px 0 60px; }
   .final-cta-inner { padding: 50px 22px; border-radius: 24px; }
+  .final-cta-inner h2 {
+    font-size: clamp(22px, 6vw, 28px);
+    line-height: 1.55;
+    letter-spacing: 0.02em;
+  }
+  .final-cta-inner p { font-size: 14.5px; margin-bottom: 28px; }
+  .final-cta-inner .cta-row { justify-content: center; }
   .final-cta-inner .deco { display: none; }
 
   /* Footer */
