@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>うちのこミュージアム — 服にも、ありがとうを。</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Zen+Old+Mincho:wght@500;600;700&display=swap" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="styles-2.css" />
+</head>
+<body>
+<div class="paper-bg" aria-hidden="true"></div>
+
+<!-- Reusable SVG defs -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="ico-leaf" viewBox="0 0 200 200">
+      <g fill="none" stroke="#8aa07a" stroke-width="1.4" stroke-linecap="round">
+        <path d="M40 160 C 60 120, 100 60, 170 30" />
+        <path d="M70 130 Q 90 110 110 115 Q 110 95 95 80" fill="#c5d2b6" fill-opacity="0.5" stroke-opacity="0.6" />
+        <path d="M95 110 Q 115 90 135 95 Q 135 75 120 60" fill="#c5d2b6" fill-opacity="0.5" stroke-opacity="0.6" />
+        <path d="M120 90 Q 140 70 160 75 Q 160 55 145 40" fill="#c5d2b6" fill-opacity="0.5" stroke-opacity="0.6" />
+      </g>
+    </symbol>
+    <symbol id="ico-button" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="42" fill="#e8d6b4" stroke="#c4a576" stroke-width="1.5"/>
+      <circle cx="50" cy="50" r="30" fill="none" stroke="#c4a576" stroke-width="0.8"/>
+      <circle cx="40" cy="45" r="3" fill="#9a7d4a"/>
+      <circle cx="60" cy="45" r="3" fill="#9a7d4a"/>
+      <circle cx="40" cy="58" r="3" fill="#9a7d4a"/>
+      <circle cx="60" cy="58" r="3" fill="#9a7d4a"/>
+    </symbol>
+    <symbol id="ico-horse" viewBox="0 0 40 40">
+      <g fill="#9a6e36" stroke="#6e4a1f" stroke-width="0.6">
+        <path d="M28 14 Q30 11 27 9 L24 11 L21 10 Q15 10 12 14 L8 14 Q6 17 9 19 L9 24 Q9 27 12 27 L13 27 L13 30 L15 30 L15 27 L23 27 L23 30 L25 30 L25 27 Q28 27 28 24 Z"/>
+        <path d="M9 24 Q11 26 14 23 Q17 26 22 23 Q25 26 27 24" fill="none" stroke-linecap="round" stroke="#6e4a1f" stroke-width="0.7"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- =================== HEADER =================== -->
+<header class="site-header">
+  <div class="inner">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 40 40"><use href="#ico-horse"/></svg>
+      </div>
+      <div>
+        <div class="brand-name">うちのこミュージアム</div>
+        <div class="brand-sub">UCHINOKO MUSEUM</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="#features">できること</a>
+      <a href="#how">使い方</a>
+      <a href="#voices">みんなの声</a>
+      <a href="#faq">よくある質問</a>
+      <a href="#download" class="cta">ダウンロード</a>
+    </nav>
+  </div>
+</header>
+
+<!-- =================== HERO =================== -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy reveal">
+      <span class="eyebrow"><span class="dot"></span>赤ちゃんの服を、思い出として残すアプリ</span>
+      <h1 class="display">小さくなった服にも、<br/><em>ありがとう</em>を。</h1>
+      <p class="lede">
+        あっという間に着られなくなる、赤ちゃんの服。<br/>
+        写真と一緒に、その日のことを一言添えて。<br/>
+        うちのこだけの、やわらかな思い出の美術館。
+      </p>
+      <div class="cta-row">
+        <a href="#download" class="btn btn-primary">
+          App Storeで入手
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.04c-.03-2.7 2.2-4 2.3-4.06-1.26-1.83-3.2-2.08-3.89-2.11-1.66-.17-3.24.98-4.08.98-.85 0-2.15-.95-3.53-.93-1.82.03-3.5 1.06-4.43 2.69-1.89 3.28-.48 8.13 1.36 10.79.9 1.3 1.97 2.76 3.37 2.71 1.36-.05 1.87-.88 3.51-.88 1.64 0 2.1.88 3.54.85 1.46-.03 2.39-1.32 3.28-2.63 1.04-1.51 1.46-2.97 1.48-3.05-.03-.01-2.84-1.09-2.87-4.34zM14.6 4.13c.75-.91 1.25-2.17 1.11-3.43-1.08.04-2.39.72-3.16 1.62-.69.8-1.3 2.08-1.13 3.32 1.2.1 2.43-.62 3.18-1.51z"/></svg>
+        </a>
+        <a href="#features" class="btn btn-ghost">
+          できることを見る
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="cta-meta">
+        <span class="star">★★★★★</span>
+        <span>App Store 4.8 / 1,200+ レビュー</span>
+        <span>iPhone / iPad 対応</span>
+      </div>
+    </div>
+
+    <div class="hero-phones reveal">
+      <svg class="leaf" viewBox="0 0 200 200" aria-hidden="true"><use href="#ico-leaf"/></svg>
+      <div class="phone">
+        <div class="phone-screen">
+          <img src="images/list-baby.png" alt="うちのこミュージアム — 服の一覧" />
+        </div>
+      </div>
+      <div class="phone">
+        <div class="phone-screen">
+          <img src="images/detail-romper.png" alt="うちのこミュージアム — 服の詳細" />
+        </div>
+      </div>
+      <svg class="button-deco" viewBox="0 0 100 100" aria-hidden="true"><use href="#ico-button"/></svg>
+    </div>
+  </div>
+</section>
+
+<!-- =================== WHY =================== -->
+<section class="why">
+  <div class="wrap why-inner">
+    <div class="why-copy reveal">
+      <div class="section-eyebrow">WHY</div>
+      <h2 class="section-title">「もう着られないね」<br/>その一言を、もう少しだけ、<br/>大切にしたくて。</h2>
+      <div class="section-body">
+        <p>0歳の50cmから、1歳の80cmへ。気づけば引き出しの中身は、まるごと入れ替わっている。サイズアウトした小さな服は、もったいなくて捨てられない。でも、しまい込んだまま色あせていく。</p>
+        <p>あの日着ていた服を見ると、ふっと、声が、においが、笑顔がよみがえる。そんな瞬間を、これから何度でも取り出せるように。<strong>うちのこミュージアム</strong>は、服を「もの」ではなく「思い出」として残すための、小さなアプリです。</p>
+      </div>
+    </div>
+
+    <div class="why-img-wrap reveal">
+      <div class="stack">
+        <div style="background-image:url('images/detail-dress.png'); background-position: top center;"></div>
+        <div style="background-image:url('images/detail-skirt.png'); background-position: top center;"></div>
+        <div style="background-image:url('images/list-toddler.png'); background-position: top center;"></div>
+        <div style="background-image:url('images/list-baby.png'); background-position: top center;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FEATURES =================== -->
+<section class="features" id="features">
+  <div class="wrap">
+    <div class="features-head reveal">
+      <div class="section-eyebrow">FEATURES</div>
+      <h2 class="section-title">うちのこミュージアムで、できる3つのこと</h2>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card reveal">
+        <div class="phone" style="width:240px;">
+          <div class="phone-screen"><img src="images/list-baby.png" alt="服を集める" /></div>
+        </div>
+        <div class="feature-num">01 — COLLECT</div>
+        <h3>服を、写真ごと集める</h3>
+        <p>サイズ・着ていた時期・たたんだ服とお気に入りの一枚。<br/>うちのこのコレクションが、自然と出来上がっていきます。</p>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="phone" style="width:240px;">
+          <div class="phone-screen"><img src="images/detail-romper.png" alt="思い出を綴る" /></div>
+        </div>
+        <div class="feature-num">02 — WRITE</div>
+        <h3>一言、添えて綴る</h3>
+        <p>「思い出の一言」と「ありがとうの言葉」。<br/>短くてもいい。あの頃のあなたへ、手紙を残すような気持ちで。</p>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="phone" style="width:240px;">
+          <div class="phone-screen"><img src="images/pdf-romper.png" alt="PDFで残す" /></div>
+        </div>
+        <div class="feature-num">03 — KEEP</div>
+        <h3>1冊のPDFにして残す</h3>
+        <p>つくった思い出は、いつでもPDFに。<br/>印刷して、お子さんが大きくなった日に、そっと渡せます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== HOW =================== -->
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="how-head reveal">
+      <div class="section-eyebrow">HOW IT WORKS</div>
+      <h2 class="section-title">むずかしいことは、ありません。</h2>
+    </div>
+
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="5" width="18" height="14" rx="2"/>
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M9 5l1-2h4l1 2"/>
+          </svg>
+        </div>
+        <h3>写真を撮る</h3>
+        <p>畳んだ服と、それを着ていた我が子。2枚並べてアルバムに。</p>
+      </div>
+
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 7h14M4 12h10M4 17h7"/>
+            <path d="M17 14l4 4-4 4M21 18h-4"/>
+          </svg>
+        </div>
+        <h3>一言、書き残す</h3>
+        <p>サイズ・着用時期・思い出の一言。あとは「ありがとう」を、ひとこと。</p>
+      </div>
+
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/>
+            <path d="M14 3v6h6"/>
+            <path d="M9 14h6M9 17h4"/>
+          </svg>
+        </div>
+        <h3>PDFで、しまう</h3>
+        <p>気が向いたら、まとめてPDFに。印刷しても、データのままでも。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== SHOWCASE (PDF) =================== -->
+<section class="showcase">
+  <div class="wrap showcase-grid">
+    <div class="pdf-stack reveal">
+      <div class="pdf-card a"><img src="images/pdf-dress.png" alt="PDFプレビュー — セレモニードレス" /></div>
+      <div class="pdf-card b"><img src="images/pdf-smile.png" alt="PDFプレビュー — 笑顔の時間に寄り添って" /></div>
+      <div class="pdf-card c"><img src="images/pdf-border.png" alt="PDFプレビュー — いつものボーダー" /></div>
+    </div>
+
+    <div class="showcase-copy reveal">
+      <div class="section-eyebrow">KEEP IT FOREVER</div>
+      <h2 class="section-title">「未来のあなた」に、<br/>渡せるアルバムを。</h2>
+      <div class="section-body">
+        <p>あなたが赤ちゃんだった頃に着ていた服。<br/>その服のサイズ、その服での思い出、そして「ありがとう」の言葉。</p>
+        <p>すべて 1 ページずつ、1 冊の PDF にまとめられます。<br/>うちのこが大きくなった日。成人式の日。結婚式の前夜。<br/>そっと差し出して、一緒に読み返してください。</p>
+      </div>
+      <div class="cta-row">
+        <a href="#download" class="btn btn-ghost">
+          PDFサンプルを見る
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== VOICES =================== -->
+<section class="voices" id="voices">
+  <div class="wrap">
+    <div class="voice-head reveal">
+      <div class="section-eyebrow">VOICES</div>
+      <h2 class="section-title">使ってくださった方からの声</h2>
+    </div>
+
+    <div class="voice-grid">
+      <div class="voice reveal">
+        <div class="quote-mark">“</div>
+        <p>退院のときに着せたセレモニードレス、捨てられずに引き出しの奥にしまっていました。このアプリで「ありがとう」を書いたら、なんだか肩の荷がおりて、はじめてゆっくり、息子に「お疲れさま」って言えた気がします。</p>
+        <div class="voice-meta">
+          <div class="voice-avatar">M</div>
+          <div>
+            <div class="voice-name">Mさん</div>
+            <div class="voice-role">1歳児のお母さん</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="voice reveal">
+        <div class="quote-mark">“</div>
+        <p>毎日着ていた、なんでもないボーダーロンパース。でも、これを着てミルクを飲んでいた朝のことを、たぶん私しか覚えていなくて。アプリに書き残すうちに、思い出は「特別な日」だけじゃないんだなと気づきました。</p>
+        <div class="voice-meta">
+          <div class="voice-avatar">K</div>
+          <div>
+            <div class="voice-name">Kさん</div>
+            <div class="voice-role">2歳児のお母さん</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="voice reveal">
+        <div class="quote-mark">“</div>
+        <p>義両親にPDFをプリントして渡したら、ものすごく喜んでくれました。写真フォルダを送るより、ずっと伝わる。じーじとばーばへの最高のプレゼントになっています。</p>
+        <div class="voice-meta">
+          <div class="voice-avatar">Y</div>
+          <div>
+            <div class="voice-name">Yさん</div>
+            <div class="voice-role">3歳児のお父さん</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FAQ =================== -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="faq-head reveal">
+      <div class="section-eyebrow">FAQ</div>
+      <h2 class="section-title">よくあるご質問</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item reveal">
+        <summary>無料で使えますか？</summary>
+        <div class="answer">基本機能はすべて無料でお使いいただけます。1人のお子さんにつき20着までは無料、それ以上の登録やPDFのカスタムテンプレートは、月額プラン（¥480/月）でご利用いただけます。</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>兄弟・姉妹で分けて記録できますか？</summary>
+        <div class="answer">はい、お子さんごとにアルバムを分けて管理できます。トップに表示されるピル状のチップ（例：「ひより」）をタップして切り替えてください。プランによってお子さんの登録数の上限が異なります。</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>写真はクラウドに保存されますか？</summary>
+        <div class="answer">標準では端末内にのみ保存されます。任意でiCloudバックアップを有効にすると、機種変更時もそのまま引き継げます。写真を外部サーバーに送信することは一切ありません。</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>PDFはどんなふうに出力されますか？</summary>
+        <div class="answer">1着につき1ページ。写真・サイズ・着用時期・思い出の一言・ありがとうの言葉が、A4縦のレイアウトにまとまります。フォトブック印刷サービスにそのまま入稿できる形式です。</div>
+      </details>
+      <details class="faq-item reveal">
+        <summary>Android版はありますか？</summary>
+        <div class="answer">現在iPhone / iPadのみご提供しています。Android版は2026年内のリリースを目指して開発中です。お待たせしてしまい申し訳ありません。</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FINAL CTA =================== -->
+<section class="final-cta" id="download">
+  <div class="wrap">
+    <div class="final-cta-inner reveal">
+      <svg class="deco l" viewBox="0 0 200 200" aria-hidden="true"><use href="#ico-leaf"/></svg>
+      <svg class="deco r" viewBox="0 0 200 200" aria-hidden="true"><use href="#ico-leaf"/></svg>
+      <div class="section-eyebrow">START YOUR MUSEUM</div>
+      <h2>今日着ていた、その1着から。</h2>
+      <p>うちのこミュージアムは、無料でダウンロードしてすぐに使いはじめられます。</p>
+      <div class="cta-row">
+        <a href="#" class="btn btn-primary">
+          App Storeで入手
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.04c-.03-2.7 2.2-4 2.3-4.06-1.26-1.83-3.2-2.08-3.89-2.11-1.66-.17-3.24.98-4.08.98-.85 0-2.15-.95-3.53-.93-1.82.03-3.5 1.06-4.43 2.69-1.89 3.28-.48 8.13 1.36 10.79.9 1.3 1.97 2.76 3.37 2.71 1.36-.05 1.87-.88 3.51-.88 1.64 0 2.1.88 3.54.85 1.46-.03 2.39-1.32 3.28-2.63 1.04-1.51 1.46-2.97 1.48-3.05-.03-.01-2.84-1.09-2.87-4.34z"/></svg>
+        </a>
+        <a href="#" class="btn btn-ghost">
+          製品紹介をシェア
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FOOTER =================== -->
+<footer>
+  <div class="wrap foot-inner">
+    <div class="brand">
+      <div class="brand-mark"><svg viewBox="0 0 40 40"><use href="#ico-horse"/></svg></div>
+      <div>
+        <div class="brand-name">うちのこミュージアム</div>
+        <div class="brand-sub">UCHINOKO MUSEUM</div>
+      </div>
+    </div>
+    <nav class="foot-nav">
+      <a href="#">利用規約</a>
+      <a href="#">プライバシーポリシー</a>
+      <a href="#">運営会社</a>
+      <a href="#">お問い合わせ</a>
+    </nav>
+    <div class="foot-copy">© 2026 Uchinoko Museum</div>
+  </div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
