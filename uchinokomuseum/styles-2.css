@@ -262,3 +262,69 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; }
 }
+
+/* === Mobile (≤720px) ============================================= */
+@media (max-width: 720px) {
+  section { padding: 64px 0; }
+  .wrap { padding: 0 20px; }
+
+  /* Header */
+  .site-header .inner { padding: 12px 18px; }
+  .brand-name { font-size: 15px; }
+  .brand-sub { font-size: 10px; letter-spacing: 0.12em; }
+  .nav .cta { padding: 8px 14px; font-size: 13px; }
+
+  /* Hero */
+  .hero { padding: 40px 0 30px; }
+  h1.display { font-size: clamp(28px, 8vw, 38px); line-height: 1.4; margin: 18px 0 16px; }
+  h1.display em::after { height: 6px; bottom: 0; }
+  .lede { font-size: 15px; line-height: 1.85; }
+  .cta-meta { gap: 10px; font-size: 11px; }
+  .btn { padding: 12px 22px; font-size: 13px; }
+
+  /* Hero phones — shrink so 2 fit in a 375px viewport */
+  .hero-phones { min-height: 440px; }
+  .hero-phones .phone:nth-child(1) { width: 140px; transform: rotate(-6deg) translate(-10px, 6px); }
+  .hero-phones .phone:nth-child(2) { width: 160px; transform: translate(10px, -6px); }
+  .hero-phones .phone::before { width: 60px; height: 16px; top: 10px; }
+  .hero-phones .leaf { width: 140px; right: -10px; top: 0; }
+  .hero-phones .button-deco { width: 44px; left: -4px; bottom: 8px; }
+
+  /* Why */
+  .why { padding-bottom: 60px; }
+  .why-img-wrap { padding: 14px; }
+  .why-img-wrap .stack { inset: 14px; gap: 6px; padding: 8px; }
+
+  /* Features */
+  .features { padding-top: 80px; }
+  .features-head { margin-bottom: 50px; }
+  .feature-card .phone { width: 200px !important; }
+  .feature-card h3 { font-size: 19px; }
+
+  /* How */
+  .how { padding: 80px 0; }
+  .step { padding: 32px 22px 28px; }
+
+  /* Showcase / PDF stack — shrink cards & center middle one */
+  .showcase { padding: 90px 0 70px; }
+  .pdf-stack { height: 480px; }
+  .pdf-card { width: 200px; }
+  .pdf-card.a { left: 0; top: 20px; }
+  .pdf-card.b { left: 50%; transform: translateX(-50%) rotate(2deg); top: 0; }
+  .pdf-card.c { left: auto; right: 0; top: 60px; }
+
+  /* FAQ */
+  .faq { padding: 80px 0 60px; }
+  .faq-item { padding: 4px 20px; }
+  .faq-item summary { font-size: 15px; padding: 18px 0; gap: 12px; }
+  .faq-item .answer { padding: 0 0 18px 40px; font-size: 13.5px; }
+
+  /* Final CTA */
+  .final-cta { padding: 80px 0 60px; }
+  .final-cta-inner { padding: 50px 22px; border-radius: 24px; }
+  .final-cta-inner .deco { display: none; }
+
+  /* Footer */
+  .foot-inner { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .foot-nav { flex-wrap: wrap; gap: 14px 18px; }
+}
