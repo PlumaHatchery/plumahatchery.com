@@ -141,6 +141,23 @@ h2.section-title {
   .pdf-card.c { right: 5%; }
 }
 
+/* === Premium / pricing note ===================================== */
+.premium-note {
+  margin: 18px 0 0;
+  padding: 12px 18px;
+  background: rgba(232, 214, 180, 0.28);
+  border: 1px solid rgba(196, 174, 134, 0.35);
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+.premium-note strong {
+  color: var(--wood-deep);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
 /* === Section: Voices (testimonials) ============================= */
 .voices { background: var(--bg-deep); padding: 120px 0; position: relative; }
 .voices::before, .voices::after {
