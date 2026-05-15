@@ -253,8 +253,30 @@ footer {
   display: flex; justify-content: space-between; gap: 30px; flex-wrap: wrap;
   align-items: center;
 }
-.foot-nav { display: flex; gap: 24px; font-size: 13px; color: var(--ink-soft); }
+.foot-nav { display: flex; gap: 24px; font-size: 13px; color: var(--ink-soft); flex-wrap: wrap; }
+.foot-nav a { transition: color .2s; }
+.foot-nav a:hover { color: var(--rose-deep); }
 .foot-copy { font-size: 12px; color: var(--ink-mute); letter-spacing: 0.08em; }
+
+.foot-other-apps {
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(196, 174, 134, 0.28);
+}
+.foot-other-label {
+  font-size: 11px;
+  color: var(--ink-mute);
+  letter-spacing: 0.18em;
+  margin-bottom: 10px;
+}
+.foot-other-links {
+  display: flex; flex-wrap: wrap;
+  gap: 10px 22px;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.foot-other-links a { transition: color .2s; }
+.foot-other-links a:hover { color: var(--rose-deep); }
 
 /* === Subtle entrance animation ================================== */
 .reveal { opacity: 0; transform: translateY(20px); transition: opacity .9s ease, transform .9s ease; }
